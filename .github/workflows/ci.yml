@@ -1,0 +1,150 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  backend:
+    name: Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    # The PostgreSQL test project needs a real database: the jsonb behaviour it guards cannot be
+    # reproduced by the in-memory provider, which is how a blocker reached Phase 7 undetected.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ovcuprim
+          POSTGRES_PASSWORD: ovcuprim_dev
+          POSTGRES_DB: postgres
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      OVCUPRIM_TEST_DB: "Host=localhost;Port=5433;Database=postgres;Username=ovcuprim;Password=ovcuprim_dev"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test --no-build --configuration Release --verbosity normal
+
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  e2e:
+    name: End-to-end
+    runs-on: ubuntu-latest
+    # Gates merges alongside the other jobs. These drive a real browser against the real API and a
+    # real database, which is the only way to prove a journey rather than a layer.
+    needs: [backend, frontend]
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ovcuprim
+          POSTGRES_PASSWORD: ovcuprim_dev
+          POSTGRES_DB: ovcuprim
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      CI: 'true'
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Default: "Host=localhost;Port=5433;Database=ovcuprim;Username=ovcuprim;Password=ovcuprim_dev"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Apply migrations
+        working-directory: backend
+        run: |
+          dotnet tool restore
+          dotnet ef database update --project src/Ovcuprim.Infrastructure --startup-project src/Ovcuprim.Api
+
+      - name: Seed the taxonomy
+        working-directory: backend
+        run: dotnet run --project src/Ovcuprim.Api --no-launch-profile -- --seed
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+
+      - name: Run end-to-end tests
+        working-directory: frontend
+        run: npx playwright test
+
+      - name: Upload traces and screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            frontend/playwright-report
+            frontend/test-results
+          retention-days: 7

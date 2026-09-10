@@ -1,0 +1,453 @@
+{
+  "$comment": "Shared option sets are referenced by name so sets that must be identical (clothing size, gender, clothing material) cannot drift apart. Each referencing definition still materialises its own AttributeOption rows.",
+
+  "optionSets": {
+    "color": [
+      { "value": "qara", "labelAz": "Qara" }, { "value": "ag", "labelAz": "Ağ" },
+      { "value": "boz", "labelAz": "Boz" }, { "value": "yasil", "labelAz": "Yaşıl" },
+      { "value": "xaki", "labelAz": "Xaki" }, { "value": "kamuflyaj", "labelAz": "Kamuflyaj" },
+      { "value": "qehveyi", "labelAz": "Qəhvəyi" }, { "value": "mavi", "labelAz": "Mavi" },
+      { "value": "qirmizi", "labelAz": "Qırmızı" }, { "value": "narinci", "labelAz": "Narıncı" },
+      { "value": "sari", "labelAz": "Sarı" }, { "value": "coxrengli", "labelAz": "Çoxrəngli" }
+    ],
+    "season": [
+      { "value": "yaz", "labelAz": "Yaz" }, { "value": "yay", "labelAz": "Yay" },
+      { "value": "payiz", "labelAz": "Payız" }, { "value": "qis", "labelAz": "Qış" },
+      { "value": "dord-movsum", "labelAz": "Dörd mövsüm" }
+    ],
+    "camoPattern": [
+      { "value": "woodland", "labelAz": "Woodland" }, { "value": "digital", "labelAz": "Digital" },
+      { "value": "multicam", "labelAz": "Multicam" }, { "value": "qamis", "labelAz": "Qamış" },
+      { "value": "qar", "labelAz": "Qar" }, { "value": "duz", "labelAz": "Düz rəng" }
+    ],
+    "waterType": [
+      { "value": "sirin", "labelAz": "Şirin su" }, { "value": "deniz", "labelAz": "Dəniz" },
+      { "value": "universal", "labelAz": "Universal" }
+    ],
+    "clothingSize": [
+      { "value": "xs", "labelAz": "XS" }, { "value": "s", "labelAz": "S" },
+      { "value": "m", "labelAz": "M" }, { "value": "l", "labelAz": "L" },
+      { "value": "xl", "labelAz": "XL" }, { "value": "xxl", "labelAz": "XXL" },
+      { "value": "xxxl", "labelAz": "XXXL" }
+    ],
+    "gender": [
+      { "value": "kisi", "labelAz": "Kişi" }, { "value": "qadin", "labelAz": "Qadın" },
+      { "value": "uniseks", "labelAz": "Uniseks" }, { "value": "usaq", "labelAz": "Uşaq" }
+    ],
+    "clothingMaterial": [
+      { "value": "membran", "labelAz": "Membran" }, { "value": "flis", "labelAz": "Flis" },
+      { "value": "pambiq", "labelAz": "Pambıq" }, { "value": "polyester", "labelAz": "Polyester" },
+      { "value": "yun", "labelAz": "Yun" }, { "value": "merino", "labelAz": "Merino" },
+      { "value": "qarisiq", "labelAz": "Qarışıq" }
+    ],
+    "footwearSize": [
+      { "value": "35", "labelAz": "35" }, { "value": "36", "labelAz": "36" },
+      { "value": "37", "labelAz": "37" }, { "value": "38", "labelAz": "38" },
+      { "value": "39", "labelAz": "39" }, { "value": "40", "labelAz": "40" },
+      { "value": "41", "labelAz": "41" }, { "value": "42", "labelAz": "42" },
+      { "value": "43", "labelAz": "43" }, { "value": "44", "labelAz": "44" },
+      { "value": "45", "labelAz": "45" }, { "value": "46", "labelAz": "46" },
+      { "value": "47", "labelAz": "47" }, { "value": "48", "labelAz": "48" }
+    ],
+    "headwearSize": [
+      { "value": "universal", "labelAz": "Universal" }, { "value": "s", "labelAz": "S" },
+      { "value": "m", "labelAz": "M" }, { "value": "l", "labelAz": "L" },
+      { "value": "xl", "labelAz": "XL" }
+    ],
+    "magnification": [
+      { "value": "6x", "labelAz": "6x" }, { "value": "8x", "labelAz": "8x" },
+      { "value": "10x", "labelAz": "10x" }, { "value": "12x", "labelAz": "12x" },
+      { "value": "16x", "labelAz": "16x" }, { "value": "20x", "labelAz": "20x" },
+      { "value": "zoom", "labelAz": "Zoom" }
+    ],
+    "steel": [
+      { "value": "d2", "labelAz": "D2" }, { "value": "440c", "labelAz": "440C" },
+      { "value": "vg10", "labelAz": "VG-10" }, { "value": "s30v", "labelAz": "S30V" },
+      { "value": "1-4116", "labelAz": "1.4116" }, { "value": "karbon", "labelAz": "Karbon polad" },
+      { "value": "diger", "labelAz": "Digər" }
+    ],
+    "handleMaterial": [
+      { "value": "agac", "labelAz": "Ağac" }, { "value": "g10", "labelAz": "G10" },
+      { "value": "micarta", "labelAz": "Micarta" }, { "value": "plastik", "labelAz": "Plastik" },
+      { "value": "sumuk", "labelAz": "Sümük" }, { "value": "rezin", "labelAz": "Rezin" }
+    ],
+    "equipmentType": [
+      { "value": "cagiris-fiti", "labelAz": "Çağırış fiti" },
+      { "value": "maket", "labelAz": "Maket / mulyaj" },
+      { "value": "gizlenecek", "labelAz": "Gizlənəcək" },
+      { "value": "oturacaq", "labelAz": "Ov oturacağı" },
+      { "value": "hedef", "labelAz": "Nişan / hədəf" }
+    ],
+    "rodType": [
+      { "value": "spinning", "labelAz": "Spinning" },
+      { "value": "diger", "labelAz": "Digər tilov" }
+    ],
+    "rodMaterial": [
+      { "value": "karbon", "labelAz": "Karbon" }, { "value": "kompozit", "labelAz": "Kompozit" },
+      { "value": "fiberglas", "labelAz": "Fiberglas" }
+    ],
+    "rodAction": [
+      { "value": "suretli", "labelAz": "Sürətli" }, { "value": "orta", "labelAz": "Orta" },
+      { "value": "yavas", "labelAz": "Yavaş" }
+    ],
+    "reelSize": [
+      { "value": "1000", "labelAz": "1000" }, { "value": "1500", "labelAz": "1500" },
+      { "value": "2000", "labelAz": "2000" }, { "value": "2500", "labelAz": "2500" },
+      { "value": "3000", "labelAz": "3000" }, { "value": "4000", "labelAz": "4000" },
+      { "value": "5000", "labelAz": "5000" }, { "value": "6000-plus", "labelAz": "6000+" }
+    ],
+    "reelType": [
+      { "value": "inersiyasiz", "labelAz": "İnersiyasız" },
+      { "value": "baitcasting", "labelAz": "Baitcasting" },
+      { "value": "inersiyali", "labelAz": "İnersiyalı" },
+      { "value": "karp", "labelAz": "Karp" }
+    ],
+    "lineType": [
+      { "value": "monofil", "labelAz": "Monofil" }, { "value": "orgulu", "labelAz": "Örgülü" },
+      { "value": "fluorokarbon", "labelAz": "Fluorokarbon" }
+    ],
+    "hookType": [
+      { "value": "tek", "labelAz": "Tək" }, { "value": "ikili", "labelAz": "İkili" },
+      { "value": "ucli", "labelAz": "Üçlü" }, { "value": "ofset", "labelAz": "Ofset" }
+    ],
+    "hookSize": [
+      { "value": "20", "labelAz": "20" }, { "value": "18", "labelAz": "18" },
+      { "value": "16", "labelAz": "16" }, { "value": "14", "labelAz": "14" },
+      { "value": "12", "labelAz": "12" }, { "value": "11", "labelAz": "11" },
+      { "value": "10", "labelAz": "10" }, { "value": "9", "labelAz": "9" },
+      { "value": "8", "labelAz": "8" }, { "value": "7", "labelAz": "7" },
+      { "value": "6", "labelAz": "6" }, { "value": "5", "labelAz": "5" },
+      { "value": "4", "labelAz": "4" }, { "value": "3", "labelAz": "3" },
+      { "value": "2", "labelAz": "2" }, { "value": "1", "labelAz": "1" },
+      { "value": "1-0", "labelAz": "1/0" }, { "value": "2-0", "labelAz": "2/0" },
+      { "value": "3-0", "labelAz": "3/0" }, { "value": "4-0", "labelAz": "4/0" },
+      { "value": "5-0", "labelAz": "5/0" }, { "value": "6-0", "labelAz": "6/0" },
+      { "value": "7-0", "labelAz": "7/0" }, { "value": "8-0", "labelAz": "8/0" },
+      { "value": "9-0", "labelAz": "9/0" }, { "value": "10-0", "labelAz": "10/0" },
+      { "value": "11-0", "labelAz": "11/0" }, { "value": "12-0", "labelAz": "12/0" },
+      { "value": "13-0", "labelAz": "13/0" }, { "value": "14-0", "labelAz": "14/0" },
+      { "value": "15-0", "labelAz": "15/0" }, { "value": "16-0", "labelAz": "16/0" }
+    ],
+    "baitType": [
+      { "value": "silikon", "labelAz": "Silikon" }, { "value": "vobler", "labelAz": "Voblər" },
+      { "value": "blesna", "labelAz": "Blesna" }, { "value": "jig", "labelAz": "Jig" },
+      { "value": "qida", "labelAz": "Qida yemi" }
+    ],
+    "fishingBagType": [
+      { "value": "canta", "labelAz": "Çanta" }, { "value": "ryukzak", "labelAz": "Ryukzak" },
+      { "value": "keys", "labelAz": "Keys / kaset" }, { "value": "vedre", "labelAz": "Vedrə" }
+    ],
+    "fishingGarmentType": [
+      { "value": "kombinezon", "labelAz": "Kombinezon" }, { "value": "godekce", "labelAz": "Gödəkçə" },
+      { "value": "salvar", "labelAz": "Şalvar" }, { "value": "vayders", "labelAz": "Vayders" }
+    ],
+    "seasonRating": [
+      { "value": "2-movsum", "labelAz": "2 mövsüm" }, { "value": "3-movsum", "labelAz": "3 mövsüm" },
+      { "value": "4-movsum", "labelAz": "4 mövsüm" }
+    ],
+    "tentType": [
+      { "value": "gunbez", "labelAz": "Günbəz" }, { "value": "tunel", "labelAz": "Tunel" },
+      { "value": "geodezik", "labelAz": "Geodezik" }, { "value": "avtomatik", "labelAz": "Avtomatik" },
+      { "value": "ultralight", "labelAz": "Ultralight" }
+    ],
+    "fillType": [
+      { "value": "sintetik", "labelAz": "Sintetik" }, { "value": "tuk", "labelAz": "Tük" }
+    ],
+    "bagShape": [
+      { "value": "mumiya", "labelAz": "Mumiya" }, { "value": "konvert", "labelAz": "Konvert" }
+    ],
+    "matType": [
+      { "value": "kopuk", "labelAz": "Köpük" }, { "value": "sisen", "labelAz": "Şişən" },
+      { "value": "hava", "labelAz": "Hava" }
+    ],
+    "furnitureType": [
+      { "value": "stul", "labelAz": "Stul" }, { "value": "stol", "labelAz": "Stol" },
+      { "value": "carpayi", "labelAz": "Çarpayı" }, { "value": "dest", "labelAz": "Dəst" }
+    ],
+    "furnitureMaterial": [
+      { "value": "aluminium", "labelAz": "Alüminium" }, { "value": "polad", "labelAz": "Polad" },
+      { "value": "agac", "labelAz": "Ağac" }, { "value": "plastik", "labelAz": "Plastik" }
+    ],
+    "cookwareType": [
+      { "value": "dest", "labelAz": "Qab dəsti" }, { "value": "qazan", "labelAz": "Qazan" },
+      { "value": "tava", "labelAz": "Tava" }, { "value": "caydan", "labelAz": "Çaydan" },
+      { "value": "kompakt-ocaq", "labelAz": "Kompakt ocaq" }
+    ],
+    "cookwareMaterial": [
+      { "value": "aluminium", "labelAz": "Alüminium" }, { "value": "titan", "labelAz": "Titan" },
+      { "value": "paslanmayan", "labelAz": "Paslanmayan polad" }
+    ],
+    "fuelType": [
+      { "value": "qaz", "labelAz": "Qaz" }, { "value": "benzin", "labelAz": "Benzin" },
+      { "value": "coxyanacaq", "labelAz": "Çoxyanacaq" }, { "value": "odun", "labelAz": "Odun" },
+      { "value": "spirt", "labelAz": "Spirt" }
+    ],
+    "flaskMaterial": [
+      { "value": "paslanmayan", "labelAz": "Paslanmayan polad" }, { "value": "titan", "labelAz": "Titan" },
+      { "value": "suse-kolba", "labelAz": "Şüşə kolba" }
+    ],
+    "containerType": [
+      { "value": "butulka", "labelAz": "Butulka" }, { "value": "kanistr", "labelAz": "Kanistr" },
+      { "value": "hidratasiya", "labelAz": "Hidratasiya sistemi" }, { "value": "qatlanan", "labelAz": "Qatlanan" }
+    ],
+    "hammockType": [
+      { "value": "tek", "labelAz": "Tək" }, { "value": "ikili", "labelAz": "İkili" },
+      { "value": "moskito", "labelAz": "Moskito torlu" }
+    ],
+    "insulation": [
+      { "value": "sintetik", "labelAz": "Sintetik" }, { "value": "tuk", "labelAz": "Tük" },
+      { "value": "flis", "labelAz": "Flis" }, { "value": "astarsiz", "labelAz": "Astarsız" }
+    ],
+    "fit": [
+      { "value": "standart", "labelAz": "Standart" }, { "value": "dar", "labelAz": "Dar" },
+      { "value": "serbest", "labelAz": "Sərbəst" }
+    ],
+    "bootHeight": [
+      { "value": "alcaq", "labelAz": "Alçaq" }, { "value": "orta", "labelAz": "Orta" },
+      { "value": "yuksek", "labelAz": "Yüksək" }
+    ],
+    "thermalLayer": [
+      { "value": "baza", "labelAz": "Baza qat" }, { "value": "orta", "labelAz": "Orta qat" }
+    ],
+    "setOrPiece": [
+      { "value": "dest", "labelAz": "Dəst" }, { "value": "ust", "labelAz": "Üst" },
+      { "value": "alt", "labelAz": "Alt" }
+    ],
+    "camoGarmentType": [
+      { "value": "godekce", "labelAz": "Gödəkçə" }, { "value": "salvar", "labelAz": "Şalvar" },
+      { "value": "dest", "labelAz": "Dəst" }, { "value": "kombinezon", "labelAz": "Kombinezon" }
+    ],
+    "headwearType": [
+      { "value": "papaq", "labelAz": "Papaq" }, { "value": "elcek", "labelAz": "Əlcək" },
+      { "value": "baff", "labelAz": "Boyunluq / baff" }, { "value": "balaklava", "labelAz": "Balaklava" }
+    ],
+    "frameType": [
+      { "value": "daxili", "labelAz": "Daxili karkas" }, { "value": "xarici", "labelAz": "Xarici karkas" },
+      { "value": "karkassiz", "labelAz": "Karkassız" }
+    ],
+    "lightType": [
+      { "value": "bas-feneri", "labelAz": "Baş fənəri" }, { "value": "el-feneri", "labelAz": "Əl fənəri" },
+      { "value": "kamp-feneri", "labelAz": "Kamp fənəri" }
+    ],
+    "powerSource": [
+      { "value": "akkumulyator", "labelAz": "Akkumulyator" }, { "value": "batareya", "labelAz": "Batareya" },
+      { "value": "dinamo", "labelAz": "Dinamo" }, { "value": "hibrid", "labelAz": "Hibrid" }
+    ],
+    "offroadAccessoryType": [
+      { "value": "baqajnik", "labelAz": "Baqajnik" }, { "value": "vinc", "labelAz": "Vinç" },
+      { "value": "isiq", "labelAz": "İşıq" }, { "value": "qoruyucu", "labelAz": "Qoruyucu" },
+      { "value": "diger", "labelAz": "Digər" }
+    ],
+    "mountType": [
+      { "value": "avtomatik", "labelAz": "Avtomatik" }, { "value": "qatlanan", "labelAz": "Mexaniki / qatlanan" }
+    ],
+    "boatType": [
+      { "value": "sisme", "labelAz": "Şişmə (PVC)" }, { "value": "kayak", "labelAz": "Kayak" },
+      { "value": "kanoe", "labelAz": "Kanoe" }, { "value": "sert-korpus", "labelAz": "Sərt korpuslu" }
+    ],
+    "vehicleType": [
+      { "value": "atv", "labelAz": "ATV" }, { "value": "utv", "labelAz": "UTV" },
+      { "value": "bugi", "labelAz": "Buggy" }, { "value": "diger", "labelAz": "Digər" }
+    ],
+    "prismType": [
+      { "value": "porro", "labelAz": "Porro" }, { "value": "roof", "labelAz": "Roof / bam" }
+    ],
+    "sensorResolution": [
+      { "value": "256x192", "labelAz": "256×192" }, { "value": "384x288", "labelAz": "384×288" },
+      { "value": "640x480", "labelAz": "640×480" }
+    ],
+    "sheath": [
+      { "value": "deri", "labelAz": "Dəri" }, { "value": "plastik", "labelAz": "Plastik" },
+      { "value": "kordura", "labelAz": "Kordura" }, { "value": "yoxdur", "labelAz": "Yoxdur" }
+    ],
+    "lockType": [
+      { "value": "liner", "labelAz": "Liner lock" }, { "value": "frame", "labelAz": "Frame lock" },
+      { "value": "back", "labelAz": "Back lock" }, { "value": "axis", "labelAz": "Axis lock" },
+      { "value": "kilidsiz", "labelAz": "Kilidsiz" }
+    ],
+    "axeType": [
+      { "value": "turist", "labelAz": "Turist" }, { "value": "yarma", "labelAz": "Yarma" },
+      { "value": "tomahawk", "labelAz": "Tomahawk" }
+    ],
+    "sharpenerType": [
+      { "value": "das", "labelAz": "Daş" }, { "value": "rod", "labelAz": "Sürtgəc / rod" },
+      { "value": "mexaniki", "labelAz": "Mexaniki" }, { "value": "elektrik", "labelAz": "Elektrik" }
+    ],
+    "multitoolFeatures": [
+      { "value": "kelbetin", "labelAz": "Kəlbətin" }, { "value": "bicaq", "labelAz": "Bıçaq" },
+      { "value": "misar", "labelAz": "Mişar" }, { "value": "qayci", "labelAz": "Qayçı" },
+      { "value": "acar", "labelAz": "Açar" }, { "value": "acacan", "labelAz": "Açacan" },
+      { "value": "yeye", "labelAz": "Yeyə" }
+    ]
+  },
+
+  "attributes": [
+    { "category": "ovculuq", "key": "model", "labelAz": "Model", "dataType": "Text", "maxLength": 60, "isFilterable": false, "isSearchable": true, "placeholderAz": "məs. Stradic FL 4000", "sortOrder": 5 },
+    { "category": "baliqciliq", "key": "model", "labelAz": "Model", "dataType": "Text", "maxLength": 60, "isFilterable": false, "isSearchable": true, "placeholderAz": "məs. Stradic FL 4000", "sortOrder": 5 },
+    { "category": "kamp", "key": "model", "labelAz": "Model", "dataType": "Text", "maxLength": 60, "isFilterable": false, "isSearchable": true, "placeholderAz": "məs. Nemo Aurora 3P", "sortOrder": 5 },
+    { "category": "outdoor-geyim", "key": "model", "labelAz": "Model", "dataType": "Text", "maxLength": 60, "isFilterable": false, "isSearchable": true, "placeholderAz": "məs. Alpha SV", "sortOrder": 5 },
+    { "category": "canta-ve-aksesuar", "key": "model", "labelAz": "Model", "dataType": "Text", "maxLength": 60, "isFilterable": false, "isSearchable": true, "placeholderAz": "məs. Atmos AG 65", "sortOrder": 5 },
+    { "category": "outdoor-neqliyyat", "key": "model", "labelAz": "Model", "dataType": "Text", "maxLength": 60, "isFilterable": false, "isSearchable": true, "placeholderAz": "məs. Skyrise 3", "sortOrder": 5 },
+    { "category": "optika-ve-durbin", "key": "model", "labelAz": "Model", "dataType": "Text", "maxLength": 60, "isFilterable": false, "isSearchable": true, "placeholderAz": "məs. Conquest HD", "sortOrder": 5 },
+    { "category": "bicaq-ve-alet", "key": "model", "labelAz": "Model", "dataType": "Text", "maxLength": 60, "isFilterable": false, "isSearchable": true, "placeholderAz": "məs. Bushcraft Black", "sortOrder": 5 },
+
+    { "category": "ovculuq", "key": "color", "labelAz": "Rəng", "dataType": "Select", "optionSet": "color", "sortOrder": 6 },
+    { "category": "kamp", "key": "color", "labelAz": "Rəng", "dataType": "Select", "optionSet": "color", "sortOrder": 6 },
+    { "category": "outdoor-geyim", "key": "color", "labelAz": "Rəng", "dataType": "Select", "optionSet": "color", "sortOrder": 6 },
+    { "category": "canta-ve-aksesuar", "key": "color", "labelAz": "Rəng", "dataType": "Select", "optionSet": "color", "sortOrder": 6 },
+
+    { "category": "ovculuq", "key": "season", "labelAz": "Mövsüm", "dataType": "Select", "optionSet": "season", "sortOrder": 10 },
+    { "category": "ovculuq", "key": "camo_pattern", "labelAz": "Kamuflyaj naxışı", "dataType": "Select", "optionSet": "camoPattern", "isSearchable": true, "sortOrder": 20 },
+    { "category": "baliqciliq", "key": "water_type", "labelAz": "Su tipi", "dataType": "Select", "optionSet": "waterType", "sortOrder": 10 },
+    { "category": "kamp", "key": "weight", "labelAz": "Çəki", "dataType": "Number", "unit": "kq", "minValue": 0.01, "maxValue": 100, "decimalPlaces": 2, "placeholderAz": "məs. 4.2", "sortOrder": 10 },
+    { "category": "outdoor-geyim", "key": "size", "labelAz": "Ölçü", "dataType": "Select", "optionSet": "clothingSize", "isRequired": true, "sortOrder": 10 },
+    { "category": "outdoor-geyim", "key": "gender", "labelAz": "Cins", "dataType": "Select", "optionSet": "gender", "sortOrder": 20 },
+    { "category": "outdoor-geyim", "key": "season", "labelAz": "Mövsüm", "dataType": "Select", "optionSet": "season", "sortOrder": 30 },
+    { "category": "outdoor-geyim", "key": "material", "labelAz": "Material", "dataType": "Select", "optionSet": "clothingMaterial", "sortOrder": 40 },
+    { "category": "canta-ve-aksesuar", "key": "weight", "labelAz": "Çəki", "dataType": "Number", "unit": "kq", "minValue": 0.01, "maxValue": 30, "decimalPlaces": 2, "placeholderAz": "məs. 1.9", "sortOrder": 10 },
+    { "category": "canta-ve-aksesuar", "key": "waterproof", "labelAz": "Su keçirməyən", "dataType": "Boolean", "sortOrder": 20 },
+    { "category": "optika-ve-durbin", "key": "waterproof", "labelAz": "Su davamlı", "dataType": "Boolean", "sortOrder": 30 },
+    { "category": "bicaq-ve-alet", "key": "steel", "labelAz": "Polad", "dataType": "Select", "optionSet": "steel", "isSearchable": true, "sortOrder": 10 },
+    { "category": "bicaq-ve-alet", "key": "handle_material", "labelAz": "Sap materialı", "dataType": "Select", "optionSet": "handleMaterial", "sortOrder": 20 },
+
+    { "category": "ov-avadanliqlari", "key": "equipment_type", "labelAz": "Avadanlıq növü", "dataType": "Select", "optionSet": "equipmentType", "isRequired": true, "sortOrder": 30 },
+    { "category": "ov-geyimleri", "key": "size", "labelAz": "Ölçü", "dataType": "Select", "optionSet": "clothingSize", "isRequired": true, "sortOrder": 30 },
+    { "category": "ov-geyimleri", "key": "gender", "labelAz": "Cins", "dataType": "Select", "optionSet": "gender", "sortOrder": 40 },
+    { "category": "ov-geyimleri", "key": "material", "labelAz": "Material", "dataType": "Select", "optionSet": "clothingMaterial", "sortOrder": 50 },
+    { "category": "ov-geyimleri", "key": "waterproof_mm", "labelAz": "Su davamlılığı", "dataType": "Number", "unit": "mm", "minValue": 0, "maxValue": 30000, "decimalPlaces": 0, "placeholderAz": "məs. 10000", "sortOrder": 60 },
+    { "category": "ov-cantalari", "key": "volume", "labelAz": "Həcm", "dataType": "Number", "unit": "L", "minValue": 1, "maxValue": 150, "decimalPlaces": 0, "isRequired": true, "placeholderAz": "məs. 25", "sortOrder": 30 },
+    { "category": "ov-cantalari", "key": "waterproof", "labelAz": "Su keçirməyən", "dataType": "Boolean", "sortOrder": 40 },
+
+    { "category": "tilovlar", "key": "rod_type", "labelAz": "Tilov növü", "dataType": "Select", "optionSet": "rodType", "isRequired": true, "sortOrder": 20 },
+    { "category": "tilovlar", "key": "length", "labelAz": "Uzunluq", "dataType": "Number", "unit": "m", "minValue": 0.5, "maxValue": 6, "decimalPlaces": 2, "isRequired": true, "placeholderAz": "məs. 2.40", "sortOrder": 30 },
+    { "category": "tilovlar", "key": "test_min", "labelAz": "Test (min)", "dataType": "Number", "unit": "q", "minValue": 0, "maxValue": 500, "decimalPlaces": 0, "placeholderAz": "məs. 10", "sortOrder": 40 },
+    { "category": "tilovlar", "key": "test_max", "labelAz": "Test (maks)", "dataType": "Number", "unit": "q", "minValue": 0, "maxValue": 500, "decimalPlaces": 0, "placeholderAz": "məs. 30", "sortOrder": 50 },
+    { "category": "tilovlar", "key": "material", "labelAz": "Material", "dataType": "Select", "optionSet": "rodMaterial", "sortOrder": 60 },
+    { "category": "tilovlar", "key": "sections", "labelAz": "Hissə sayı", "dataType": "Number", "minValue": 1, "maxValue": 10, "decimalPlaces": 0, "placeholderAz": "məs. 2", "sortOrder": 70 },
+    { "category": "tilovlar", "key": "action", "labelAz": "Stroy", "dataType": "Select", "optionSet": "rodAction", "sortOrder": 80 },
+    { "category": "makara", "key": "reel_size", "labelAz": "Ölçü", "dataType": "Select", "optionSet": "reelSize", "isRequired": true, "sortOrder": 20 },
+    { "category": "makara", "key": "reel_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "reelType", "sortOrder": 30 },
+    { "category": "makara", "key": "bearings", "labelAz": "Podşipnik sayı", "dataType": "Number", "minValue": 1, "maxValue": 20, "decimalPlaces": 0, "placeholderAz": "məs. 6", "sortOrder": 40 },
+    { "category": "makara", "key": "gear_ratio", "labelAz": "Ötürmə nisbəti", "dataType": "Text", "maxLength": 12, "isFilterable": false, "placeholderAz": "məs. 5.2:1", "sortOrder": 50 },
+    { "category": "misina", "key": "line_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "lineType", "isRequired": true, "sortOrder": 20 },
+    { "category": "misina", "key": "diameter", "labelAz": "Diametr", "dataType": "Number", "unit": "mm", "minValue": 0.05, "maxValue": 2, "decimalPlaces": 3, "placeholderAz": "məs. 0.234", "sortOrder": 30 },
+    { "category": "misina", "key": "length", "labelAz": "Uzunluq", "dataType": "Number", "unit": "m", "minValue": 10, "maxValue": 5000, "decimalPlaces": 0, "placeholderAz": "məs. 150", "sortOrder": 40 },
+    { "category": "misina", "key": "breaking_strength", "labelAz": "Dartılma gücü", "dataType": "Number", "unit": "kq", "minValue": 0.5, "maxValue": 200, "decimalPlaces": 1, "placeholderAz": "məs. 12.5", "sortOrder": 50 },
+    { "category": "qarmaqlar", "key": "hook_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "hookType", "isRequired": true, "sortOrder": 20 },
+    { "category": "qarmaqlar", "key": "hook_size", "labelAz": "Ölçü", "dataType": "Select", "optionSet": "hookSize", "sortOrder": 30 },
+    { "category": "qarmaqlar", "key": "quantity", "labelAz": "Say", "dataType": "Number", "minValue": 1, "maxValue": 1000, "decimalPlaces": 0, "isFilterable": false, "placeholderAz": "məs. 25", "sortOrder": 40 },
+    { "category": "yemler", "key": "bait_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "baitType", "isRequired": true, "sortOrder": 20 },
+    { "category": "yemler", "key": "lure_weight", "labelAz": "Çəki", "dataType": "Number", "unit": "q", "minValue": 0.1, "maxValue": 500, "decimalPlaces": 1, "placeholderAz": "məs. 12.5", "sortOrder": 30 },
+    { "category": "yemler", "key": "lure_length", "labelAz": "Uzunluq", "dataType": "Number", "unit": "sm", "minValue": 0.5, "maxValue": 50, "decimalPlaces": 1, "placeholderAz": "məs. 9", "sortOrder": 40 },
+    { "category": "baliqciliq-cantalari", "key": "bag_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "fishingBagType", "isRequired": true, "sortOrder": 20 },
+    { "category": "baliqciliq-cantalari", "key": "volume", "labelAz": "Həcm", "dataType": "Number", "unit": "L", "minValue": 1, "maxValue": 120, "decimalPlaces": 0, "placeholderAz": "məs. 30", "sortOrder": 30 },
+    { "category": "baliqciliq-cantalari", "key": "waterproof", "labelAz": "Su keçirməyən", "dataType": "Boolean", "sortOrder": 40 },
+    { "category": "baliqciliq-geyimleri", "key": "garment_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "fishingGarmentType", "isRequired": true, "sortOrder": 20 },
+    { "category": "baliqciliq-geyimleri", "key": "size", "labelAz": "Ölçü", "dataType": "Select", "optionSet": "clothingSize", "isRequired": true, "sortOrder": 30 },
+    { "category": "baliqciliq-geyimleri", "key": "gender", "labelAz": "Cins", "dataType": "Select", "optionSet": "gender", "sortOrder": 40 },
+    { "category": "baliqciliq-geyimleri", "key": "waterproof", "labelAz": "Su keçirməyən", "dataType": "Boolean", "sortOrder": 50 },
+
+    { "category": "cadir", "key": "capacity", "labelAz": "Tutum", "dataType": "Number", "unit": "nəfər", "minValue": 1, "maxValue": 12, "decimalPlaces": 0, "isRequired": true, "placeholderAz": "məs. 4", "sortOrder": 20 },
+    { "category": "cadir", "key": "season_rating", "labelAz": "Mövsüm", "dataType": "Select", "optionSet": "seasonRating", "isRequired": true, "sortOrder": 30 },
+    { "category": "cadir", "key": "waterproof_mm", "labelAz": "Su davamlılığı", "dataType": "Number", "unit": "mm", "minValue": 0, "maxValue": 15000, "decimalPlaces": 0, "placeholderAz": "məs. 3000", "sortOrder": 40 },
+    { "category": "cadir", "key": "tent_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "tentType", "sortOrder": 50 },
+    { "category": "yataq-kisesi", "key": "comfort_temp", "labelAz": "Komfort temperatur", "dataType": "Number", "unit": "°C", "minValue": -40, "maxValue": 30, "decimalPlaces": 0, "isRequired": true, "placeholderAz": "məs. -10", "sortOrder": 20 },
+    { "category": "yataq-kisesi", "key": "fill_type", "labelAz": "Dolğu", "dataType": "Select", "optionSet": "fillType", "sortOrder": 30 },
+    { "category": "yataq-kisesi", "key": "shape", "labelAz": "Forma", "dataType": "Select", "optionSet": "bagShape", "sortOrder": 40 },
+    { "category": "karimat", "key": "mat_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "matType", "isRequired": true, "sortOrder": 20 },
+    { "category": "karimat", "key": "thickness", "labelAz": "Qalınlıq", "dataType": "Number", "unit": "sm", "minValue": 0.5, "maxValue": 20, "decimalPlaces": 1, "placeholderAz": "məs. 5", "sortOrder": 30 },
+    { "category": "karimat", "key": "r_value", "labelAz": "R-dəyər", "dataType": "Number", "minValue": 0, "maxValue": 10, "decimalPlaces": 1, "placeholderAz": "məs. 4.2", "sortOrder": 40 },
+    { "category": "kamp-mebeli", "key": "furniture_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "furnitureType", "isRequired": true, "sortOrder": 20 },
+    { "category": "kamp-mebeli", "key": "max_load", "labelAz": "Maksimum yük", "dataType": "Number", "unit": "kq", "minValue": 20, "maxValue": 300, "decimalPlaces": 0, "placeholderAz": "məs. 120", "sortOrder": 30 },
+    { "category": "kamp-mebeli", "key": "material", "labelAz": "Material", "dataType": "Select", "optionSet": "furnitureMaterial", "sortOrder": 40 },
+    { "category": "kamp-metbexi", "key": "cookware_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "cookwareType", "isRequired": true, "sortOrder": 20 },
+    { "category": "kamp-metbexi", "key": "material", "labelAz": "Material", "dataType": "Select", "optionSet": "cookwareMaterial", "sortOrder": 30 },
+    { "category": "ocaq-ve-istilik", "key": "fuel_type", "labelAz": "Yanacaq", "dataType": "Select", "optionSet": "fuelType", "isRequired": true, "sortOrder": 20 },
+    { "category": "ocaq-ve-istilik", "key": "power", "labelAz": "Güc", "dataType": "Number", "unit": "kW", "minValue": 0.1, "maxValue": 10, "decimalPlaces": 1, "placeholderAz": "məs. 2.8", "sortOrder": 30 },
+    { "category": "termos", "key": "volume", "labelAz": "Həcm", "dataType": "Number", "unit": "L", "minValue": 0.2, "maxValue": 5, "decimalPlaces": 2, "isRequired": true, "placeholderAz": "məs. 1", "sortOrder": 20 },
+    { "category": "termos", "key": "heat_retention", "labelAz": "İstilik saxlama", "dataType": "Number", "unit": "saat", "minValue": 1, "maxValue": 48, "decimalPlaces": 0, "placeholderAz": "məs. 12", "sortOrder": 30 },
+    { "category": "termos", "key": "material", "labelAz": "Material", "dataType": "Select", "optionSet": "flaskMaterial", "sortOrder": 40 },
+    { "category": "su-qablari", "key": "container_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "containerType", "isRequired": true, "sortOrder": 20 },
+    { "category": "su-qablari", "key": "volume", "labelAz": "Həcm", "dataType": "Number", "unit": "L", "minValue": 0.2, "maxValue": 50, "decimalPlaces": 2, "isRequired": true, "placeholderAz": "məs. 10", "sortOrder": 30 },
+    { "category": "hamak", "key": "hammock_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "hammockType", "sortOrder": 20 },
+    { "category": "hamak", "key": "max_load", "labelAz": "Maksimum yük", "dataType": "Number", "unit": "kq", "minValue": 50, "maxValue": 400, "decimalPlaces": 0, "placeholderAz": "məs. 200", "sortOrder": 30 },
+    { "category": "hamak", "key": "with_straps", "labelAz": "Asma sistemi ilə", "dataType": "Boolean", "sortOrder": 40 },
+    { "category": "tent", "key": "width", "labelAz": "En", "dataType": "Number", "unit": "m", "minValue": 1, "maxValue": 12, "decimalPlaces": 1, "placeholderAz": "məs. 3", "sortOrder": 20 },
+    { "category": "tent", "key": "length", "labelAz": "Uzunluq", "dataType": "Number", "unit": "m", "minValue": 1, "maxValue": 12, "decimalPlaces": 1, "placeholderAz": "məs. 3", "sortOrder": 30 },
+    { "category": "tent", "key": "waterproof_mm", "labelAz": "Su davamlılığı", "dataType": "Number", "unit": "mm", "minValue": 0, "maxValue": 10000, "decimalPlaces": 0, "placeholderAz": "məs. 2000", "sortOrder": 40 },
+
+    { "category": "godekce", "key": "waterproof_mm", "labelAz": "Su davamlılığı", "dataType": "Number", "unit": "mm", "minValue": 0, "maxValue": 30000, "decimalPlaces": 0, "placeholderAz": "məs. 10000", "sortOrder": 50 },
+    { "category": "godekce", "key": "insulation", "labelAz": "Dolğu", "dataType": "Select", "optionSet": "insulation", "sortOrder": 60 },
+    { "category": "godekce", "key": "hood", "labelAz": "Kapüşon", "dataType": "Boolean", "sortOrder": 70 },
+    { "category": "salvar", "key": "waterproof", "labelAz": "Su keçirməyən", "dataType": "Boolean", "sortOrder": 50 },
+    { "category": "salvar", "key": "fit", "labelAz": "Kəsim", "dataType": "Select", "optionSet": "fit", "sortOrder": 60 },
+    { "category": "ayaqqabi", "key": "size", "labelAz": "Ölçü", "dataType": "Select", "optionSet": "footwearSize", "isRequired": true, "sortOrder": 10 },
+    { "category": "ayaqqabi", "key": "boot_height", "labelAz": "Boğaz", "dataType": "Select", "optionSet": "bootHeight", "sortOrder": 50 },
+    { "category": "ayaqqabi", "key": "waterproof", "labelAz": "Su keçirməyən", "dataType": "Boolean", "sortOrder": 60 },
+    { "category": "cekme", "key": "size", "labelAz": "Ölçü", "dataType": "Select", "optionSet": "footwearSize", "isRequired": true, "sortOrder": 10 },
+    { "category": "cekme", "key": "insulated", "labelAz": "İzolyasiyalı", "dataType": "Boolean", "sortOrder": 50 },
+    { "category": "cekme", "key": "temp_rating", "labelAz": "Temperatur", "dataType": "Number", "unit": "°C", "minValue": -60, "maxValue": 10, "decimalPlaces": 0, "placeholderAz": "məs. -20", "sortOrder": 60 },
+    { "category": "cekme", "key": "boot_height", "labelAz": "Boğaz", "dataType": "Select", "optionSet": "bootHeight", "sortOrder": 70 },
+    { "category": "termal-geyim", "key": "layer", "labelAz": "Qat", "dataType": "Select", "optionSet": "thermalLayer", "sortOrder": 50 },
+    { "category": "termal-geyim", "key": "set_or_piece", "labelAz": "Dəst / ayrı", "dataType": "Select", "optionSet": "setOrPiece", "sortOrder": 60 },
+    { "category": "kamuflyaj-geyim", "key": "camo_pattern", "labelAz": "Kamuflyaj naxışı", "dataType": "Select", "optionSet": "camoPattern", "isSearchable": true, "sortOrder": 50 },
+    { "category": "kamuflyaj-geyim", "key": "garment_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "camoGarmentType", "sortOrder": 60 },
+    { "category": "yagis-geyimi", "key": "waterproof_mm", "labelAz": "Su davamlılığı", "dataType": "Number", "unit": "mm", "minValue": 0, "maxValue": 30000, "decimalPlaces": 0, "isRequired": true, "placeholderAz": "məs. 15000", "sortOrder": 50 },
+    { "category": "yagis-geyimi", "key": "packable", "labelAz": "Yığcam qatlanan", "dataType": "Boolean", "sortOrder": 60 },
+    { "category": "yagis-geyimi", "key": "breathability", "labelAz": "Nəfəs alma", "dataType": "Number", "unit": "g/m²/24h", "minValue": 0, "maxValue": 30000, "decimalPlaces": 0, "placeholderAz": "məs. 10000", "sortOrder": 70 },
+    { "category": "papaq-ve-elcek", "key": "headwear_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "headwearType", "isRequired": true, "sortOrder": 50 },
+    { "category": "papaq-ve-elcek", "key": "size", "labelAz": "Ölçü", "dataType": "Select", "optionSet": "headwearSize", "sortOrder": 10 },
+
+    { "category": "backpack", "key": "volume", "labelAz": "Həcm", "dataType": "Number", "unit": "L", "minValue": 5, "maxValue": 120, "decimalPlaces": 0, "isRequired": true, "placeholderAz": "məs. 65", "sortOrder": 30 },
+    { "category": "backpack", "key": "frame_type", "labelAz": "Karkas", "dataType": "Select", "optionSet": "frameType", "sortOrder": 40 },
+    { "category": "backpack", "key": "rain_cover", "labelAz": "Yağış örtüyü", "dataType": "Boolean", "sortOrder": 50 },
+    { "category": "bel-cantasi", "key": "volume", "labelAz": "Həcm", "dataType": "Number", "unit": "L", "minValue": 0.5, "maxValue": 15, "decimalPlaces": 1, "placeholderAz": "məs. 5", "sortOrder": 30 },
+    { "category": "su-cantasi", "key": "volume", "labelAz": "Həcm", "dataType": "Number", "unit": "L", "minValue": 0.5, "maxValue": 5, "decimalPlaces": 1, "isRequired": true, "placeholderAz": "məs. 2", "sortOrder": 30 },
+    { "category": "su-cantasi", "key": "includes_bladder", "labelAz": "Rezervuar daxil", "dataType": "Boolean", "sortOrder": 40 },
+    { "category": "fener", "key": "light_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "lightType", "isRequired": true, "sortOrder": 30 },
+    { "category": "fener", "key": "lumens", "labelAz": "İşıq gücü", "dataType": "Number", "unit": "lm", "minValue": 1, "maxValue": 20000, "decimalPlaces": 0, "placeholderAz": "məs. 1200", "sortOrder": 40 },
+    { "category": "fener", "key": "power_source", "labelAz": "Qidalanma", "dataType": "Select", "optionSet": "powerSource", "sortOrder": 50 },
+    { "category": "fener", "key": "battery_capacity", "labelAz": "Batareya tutumu", "dataType": "Number", "unit": "mAh", "minValue": 100, "maxValue": 30000, "decimalPlaces": 0, "isFilterable": false, "placeholderAz": "məs. 5000", "sortOrder": 60 },
+    { "category": "gps", "key": "screen_size", "labelAz": "Ekran", "dataType": "Number", "unit": "düym", "minValue": 1, "maxValue": 8, "decimalPlaces": 1, "placeholderAz": "məs. 2.6", "sortOrder": 30 },
+    { "category": "gps", "key": "battery_life", "labelAz": "Batareya", "dataType": "Number", "unit": "saat", "minValue": 1, "maxValue": 200, "decimalPlaces": 0, "placeholderAz": "məs. 16", "sortOrder": 40 },
+    { "category": "gps", "key": "has_maps", "labelAz": "Xəritə daxil", "dataType": "Boolean", "sortOrder": 50 },
+
+    { "category": "off-road-aksesuarlari", "key": "offroad_accessory_type", "labelAz": "Aksesuar növü", "dataType": "Select", "optionSet": "offroadAccessoryType", "isRequired": true, "sortOrder": 20 },
+    { "category": "off-road-aksesuarlari", "key": "vehicle_compatibility", "labelAz": "Uyğunluq", "dataType": "Text", "maxLength": 80, "isFilterable": false, "isSearchable": true, "placeholderAz": "məs. Toyota Hilux 2015+", "sortOrder": 30 },
+    { "category": "dam-cadirlari", "key": "capacity", "labelAz": "Tutum", "dataType": "Number", "unit": "nəfər", "minValue": 1, "maxValue": 6, "decimalPlaces": 0, "isRequired": true, "placeholderAz": "məs. 2", "sortOrder": 20 },
+    { "category": "dam-cadirlari", "key": "mount_type", "labelAz": "Quraşdırma", "dataType": "Select", "optionSet": "mountType", "sortOrder": 30 },
+    { "category": "dam-cadirlari", "key": "closed_height", "labelAz": "Bağlı hündürlük", "dataType": "Number", "unit": "sm", "minValue": 10, "maxValue": 60, "decimalPlaces": 0, "isFilterable": false, "placeholderAz": "məs. 30", "sortOrder": 40 },
+    { "category": "dam-cadirlari", "key": "weight", "labelAz": "Çəki", "dataType": "Number", "unit": "kq", "minValue": 20, "maxValue": 120, "decimalPlaces": 1, "placeholderAz": "məs. 55", "sortOrder": 50 },
+    { "category": "qayiqlar", "key": "boat_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "boatType", "isRequired": true, "sortOrder": 20 },
+    { "category": "qayiqlar", "key": "capacity", "labelAz": "Tutum", "dataType": "Number", "unit": "nəfər", "minValue": 1, "maxValue": 12, "decimalPlaces": 0, "placeholderAz": "məs. 2", "sortOrder": 30 },
+    { "category": "qayiqlar", "key": "length", "labelAz": "Uzunluq", "dataType": "Number", "unit": "m", "minValue": 1.5, "maxValue": 12, "decimalPlaces": 2, "placeholderAz": "məs. 3.60", "sortOrder": 40 },
+    { "category": "qayiqlar", "key": "motor_mount", "labelAz": "Mühərrik üçün uyğun", "dataType": "Boolean", "sortOrder": 50 },
+    { "category": "qayiqlar", "key": "weight", "labelAz": "Çəki", "dataType": "Number", "unit": "kq", "minValue": 5, "maxValue": 500, "decimalPlaces": 1, "placeholderAz": "məs. 40", "sortOrder": 60 },
+    { "category": "atv-ve-diger", "key": "vehicle_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "vehicleType", "isRequired": true, "sortOrder": 20 },
+    { "category": "atv-ve-diger", "key": "engine_power", "labelAz": "Mühərrik gücü", "dataType": "Number", "unit": "a.g.", "minValue": 1, "maxValue": 200, "decimalPlaces": 0, "placeholderAz": "məs. 45", "sortOrder": 30 },
+
+    { "category": "durbin", "key": "magnification", "labelAz": "Böyütmə", "dataType": "Select", "optionSet": "magnification", "isRequired": true, "sortOrder": 10 },
+    { "category": "durbin", "key": "objective_diameter", "labelAz": "Obyektiv", "dataType": "Number", "unit": "mm", "minValue": 10, "maxValue": 120, "decimalPlaces": 0, "placeholderAz": "məs. 42", "sortOrder": 20 },
+    { "category": "durbin", "key": "prism_type", "labelAz": "Prizma", "dataType": "Select", "optionSet": "prismType", "sortOrder": 40 },
+    { "category": "monokulyar", "key": "magnification", "labelAz": "Böyütmə", "dataType": "Select", "optionSet": "magnification", "isRequired": true, "sortOrder": 10 },
+    { "category": "monokulyar", "key": "objective_diameter", "labelAz": "Obyektiv", "dataType": "Number", "unit": "mm", "minValue": 10, "maxValue": 120, "decimalPlaces": 0, "placeholderAz": "məs. 42", "sortOrder": 20 },
+    { "category": "monokulyar", "key": "night_vision", "labelAz": "Gecə görüntüsü", "dataType": "Boolean", "sortOrder": 40 },
+    { "category": "musahide-teleskopu", "key": "magnification", "labelAz": "Böyütmə", "dataType": "Select", "optionSet": "magnification", "isRequired": true, "sortOrder": 10 },
+    { "category": "musahide-teleskopu", "key": "objective_diameter", "labelAz": "Obyektiv", "dataType": "Number", "unit": "mm", "minValue": 10, "maxValue": 120, "decimalPlaces": 0, "placeholderAz": "məs. 60", "sortOrder": 20 },
+    { "category": "termal-kamera", "key": "detection_range", "labelAz": "Aşkarlama məsafəsi", "dataType": "Number", "unit": "m", "minValue": 50, "maxValue": 3000, "decimalPlaces": 0, "placeholderAz": "məs. 1200", "sortOrder": 10 },
+    { "category": "termal-kamera", "key": "sensor_resolution", "labelAz": "Sensor həlli", "dataType": "Select", "optionSet": "sensorResolution", "sortOrder": 20 },
+
+    { "category": "ov-bicagi", "key": "blade_length", "labelAz": "Tiyə uzunluğu", "dataType": "Number", "unit": "sm", "minValue": 1, "maxValue": 40, "decimalPlaces": 1, "isRequired": true, "placeholderAz": "məs. 12", "sortOrder": 30 },
+    { "category": "ov-bicagi", "key": "sheath", "labelAz": "Qılıf", "dataType": "Select", "optionSet": "sheath", "sortOrder": 40 },
+    { "category": "katlanan-bicaq", "key": "blade_length", "labelAz": "Tiyə uzunluğu", "dataType": "Number", "unit": "sm", "minValue": 1, "maxValue": 25, "decimalPlaces": 1, "isRequired": true, "placeholderAz": "məs. 8", "sortOrder": 30 },
+    { "category": "katlanan-bicaq", "key": "lock_type", "labelAz": "Kilid", "dataType": "Select", "optionSet": "lockType", "sortOrder": 40 },
+    { "category": "katlanan-bicaq", "key": "one_hand", "labelAz": "Bir əllə açılan", "dataType": "Boolean", "sortOrder": 50 },
+    { "category": "multitool", "key": "features", "labelAz": "Funksiyalar", "dataType": "MultiSelect", "optionSet": "multitoolFeatures", "sortOrder": 30 },
+    { "category": "multitool", "key": "functions", "labelAz": "Funksiya sayı", "dataType": "Number", "minValue": 1, "maxValue": 40, "decimalPlaces": 0, "isFilterable": false, "placeholderAz": "məs. 14", "sortOrder": 40 },
+    { "category": "balta", "key": "axe_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "axeType", "sortOrder": 30 },
+    { "category": "balta", "key": "total_length", "labelAz": "Ümumi uzunluq", "dataType": "Number", "unit": "sm", "minValue": 15, "maxValue": 100, "decimalPlaces": 0, "placeholderAz": "məs. 40", "sortOrder": 40 },
+    { "category": "balta", "key": "head_weight", "labelAz": "Baş çəkisi", "dataType": "Number", "unit": "q", "minValue": 200, "maxValue": 3000, "decimalPlaces": 0, "isFilterable": false, "placeholderAz": "məs. 600", "sortOrder": 50 },
+    { "category": "itileyici", "key": "sharpener_type", "labelAz": "Növ", "dataType": "Select", "optionSet": "sharpenerType", "isRequired": true, "sortOrder": 30 },
+    { "category": "itileyici", "key": "grit", "labelAz": "Grit", "dataType": "Number", "minValue": 100, "maxValue": 8000, "decimalPlaces": 0, "placeholderAz": "məs. 1000", "sortOrder": 40 }
+  ]
+}

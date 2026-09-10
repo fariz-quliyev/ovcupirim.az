@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Ovcuprim.Api/Ovcuprim.Api.csproj" />
+    <Project Path="src/Ovcuprim.Application/Ovcuprim.Application.csproj" />
+    <Project Path="src/Ovcuprim.Domain/Ovcuprim.Domain.csproj" />
+    <Project Path="src/Ovcuprim.Infrastructure/Ovcuprim.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ovcuprim.ApiTests/Ovcuprim.ApiTests.csproj" />
+    <Project Path="tests/Ovcuprim.Application.UnitTests/Ovcuprim.Application.UnitTests.csproj" />
+    <Project Path="tests/Ovcuprim.PostgresTests/Ovcuprim.PostgresTests.csproj" />
+  </Folder>
+</Solution>

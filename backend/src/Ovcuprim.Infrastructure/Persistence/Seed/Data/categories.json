@@ -1,0 +1,132 @@
+[
+  {
+    "slug": "ovculuq",
+    "nameAz": "Ovçuluq",
+    "iconKey": "ov",
+    "sortOrder": 10,
+    "restrictionStatus": "Unrestricted",
+    "descriptionAz": "Ov avadanlıqları, geyimləri və aksesuarları. Ov silahları, onların hissələri və patronlar platformada yerləşdirilə bilməz.",
+    "children": [
+      { "slug": "ov-avadanliqlari", "nameAz": "Ov avadanlıqları", "sortOrder": 10 },
+      { "slug": "ov-geyimleri", "nameAz": "Ov geyimləri", "sortOrder": 20 },
+      { "slug": "ov-cantalari", "nameAz": "Ov çantaları", "sortOrder": 30 },
+      { "slug": "diger-ov-aksesuarlari", "nameAz": "Digər ov aksesuarları", "sortOrder": 40 }
+    ]
+  },
+  {
+    "slug": "baliqciliq",
+    "nameAz": "Balıqçılıq",
+    "iconKey": "baliq",
+    "sortOrder": 20,
+    "restrictionStatus": "Unrestricted",
+    "descriptionAz": "Tilov, makara, misina, qarmaq, yem və balıqçılıq geyimləri.",
+    "children": [
+      { "slug": "tilovlar", "nameAz": "Tilovlar", "sortOrder": 10 },
+      { "slug": "makara", "nameAz": "Makara", "sortOrder": 20 },
+      { "slug": "misina", "nameAz": "Misina", "sortOrder": 30 },
+      { "slug": "qarmaqlar", "nameAz": "Qarmaqlar", "sortOrder": 40 },
+      { "slug": "yemler", "nameAz": "Yemlər", "sortOrder": 50 },
+      { "slug": "baliqciliq-cantalari", "nameAz": "Balıqçılıq çantaları", "sortOrder": 60 },
+      { "slug": "baliqciliq-geyimleri", "nameAz": "Balıqçılıq geyimləri", "sortOrder": 70 },
+      { "slug": "baliqciliq-aksesuarlari", "nameAz": "Aksesuarlar", "sortOrder": 80 }
+    ]
+  },
+  {
+    "slug": "kamp",
+    "nameAz": "Kamp",
+    "iconKey": "kamp",
+    "sortOrder": 30,
+    "restrictionStatus": "Unrestricted",
+    "descriptionAz": "Çadır, yataq kisəsi, karimat, kamp mebeli və mətbəx avadanlığı.",
+    "children": [
+      { "slug": "cadir", "nameAz": "Çadır", "sortOrder": 10 },
+      { "slug": "yataq-kisesi", "nameAz": "Yataq kisəsi", "sortOrder": 20 },
+      { "slug": "karimat", "nameAz": "Karimat", "sortOrder": 30 },
+      { "slug": "kamp-mebeli", "nameAz": "Kamp mebeli", "sortOrder": 40 },
+      { "slug": "kamp-metbexi", "nameAz": "Kamp mətbəxi", "sortOrder": 50 },
+      { "slug": "ocaq-ve-istilik", "nameAz": "Ocaq və istilik avadanlığı", "sortOrder": 60 },
+      { "slug": "termos", "nameAz": "Termos", "sortOrder": 70 },
+      { "slug": "su-qablari", "nameAz": "Su qabları", "sortOrder": 80 },
+      { "slug": "hamak", "nameAz": "Hamak", "sortOrder": 90 },
+      { "slug": "tent", "nameAz": "Tent", "sortOrder": 100 }
+    ]
+  },
+  {
+    "slug": "outdoor-geyim",
+    "nameAz": "Outdoor geyim",
+    "iconKey": "geyim",
+    "sortOrder": 40,
+    "restrictionStatus": "Unrestricted",
+    "descriptionAz": "Gödəkçə, şalvar, ayaqqabı, termal və yağış geyimləri.",
+    "children": [
+      { "slug": "godekce", "nameAz": "Gödəkçə", "sortOrder": 10 },
+      { "slug": "salvar", "nameAz": "Şalvar", "sortOrder": 20 },
+      { "slug": "ayaqqabi", "nameAz": "Ayaqqabı", "sortOrder": 30 },
+      { "slug": "cekme", "nameAz": "Çəkmə", "sortOrder": 40 },
+      { "slug": "termal-geyim", "nameAz": "Termal geyim", "sortOrder": 50 },
+      { "slug": "kamuflyaj-geyim", "nameAz": "Kamuflyaj geyim", "sortOrder": 60 },
+      { "slug": "yagis-geyimi", "nameAz": "Yağış geyimi", "sortOrder": 70 },
+      { "slug": "papaq-ve-elcek", "nameAz": "Papaq və əlcək", "sortOrder": 80 }
+    ]
+  },
+  {
+    "slug": "canta-ve-aksesuar",
+    "nameAz": "Çanta və aksesuar",
+    "iconKey": "canta",
+    "sortOrder": 50,
+    "restrictionStatus": "Unrestricted",
+    "descriptionAz": "Backpack, bel çantası, fənər, GPS və outdoor aksesuarları.",
+    "children": [
+      { "slug": "backpack", "nameAz": "Backpack", "sortOrder": 10 },
+      { "slug": "bel-cantasi", "nameAz": "Bel çantası", "sortOrder": 20 },
+      { "slug": "su-cantasi", "nameAz": "Su çantası", "sortOrder": 30 },
+      { "slug": "fener", "nameAz": "Fənər", "sortOrder": 40 },
+      { "slug": "gps", "nameAz": "GPS", "sortOrder": 50 },
+      { "slug": "outdoor-aksesuarlari", "nameAz": "Outdoor aksesuarları", "sortOrder": 60 }
+    ]
+  },
+  {
+    "slug": "outdoor-neqliyyat",
+    "nameAz": "Outdoor nəqliyyat",
+    "iconKey": "neqliyyat",
+    "sortOrder": 60,
+    "restrictionStatus": "Unclassified",
+    "descriptionAz": "Off-road aksesuarları, dam çadırları, qayıqlar və outdoor vasitələr.",
+    "children": [
+      { "slug": "off-road-aksesuarlari", "nameAz": "Off-road aksesuarları", "sortOrder": 10 },
+      { "slug": "dam-cadirlari", "nameAz": "Dam çadırları", "sortOrder": 20 },
+      { "slug": "karavan-aksesuarlari", "nameAz": "Karavan/treyler aksesuarları", "sortOrder": 30 },
+      { "slug": "qayiqlar", "nameAz": "Qayıqlar", "sortOrder": 40 },
+      { "slug": "atv-ve-diger", "nameAz": "ATV və digər vasitələr", "sortOrder": 50 }
+    ]
+  },
+  {
+    "slug": "optika-ve-durbin",
+    "nameAz": "Optika və durbin",
+    "iconKey": "optika",
+    "sortOrder": 70,
+    "restrictionStatus": "Unclassified",
+    "descriptionAz": "Durbin, monokulyar, müşahidə teleskopu və termal kamera.",
+    "children": [
+      { "slug": "durbin", "nameAz": "Durbin", "sortOrder": 10 },
+      { "slug": "monokulyar", "nameAz": "Monokulyar", "sortOrder": 20 },
+      { "slug": "musahide-teleskopu", "nameAz": "Müşahidə teleskopu", "sortOrder": 30 },
+      { "slug": "termal-kamera", "nameAz": "Termal kamera", "sortOrder": 40 }
+    ]
+  },
+  {
+    "slug": "bicaq-ve-alet",
+    "nameAz": "Bıçaq və alət",
+    "iconKey": "bicaq",
+    "sortOrder": 80,
+    "restrictionStatus": "Unclassified",
+    "descriptionAz": "Ov bıçağı, katlanan bıçaq, multitool, balta və itiləyici.",
+    "children": [
+      { "slug": "ov-bicagi", "nameAz": "Ov bıçağı", "sortOrder": 10 },
+      { "slug": "katlanan-bicaq", "nameAz": "Katlanan bıçaq", "sortOrder": 20 },
+      { "slug": "multitool", "nameAz": "Multitool", "sortOrder": 30 },
+      { "slug": "balta", "nameAz": "Balta", "sortOrder": 40 },
+      { "slug": "itileyici", "nameAz": "İtiləyici", "sortOrder": 50 }
+    ]
+  }
+]

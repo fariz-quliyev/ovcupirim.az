@@ -1,0 +1,454 @@
+{
+  "regions": [
+    {
+      "nameAz": "Bakı",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 10
+    },
+    {
+      "nameAz": "Gəncə",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 20
+    },
+    {
+      "nameAz": "Xankəndi",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 30
+    },
+    {
+      "nameAz": "Lənkəran",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 40
+    },
+    {
+      "nameAz": "Mingəçevir",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 50
+    },
+    {
+      "nameAz": "Naftalan",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 60
+    },
+    {
+      "nameAz": "Sumqayıt",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 70
+    },
+    {
+      "nameAz": "Şəki",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 80
+    },
+    {
+      "nameAz": "Şirvan",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 90
+    },
+    {
+      "nameAz": "Yevlax",
+      "type": "City",
+      "isSelectable": true,
+      "sortOrder": 100
+    },
+    {
+      "nameAz": "Abşeron",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 110
+    },
+    {
+      "nameAz": "Ağcabədi",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 120
+    },
+    {
+      "nameAz": "Ağdam",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 130
+    },
+    {
+      "nameAz": "Ağdaş",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 140
+    },
+    {
+      "nameAz": "Ağdərə",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 150
+    },
+    {
+      "nameAz": "Ağstafa",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 160
+    },
+    {
+      "nameAz": "Ağsu",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 170
+    },
+    {
+      "nameAz": "Astara",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 180
+    },
+    {
+      "nameAz": "Balakən",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 190
+    },
+    {
+      "nameAz": "Beyləqan",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 200
+    },
+    {
+      "nameAz": "Bərdə",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 210
+    },
+    {
+      "nameAz": "Biləsuvar",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 220
+    },
+    {
+      "nameAz": "Cəbrayıl",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 230
+    },
+    {
+      "nameAz": "Cəlilabad",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 240
+    },
+    {
+      "nameAz": "Daşkəsən",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 250
+    },
+    {
+      "nameAz": "Füzuli",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 260
+    },
+    {
+      "nameAz": "Gədəbəy",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 270
+    },
+    {
+      "nameAz": "Goranboy",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 280
+    },
+    {
+      "nameAz": "Göyçay",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 290
+    },
+    {
+      "nameAz": "Göygöl",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 300
+    },
+    {
+      "nameAz": "Hacıqabul",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 310
+    },
+    {
+      "nameAz": "Xaçmaz",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 320
+    },
+    {
+      "nameAz": "Xızı",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 330
+    },
+    {
+      "nameAz": "Xocalı",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 340
+    },
+    {
+      "nameAz": "Xocavənd",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 350
+    },
+    {
+      "nameAz": "İmişli",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 360
+    },
+    {
+      "nameAz": "İsmayıllı",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 370
+    },
+    {
+      "nameAz": "Kəlbəcər",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 380
+    },
+    {
+      "nameAz": "Kürdəmir",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 390
+    },
+    {
+      "nameAz": "Qax",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 400
+    },
+    {
+      "nameAz": "Qazax",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 410
+    },
+    {
+      "nameAz": "Qəbələ",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 420
+    },
+    {
+      "nameAz": "Qobustan",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 430
+    },
+    {
+      "nameAz": "Quba",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 440
+    },
+    {
+      "nameAz": "Qubadlı",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 450
+    },
+    {
+      "nameAz": "Qusar",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 460
+    },
+    {
+      "nameAz": "Laçın",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 470
+    },
+    {
+      "nameAz": "Lerik",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 480
+    },
+    {
+      "nameAz": "Masallı",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 490
+    },
+    {
+      "nameAz": "Neftçala",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 500
+    },
+    {
+      "nameAz": "Oğuz",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 510
+    },
+    {
+      "nameAz": "Saatlı",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 520
+    },
+    {
+      "nameAz": "Sabirabad",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 530
+    },
+    {
+      "nameAz": "Salyan",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 540
+    },
+    {
+      "nameAz": "Samux",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 550
+    },
+    {
+      "nameAz": "Siyəzən",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 560
+    },
+    {
+      "nameAz": "Şabran",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 570
+    },
+    {
+      "nameAz": "Şamaxı",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 580
+    },
+    {
+      "nameAz": "Şəmkir",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 590
+    },
+    {
+      "nameAz": "Şuşa",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 600
+    },
+    {
+      "nameAz": "Tərtər",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 610
+    },
+    {
+      "nameAz": "Tovuz",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 620
+    },
+    {
+      "nameAz": "Ucar",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 630
+    },
+    {
+      "nameAz": "Yardımlı",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 640
+    },
+    {
+      "nameAz": "Zaqatala",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 650
+    },
+    {
+      "nameAz": "Zəngilan",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 660
+    },
+    {
+      "nameAz": "Zərdab",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 670
+    },
+    {
+      "nameAz": "Naxçıvan",
+      "type": "AutonomousRepublic",
+      "isSelectable": true,
+      "sortOrder": 680
+    },
+    {
+      "nameAz": "Babək",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 690
+    },
+    {
+      "nameAz": "Culfa",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 700
+    },
+    {
+      "nameAz": "Kəngərli",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 710
+    },
+    {
+      "nameAz": "Ordubad",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 720
+    },
+    {
+      "nameAz": "Sədərək",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 730
+    },
+    {
+      "nameAz": "Şahbuz",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 740
+    },
+    {
+      "nameAz": "Şərur",
+      "type": "Rayon",
+      "isSelectable": true,
+      "sortOrder": 750
+    }
+  ]
+}

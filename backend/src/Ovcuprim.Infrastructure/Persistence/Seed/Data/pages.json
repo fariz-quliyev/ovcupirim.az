@@ -1,0 +1,104 @@
+[
+  {
+    "$comment": "Published: factual, asserts no undecided rule and quotes no figure.",
+    "slug": "layihe-haqqinda",
+    "pageType": "Info",
+    "titleAz": "Layihə haqqında",
+    "isPublished": true,
+    "sortOrder": 10,
+    "metaDescriptionAz": "Ovcuprim.az — ovçuluq, balıqçılıq, kamp və outdoor avadanlıqları üçün ixtisaslaşmış elan platforması.",
+    "bodyAz": "Ovcuprim.az ovçuluq, balıqçılıq, kamp və outdoor avadanlıqları üçün Azərbaycanda ixtisaslaşmış elan meydançasıdır. İstifadəçilər avadanlıq ala və sata bilər.\n\nPlatformada həm fərdi satıcılar, həm də mağazalar elan yerləşdirir. Hər elan moderasiyadan keçir və kateqoriya üzrə filterlərlə tapıla bilir.\n\nOv silahları, onların hissələri və patronlar platformada yerləşdirilə bilməz."
+  },
+  {
+    "slug": "tehlukesiz-alis-veris",
+    "pageType": "Info",
+    "titleAz": "Təhlükəsiz alış-veriş",
+    "isPublished": true,
+    "sortOrder": 20,
+    "metaDescriptionAz": "Ovcuprim.az-da təhlükəsiz alış-veriş üçün tövsiyələr.",
+    "bodyAz": "Məhsulu görmədən beh və ya avans köçürməyin.\n\nGörüşü ictimai yerdə təyin edin və bahalı avadanlığı yoxlayaraq alın.\n\nŞübhəli elan və ya satıcı ilə rastlaşdıqda “Şikayət” düyməsindən istifadə edin."
+  },
+  {
+    "slug": "yardim",
+    "pageType": "Info",
+    "titleAz": "Yardım",
+    "isPublished": true,
+    "sortOrder": 30,
+    "metaDescriptionAz": "Ovcuprim.az istifadəsi ilə bağlı köməkçi məlumat.",
+    "bodyAz": "Bu bölmə platformadan istifadə ilə bağlı ən çox rast gəlinən halları izah edir.\n\nHesab yaratmaq üçün mobil nömrənizi daxil edin — SMS ilə göndərilən təsdiq kodu ilə giriş edirsiniz. Parol tələb olunmur.\n\nSuallarınız üçün “Yardım” bölməsindəki tez-tez verilən suallara baxa bilərsiniz."
+  },
+
+  {
+    "$comment": "DRAFTS — isPublished:false. Prototype legal text was NOT copied; these bodies are placeholders awaiting counsel or a product decision.",
+    "slug": "istifadeci-razilasmasi",
+    "pageType": "Info",
+    "titleAz": "İstifadəçi razılaşması",
+    "isPublished": false,
+    "sortOrder": 100,
+    "bodyAz": "QARALAMA — hüquqi mətn hazırlanmalıdır.\n\nBu səhifənin məzmunu hüquqi məsləhətçi tərəfindən hazırlanmalı və təsdiqlənməlidir. Prototipdəki mətn başqa platformadan uyğunlaşdırılmış görünür və istifadə edilmir."
+  },
+  {
+    "slug": "mexfilik-siyaseti",
+    "pageType": "Info",
+    "titleAz": "Məxfilik siyasəti",
+    "isPublished": false,
+    "sortOrder": 110,
+    "bodyAz": "QARALAMA — hüquqi mətn hazırlanmalıdır.\n\nFərdi məlumatların işlənməsi siyasəti hüquqi məsləhətçi tərəfindən hazırlanmalıdır."
+  },
+  {
+    "slug": "satis-qaydalari",
+    "pageType": "Info",
+    "titleAz": "Satış qaydaları",
+    "isPublished": false,
+    "sortOrder": 120,
+    "bodyAz": "QARALAMA — qaydalar təsdiqlənməlidir.\n\nElan yerləşdirmə qaydaları (elanın müddəti, şəkil limitləri, aylıq elan limiti) Phase 4-də təsdiqlənəcək."
+  },
+  {
+    "slug": "yas-ve-uygunluq-qaydalari",
+    "pageType": "Info",
+    "titleAz": "Yaş və uyğunluq qaydaları",
+    "isPublished": false,
+    "sortOrder": 130,
+    "bodyAz": "QARALAMA — hüquqi təsnifat gözlənilir.\n\nMəhdudlaşdırılmış məhsullar üzrə yaş və uyğunluq qaydaları hüquqi qərardan sonra dərc olunacaq."
+  },
+  {
+    "slug": "qadagan-olunmus-mehsullar",
+    "pageType": "Info",
+    "titleAz": "Qadağan olunmuş məhsullar",
+    "isPublished": false,
+    "sortOrder": 140,
+    "bodyAz": "QARALAMA — siyasət təsdiqlənməlidir.\n\nOv silahları, onların hissələri və patronlar platformada qadağandır. Tam siyahı və icra mexanizmi təsdiqlənməlidir."
+  },
+  {
+    "slug": "odenisli-xidmetler",
+    "pageType": "Info",
+    "titleAz": "Ödənişli xidmətlər",
+    "isPublished": false,
+    "sortOrder": 150,
+    "bodyAz": "QARALAMA — qiymətlər təyin edilməyib.\n\nVIP və TOP xidmətləri Phase 2 (post-launch) üçün planlaşdırılır. Qiymət cədvəli təsdiqlənməyib."
+  },
+  {
+    "slug": "paketler",
+    "pageType": "Info",
+    "titleAz": "Paketlər",
+    "isPublished": false,
+    "sortOrder": 160,
+    "bodyAz": "QARALAMA — paket şərtləri təyin edilməyib."
+  },
+  {
+    "slug": "kateqoriyalar-uzre-limitler",
+    "pageType": "Info",
+    "titleAz": "Kateqoriyalar üzrə limitlər",
+    "isPublished": false,
+    "sortOrder": 170,
+    "bodyAz": "QARALAMA — aylıq pulsuz elan limiti təyin edilməyib. Limit Phase 4-də təsdiqlənəcək."
+  },
+  {
+    "slug": "reklam-yerlesdirin",
+    "pageType": "Info",
+    "titleAz": "Reklam yerləşdirin",
+    "isPublished": false,
+    "sortOrder": 180,
+    "bodyAz": "QARALAMA — auditoriya statistikası və qiymətlər mövcud deyil.\n\nReklam formatları və qiymətləri real statistika toplandıqdan sonra dərc olunacaq."
+  }
+]

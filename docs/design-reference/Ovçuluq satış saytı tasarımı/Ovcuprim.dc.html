@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<script src="./image-slot.js"></script>
+<style>
+  html, body { margin:0; padding:0; background:#F7F6F1; }
+  body { font-family:Inter, system-ui, sans-serif; color:#202522; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#315B48; text-decoration:none; }
+  a:hover { color:#FF5A1F; }
+  button, input, select, textarea { font-family:inherit; }
+  ::selection { background:#D9C9A3; }
+  :focus-visible { outline:2px solid #FF5A1F; outline-offset:2px; }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb { background:#D5D8D2; border-radius:8px; }
+  body, body * {
+    cursor: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='3.4' stroke-opacity='.75'%3E%3Ccircle cx='15' cy='15' r='9.5'/%3E%3Cpath d='M15 1.5v6M15 22.5v6M1.5 15h6M22.5 15h6'/%3E%3C/g%3E%3Cg fill='none' stroke='%23355844' stroke-width='1.7'%3E%3Ccircle cx='15' cy='15' r='9.5'/%3E%3Cpath d='M15 1.5v6M15 22.5v6M1.5 15h6M22.5 15h6'/%3E%3C/g%3E%3Ccircle cx='15' cy='15' r='1.5' fill='%23D97732'/%3E%3C/svg%3E") 15 15, crosshair !important;
+  }
+  body input, body textarea, body select { cursor: text !important; }
+  body select { cursor: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='3.4' stroke-opacity='.75'%3E%3Ccircle cx='15' cy='15' r='9.5'/%3E%3Cpath d='M15 1.5v6M15 22.5v6M1.5 15h6M22.5 15h6'/%3E%3C/g%3E%3Cg fill='none' stroke='%23355844' stroke-width='1.7'%3E%3Ccircle cx='15' cy='15' r='9.5'/%3E%3Cpath d='M15 1.5v6M15 22.5v6M1.5 15h6M22.5 15h6'/%3E%3C/g%3E%3Ccircle cx='15' cy='15' r='1.5' fill='%23D97732'/%3E%3C/svg%3E") 15 15, crosshair !important; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; width:100%; background:#F7F6F1; display:flex; justify-content:center; align-items:flex-start">
+<div style="{{ shellStyle }}">
+<div style="background:#F7F6F1; overflow-x:clip">
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <header style="background:#315B48; position:sticky; top:0; z-index:40">
+    <div style="max-width:1280px; margin:0 auto; padding:0 24px; height:64px; display:flex; align-items:center; gap:20px">
+      <button type="button" onClick="{{ openMenu }}" aria-label="Menyu" style="width:36px; height:36px; border:none; border-radius:8px; background:transparent; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0" style-hover="background:#3F6450">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+      <div onClick="{{ goHome }}" style="display:flex; align-items:center; gap:9px; cursor:pointer; flex-shrink:0">
+        <div style="width:30px; height:30px; border-radius:8px; background:#FF5A1F; display:flex; align-items:center; justify-content:center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
+        </div>
+        <span style="font:800 17px/1 Manrope, sans-serif; letter-spacing:-.01em; color:#FFFFFF">OVCUPRIM<span style="color:#FF5A1F">.AZ</span></span>
+      </div>
+      <nav style="display:flex; align-items:center; gap:22px; flex:1">
+        <sc-for list="{{ mainNav }}" as="n" hint-placeholder-count="4">
+          <span onClick="{{ n.onClick }}" style="font:500 14px/1 Inter, sans-serif; color:#DCE4DF; cursor:pointer; padding:6px 0; border-bottom:2px solid {{ n.line }}" style-hover="color:#FFFFFF">{{ n.label }}</span>
+        </sc-for>
+      </nav>
+      <div style="display:flex; align-items:center; gap:10px">
+        <button type="button" onClick="{{ openSearch }}" aria-label="Axtarış" style="width:38px; height:38px; border:1px solid #4E7460; border-radius:8px; background:transparent; display:flex; align-items:center; justify-content:center; cursor:pointer" style-hover="background:#3F6450">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#DCE4DF" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        </button>
+        <button type="button" onClick="{{ goFavorites }}" style="height:38px; padding:0 12px; border:1px solid #4E7460; border-radius:8px; background:transparent; display:flex; align-items:center; gap:7px; cursor:pointer" style-hover="background:#3F6450">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DCE4DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+          <span style="font:600 13px/1 Inter, sans-serif; color:#DCE4DF">{{ favCount }}</span>
+        </button>
+        <span onClick="{{ goProfile }}" style="font:500 14px/1 Inter, sans-serif; color:#DCE4DF; cursor:pointer; padding:0 6px" style-hover="color:#FFFFFF">Giriş</span>
+        <button type="button" onClick="{{ goCreate }}" style="height:38px; padding:0 16px; border:none; border-radius:8px; background:#FF5A1F; color:#FFFFFF; font:700 13.5px/1 Inter, sans-serif; display:flex; align-items:center; gap:7px; cursor:pointer" style-hover="background:#E94A12">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+          Yeni elan
+        </button>
+      </div>
+    </div>
+  </header>
+</sc-if>
+
+<sc-if value="{{ desktopMenuOpen }}">
+  <div onClick="{{ closeMenu }}" style="position:fixed; inset:0; z-index:60; background:rgba(20,26,22,.35)"></div>
+  <div style="position:sticky; top:64px; z-index:61; background:#FFFFFF; border-bottom:1px solid #E4E7E2">
+    <div style="max-width:1280px; margin:0 auto; padding:34px 24px 38px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); gap:28px">
+      <div style="display:flex; flex-direction:column; gap:20px">
+        <sc-for list="{{ menuColA }}" as="m" hint-placeholder-count="4">
+          <span onClick="{{ m.onClick }}" style="font:500 15px/1 Inter, sans-serif; color:#202522; cursor:pointer" style-hover="color:#FF5A1F">{{ m.label }}</span>
+        </sc-for>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:20px">
+        <sc-for list="{{ menuColB }}" as="m" hint-placeholder-count="4">
+          <span onClick="{{ m.onClick }}" style="font:500 15px/1 Inter, sans-serif; color:#202522; cursor:pointer" style-hover="color:#FF5A1F">{{ m.label }}</span>
+        </sc-for>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:11px; text-align:right">
+        <div style="display:flex; align-items:center; gap:8px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#202522" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"></path></svg>
+          <span style="font:500 14.5px/1 Inter, sans-serif; color:#202522">Русский язык</span>
+        </div>
+        <div style="font:400 13.5px/1 Inter, sans-serif; color:#9AA096; margin-top:6px">Bizimlə əlaqə</div>
+        <div style="font:500 15px/1 Inter, sans-serif; color:#202522">(012) 526-19-19</div>
+        <div style="font:400 14.5px/1 Inter, sans-serif; color:#7A8078">info@ovcuprim.az</div>
+        <div style="font:400 12.5px/1 Inter, sans-serif; color:#9AA096; margin-top:8px">© 2026 Ovcuprim.az</div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ mobileMenuOpen }}">
+  <div onClick="{{ closeMenu }}" style="position:fixed; inset:0; z-index:70; background:rgba(20,26,22,.5)"></div>
+  <div style="position:fixed; top:0; bottom:0; left:0; width:82%; max-width:340px; z-index:71; background:#FFFFFF; overflow-y:auto; box-shadow:6px 0 26px rgba(20,26,22,.22)">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px 10px">
+      <span style="font:800 18px/1 Manrope, sans-serif; color:#315B48">OVCUPRIM<span style="color:#FF5A1F">.AZ</span></span>
+      <button type="button" onClick="{{ closeMenu }}" aria-label="Bağla" style="width:32px; height:32px; border:none; border-radius:8px; background:transparent; display:flex; align-items:center; justify-content:center; cursor:pointer">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#202522" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+      </button>
+    </div>
+    <div style="display:flex; flex-direction:column; padding:8px 0 4px">
+      <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="7">
+        <div onClick="{{ m.onClick }}" style="padding:15px 18px; font:500 15px/1.3 Inter, sans-serif; color:#202522; cursor:pointer" style-hover="background:#F5F5F6">{{ m.label }}</div>
+      </sc-for>
+    </div>
+    <div style="height:1px; background:#E4E7E2; margin:8px 18px"></div>
+    <div style="padding:12px 18px 26px; display:flex; flex-direction:column; gap:9px">
+      <div style="font:600 12.5px/1 Inter, sans-serif; color:#9AA096">Bizimlə əlaqə</div>
+      <div style="font:500 14.5px/1 Inter, sans-serif; color:#202522">(012) 526-19-19</div>
+      <div style="font:400 14px/1 Inter, sans-serif; color:#7A8078">info@ovcuprim.az</div>
+      <div style="font:400 12.5px/1.5 Inter, sans-serif; color:#9AA096; margin-top:8px">© 2026 Ovcuprim.az — Bütün hüquqlar qorunur.</div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ showMobileHeader }}">
+  <header style="background:#315B48; position:sticky; top:0; z-index:40; padding:10px 14px; display:flex; flex-direction:column; gap:10px; transform:{{ headerTransform }}; transition:transform .22s ease">
+    <div style="display:grid; grid-template-columns:42px 1fr 42px; align-items:center">
+      <button type="button" onClick="{{ openMenu }}" aria-label="Menyu" style="width:34px; height:34px; border:none; border-radius:8px; background:transparent; display:flex; align-items:center; justify-content:center; cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+      <div onClick="{{ goHome }}" style="display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer">
+        <div style="width:26px; height:26px; border-radius:7px; background:#FF5A1F; display:flex; align-items:center; justify-content:center">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
+        </div>
+        <span style="font:800 15px/1 Manrope, sans-serif; color:#FFFFFF">OVCUPRIM<span style="color:#FF5A1F">.AZ</span></span>
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end">
+        <button type="button" onClick="{{ goCreate }}" aria-label="Yeni elan" style="width:34px; height:34px; border:none; border-radius:8px; background:#FF5A1F; display:flex; align-items:center; justify-content:center; cursor:pointer" style-hover="background:#E94A12">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div style="height:42px; background:#FFFFFF; border:1.5px solid #FFFFFF; border-radius:10px; display:flex; align-items:center; gap:9px; padding:0 12px" style-focus-within="border-color:#FF5A1F">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7A8078" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      <input value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onQKey }}" placeholder="Əşya və ya xidmət axtarışı" style="flex:1; min-width:0; height:100%; border:none; outline:none; background:transparent; font:400 14px/1 Inter, sans-serif; color:#202522">
+      <sc-if value="{{ hasQ }}">
+        <button type="button" onClick="{{ clearQ }}" aria-label="Təmizlə" style="width:22px; height:22px; border:none; border-radius:50%; background:#EFEFF0; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7A8078" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+        </button>
+      </sc-if>
+    </div>
+  </header>
+</sc-if>
+
+<sc-if value="{{ searchOpen }}">
+  <div style="position:fixed; inset:0; z-index:60; background:rgba(39,66,47,.55); display:flex; justify-content:center; padding-top:80px" onClick="{{ closeSearch }}">
+    <div onClick="{{ stop }}" style="width:100%; max-width:640px; margin:0 16px; background:#FFFFFF; border-radius:12px; overflow:hidden; box-shadow:0 20px 50px rgba(39,66,47,.28); height:fit-content">
+      <div style="display:flex; align-items:center; gap:10px; padding:14px 16px; border-bottom:1px solid #E4E7E2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#315B48" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onQKey }}" placeholder="Tilov, çadır, durbin, gödəkçə…" style="flex:1; border:none; outline:none; font:500 16px/1 Inter, sans-serif; color:#202522; background:transparent">
+        <button type="button" onClick="{{ closeSearch }}" style="border:1px solid #E4E7E2; background:#F7F6F1; border-radius:6px; font:600 11px/1 Inter, sans-serif; color:#7A8078; padding:6px 8px; cursor:pointer">ESC</button>
+      </div>
+      <div style="max-height:56vh; overflow:auto">
+        <sc-if value="{{ hasRecent }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:12px 16px 6px; font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#9AA096">Son axtarışlar</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; padding:6px 16px 14px">
+            <sc-for list="{{ recent }}" as="r" hint-placeholder-count="3">
+              <span onClick="{{ r.onClick }}" style="font:500 13px/1 Inter, sans-serif; color:#315B48; border:1px solid #E4E7E2; border-radius:8px; padding:7px 10px; cursor:pointer" style-hover="border-color:#315B48; background:#F7F6F1">{{ r.label }}</span>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ hasSugCats }}">
+          <div style="padding:10px 16px 6px; font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#9AA096">Kateqoriyalar</div>
+          <sc-for list="{{ sugCats }}" as="s" hint-placeholder-count="2">
+            <div onClick="{{ s.onClick }}" style="display:flex; align-items:center; justify-content:space-between; padding:10px 16px; cursor:pointer; border-bottom:1px solid #F1F2EF" style-hover="background:#F7F6F1">
+              <span style="font:500 14px/1.3 Inter, sans-serif; color:#202522">{{ s.label }}</span>
+              <span style="font:500 12px/1 Inter, sans-serif; color:#7A8078">{{ s.meta }}</span>
+            </div>
+          </sc-for>
+        </sc-if>
+        <sc-if value="{{ hasSugItems }}">
+          <div style="padding:10px 16px 6px; font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#9AA096">Elanlar</div>
+          <sc-for list="{{ sugItems }}" as="s" hint-placeholder-count="4">
+            <div onClick="{{ s.onClick }}" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; border-bottom:1px solid #F1F2EF" style-hover="background:#F7F6F1">
+              <div style="width:42px; height:34px; border-radius:6px; background:#E9E5DC; flex-shrink:0"></div>
+              <div style="flex:1; min-width:0">
+                <div style="font:500 14px/1.3 Inter, sans-serif; color:#202522; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ s.label }}</div>
+                <div style="font:400 12px/1.3 Inter, sans-serif; color:#7A8078">{{ s.meta }}</div>
+              </div>
+              <div style="font:700 14px/1 Manrope, sans-serif; color:#315B48">{{ s.price }}</div>
+            </div>
+          </sc-for>
+        </sc-if>
+        <sc-if value="{{ noResults }}">
+          <div style="padding:26px 16px 30px; text-align:center; font:400 14px/1.5 Inter, sans-serif; color:#7A8078">Nəticə tapılmadı. Fərqli açar söz yoxla.</div>
+        </sc-if>
+      </div>
+      <div style="padding:12px 16px; background:#F7F6F1; border-top:1px solid #E4E7E2; display:flex; justify-content:space-between; align-items:center">
+        <span style="font:400 12px/1 Inter, sans-serif; color:#7A8078">Enter — bütün nəticələr</span>
+        <button type="button" onClick="{{ submitSearch }}" style="height:34px; padding:0 14px; border:none; border-radius:8px; background:#315B48; color:#FFFFFF; font:600 13px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#27422F">Axtar</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ mapOpen }}">
+  <div style="position:fixed; inset:0; z-index:60; background:rgba(39,66,47,.55); display:flex; justify-content:center; align-items:flex-start; padding:64px 16px 24px; overflow:auto" onClick="{{ closeMap }}">
+    <div onClick="{{ stop }}" style="width:100%; max-width:760px; background:#FFFFFF; border-radius:12px; overflow:hidden; box-shadow:0 20px 50px rgba(39,66,47,.28)">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid #E4E7E2">
+        <div>
+          <div style="font:700 15px/1.2 Manrope, sans-serif; color:#202522">Xəritə üzrə axtar</div>
+          <div style="font:400 12.5px/1.3 Inter, sans-serif; color:#6C7268; margin-top:3px">Region seç — həmin bölgədəki bütün elanlar açılacaq</div>
+        </div>
+        <button type="button" onClick="{{ closeMap }}" aria-label="Bağla" style="width:32px; height:32px; border:1px solid #E4E7E2; border-radius:8px; background:#FFFFFF; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0" style-hover="border-color:#315B48">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#202522" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div style="height:210px; background:#EFEDE4; background-image:repeating-linear-gradient(0deg, rgba(53,88,68,.08) 0 1px, transparent 1px 34px), repeating-linear-gradient(90deg, rgba(53,88,68,.08) 0 1px, transparent 1px 34px); display:flex; align-items:center; justify-content:center; border-bottom:1px solid #E4E7E2">
+        <div style="text-align:center; padding:16px">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#A8AF9D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path><path d="M15 5.764v15M9 3.236v15"></path></svg>
+          <div style="font:600 12.5px/1.4 Inter, sans-serif; color:#7C8377; margin-top:8px">Azərbaycan xəritəsi — region üzrə elan sıxlığı</div>
+        </div>
+      </div>
+      <div style="padding:16px 18px 20px">
+        <div style="display:flex; flex-wrap:wrap; gap:8px">
+          <sc-for list="{{ regionChips }}" as="r" hint-placeholder-count="10">
+            <span onClick="{{ r.onClick }}" style="display:inline-flex; align-items:center; gap:7px; font:500 13px/1 Inter, sans-serif; color:#202522; border:1px solid #E4E7E2; border-radius:8px; padding:10px 12px; cursor:pointer" style-hover="border-color:#315B48; background:#F7F6F1">
+              {{ r.name }}<span style="font:600 12px/1 Inter, sans-serif; color:#6C7268">{{ r.count }}</span>
+            </span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<main style="min-height:60vh">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <section style="background:#FFFFFF; border-bottom:1px solid #E4E7E2">
+    <div style="max-width:1280px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; gap:10px; flex-wrap:wrap">
+      <button type="button" onClick="{{ goListings }}" style="height:46px; padding:0 16px; border:none; border-radius:10px; background:#315B48; color:#FFFFFF; font:700 14px/1 Inter, sans-serif; cursor:pointer; display:flex; align-items:center; gap:9px; flex-shrink:0" style-hover="background:#27422F">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"></path></svg>
+        Kateqoriyalar
+      </button>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1; min-width:280px; display:flex; align-items:center; gap:0; border:1px solid #E4E7E2; border-radius:10px; overflow:hidden; background:#FFFFFF">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#7A8078" stroke-width="2" stroke-linecap="round" style="margin-left:14px; flex-shrink:0"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onQKey }}" placeholder="Avadanlıq və ya marka axtarışı" style="flex:1; min-width:0; height:46px; border:none; outline:none; padding:0 12px; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent">
+        <button type="button" onClick="{{ submitSearch }}" style="height:46px; padding:0 28px; border:none; border-radius:0; background:#FF5A1F; color:#FFFFFF; font:700 14px/1 Inter, sans-serif; cursor:pointer; flex-shrink:0" style-hover="background:#E94A12">Axtar</button>
+        <select value="{{ f.reg }}" onChange="{{ onReg }}" style="height:46px; border:none; border-left:1px solid #E4E7E2; border-radius:0; padding:0 10px; font:500 14px/1 Inter, sans-serif; color:#202522; background:#FFFFFF; min-width:150px; cursor:pointer; outline:none">
+          <option value="">Bütün regionlar</option>
+          <sc-for list="{{ regionOptions }}" as="r" hint-placeholder-count="6">
+            <option value="{{ r.name }}">{{ r.name }}</option>
+          </sc-for>
+        </select>
+      </div>
+      </sc-if>
+    </div>
+    <div style="max-width:1280px; margin:0 auto; padding:0 24px 14px; display:flex; align-items:center; gap:8px; flex-wrap:wrap">
+      <button type="button" onClick="{{ openMap }}" style="white-space:nowrap; display:flex; align-items:center; gap:7px; height:34px; padding:0 12px; border:1px solid #315B48; border-radius:100px; background:#FFFFFF; color:#315B48; font:600 12.5px/1 Inter, sans-serif; cursor:pointer; margin-right:4px" style-hover="background:#EDF3EE">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#315B48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path><path d="M15 5.764v15M9 3.236v15"></path></svg>
+        Xəritə üzrə axtar
+      </button>
+      <span style="white-space:nowrap; font:500 12.5px/1 Inter, sans-serif; color:#6C7268">Populyar:</span>
+      <sc-for list="{{ popular }}" as="p" hint-placeholder-count="5">
+        <span onClick="{{ p.onClick }}" style="white-space:nowrap; font:500 12.5px/1 Inter, sans-serif; color:#3E443C; border:1px solid #E4E7E2; border-radius:100px; padding:7px 11px; cursor:pointer" style-hover="border-color:#315B48; background:#F7F6F1">{{ p.label }}</span>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <section style="max-width:1280px; margin:0 auto; padding:20px 24px 6px">
+    <div style="display:grid; grid-template-columns:repeat(8, minmax(0,112px)); gap:22px 10px; align-items:start; justify-items:center">
+      <sc-for list="{{ catTiles }}" as="c" hint-placeholder-count="8">
+        <div onClick="{{ c.onClick }}" style="display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; width:100%; max-width:112px">
+          <image-slot id="{{ c.slotId }}" src="{{ c.photo }}" shape="rounded" radius="12" fit="cover" placeholder="Şəkil" style="width:100%; aspect-ratio:1"></image-slot>
+          <div style="text-align:center; font:500 13px/1.35 Inter, sans-serif; color:#315B48; text-wrap:pretty; width:100%; max-width:112px">{{ c.name }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isMobile }}">
+  <section style="padding:14px 0 6px">
+    <div style="display:flex; gap:12px; overflow-x:auto; padding:0 14px 4px; scrollbar-width:none; -webkit-overflow-scrolling:touch">
+      <sc-for list="{{ catTiles }}" as="c" hint-placeholder-count="8">
+        <div onClick="{{ c.onClick }}" style="flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:7px; cursor:pointer; width:84px">
+          <image-slot id="{{ c.slotIdM }}" src="{{ c.photo }}" shape="rounded" radius="12" fit="cover" placeholder="Şəkil" style="width:84px; height:84px"></image-slot>
+          <div style="text-align:center; font:500 11.5px/1.3 Inter, sans-serif; color:#315B48; width:84px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ c.name }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <section style="max-width:1280px; margin:0 auto; padding:36px 24px 8px">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px">
+      <div style="display:flex; align-items:center; gap:10px">
+        <h2 style="font:700 20px/1.2 Manrope, sans-serif; color:#202522; margin:0; letter-spacing:-.01em">Premium elanlar</h2>
+        <span style="font:700 10px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#FFFFFF; background:#FF5A1F; padding:5px 7px; border-radius:6px">VIP</span>
+      </div>
+      <span onClick="{{ goListings }}" style="font:600 13.5px/1 Inter, sans-serif; color:#315B48; cursor:pointer" style-hover="color:#FF5A1F">Hamısına bax →</span>
+    </div>
+    <div style="display:grid; grid-template-columns:{{ gridCols }}; gap:14px">
+      <sc-for list="{{ featured }}" as="item" hint-placeholder-count="4">
+        <dc-import name="ListingCard" item="{{ item }}" hint-size="100%,300px"></dc-import>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1280px; margin:0 auto; padding:34px 24px 56px">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px">
+      <h2 style="font:700 20px/1.2 Manrope, sans-serif; color:#202522; margin:0; letter-spacing:-.01em">Son elanlar</h2>
+      <span onClick="{{ goListings }}" style="font:600 13.5px/1 Inter, sans-serif; color:#315B48; cursor:pointer" style-hover="color:#FF5A1F">Bütün elanlar →</span>
+    </div>
+    <div style="display:grid; grid-template-columns:{{ gridCols }}; gap:22px 14px">
+      <sc-for list="{{ latest }}" as="item" hint-placeholder-count="12">
+        <dc-import name="ListingCard" item="{{ item }}" hint-size="100%,300px"></dc-import>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasMore }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; justify-content:center; align-items:center; gap:9px; padding:26px 0 6px">
+        <span style="width:8px; height:8px; border-radius:50%; background:#B7C0B6"></span>
+        <span style="font:500 13px/1 Inter, sans-serif; color:#6C7268">Elanlar yüklənir…</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ feedEnd }}">
+      <div style="display:flex; justify-content:center; padding:26px 0 6px; font:500 13px/1 Inter, sans-serif; color:#8A9086">Bütün elanlar göstərildi</div>
+    </sc-if>
+  </section>
+
+
+</sc-if>
+
+<sc-if value="{{ isListings }}">
+  <div style="max-width:1280px; margin:0 auto; padding:20px 24px 8px">
+    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px">
+      <sc-for list="{{ crumbs }}" as="c" hint-placeholder-count="3">
+        <span onClick="{{ c.onClick }}" style="font:500 12.5px/1 Inter, sans-serif; color:{{ c.fg }}; cursor:pointer">{{ c.label }}</span>
+        <span style="font:400 12.5px/1 Inter, sans-serif; color:#C6CBC4">{{ c.sep }}</span>
+      </sc-for>
+    </div>
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px">
+      <div>
+        <h1 style="font:700 clamp(22px, 3vw, 30px)/1.2 Manrope, sans-serif; color:#202522; margin:0 0 6px; letter-spacing:-.01em">{{ listTitle }}</h1>
+        <div style="font:400 13.5px/1 Inter, sans-serif; color:#7A8078">{{ countText }}</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
+        <sc-if value="{{ isMobile }}">
+          <button type="button" onClick="{{ openFilters }}" style="height:38px; padding:0 14px; border:1px solid #315B48; border-radius:8px; background:#FFFFFF; font:600 13px/1 Inter, sans-serif; color:#315B48; cursor:pointer; display:flex; align-items:center; gap:7px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#315B48" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M7 12h10M10 18h4"></path></svg>
+            Filter {{ activeFilterText }}
+          </button>
+        </sc-if>
+        <sc-for list="{{ sortChips }}" as="s" hint-placeholder-count="3">
+          <span onClick="{{ s.onClick }}" style="white-space:nowrap; font:600 13px/1 Inter, sans-serif; padding:10px 13px; border-radius:8px; cursor:pointer; color:{{ s.fg }}; background:{{ s.bg }}; border:1px solid {{ s.border }}">{{ s.label }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1280px; margin:0 auto; padding:0 24px 56px; display:grid; grid-template-columns:{{ listCols }}; gap:20px; align-items:start">
+    <sc-if value="{{ showFilters }}" hint-placeholder-val="{{ true }}">
+      <div style="{{ filterWrapStyle }}">
+        <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; overflow:hidden">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid #E4E7E2">
+            <span style="font:700 14px/1 Manrope, sans-serif; color:#202522">Filterlər</span>
+            <span onClick="{{ clearFilters }}" style="font:600 12.5px/1 Inter, sans-serif; color:#FF5A1F; cursor:pointer">Sıfırla</span>
+          </div>
+          <div style="{{ filterBodyStyle }}">
+            <div style="padding:16px; border-bottom:1px solid #F1F2EF">
+              <div style="font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#9AA096; margin-bottom:11px">Kateqoriya</div>
+              <div style="display:flex; flex-direction:column; gap:2px">
+                <sc-for list="{{ catFilter }}" as="c" hint-placeholder-count="8">
+                  <div onClick="{{ c.onClick }}" style="display:flex; align-items:center; justify-content:space-between; padding:7px 8px; border-radius:8px; cursor:pointer; background:{{ c.bg }}" style-hover="background:#F7F6F1">
+                    <span style="font:500 13.5px/1.3 Inter, sans-serif; color:{{ c.fg }}">{{ c.name }}</span>
+                    <span style="font:400 12px/1 Inter, sans-serif; color:#9AA096">{{ c.count }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <sc-if value="{{ hasSubs }}">
+              <div style="padding:16px; border-bottom:1px solid #F1F2EF">
+                <div style="font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#9AA096; margin-bottom:11px">Alt kateqoriya</div>
+                <div style="display:flex; flex-wrap:wrap; gap:7px">
+                  <sc-for list="{{ subChips }}" as="s" hint-placeholder-count="5">
+                    <span onClick="{{ s.onClick }}" style="font:500 12.5px/1 Inter, sans-serif; padding:8px 10px; border-radius:8px; cursor:pointer; color:{{ s.fg }}; background:{{ s.bg }}; border:1px solid {{ s.border }}">{{ s.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <div style="padding:16px; border-bottom:1px solid #F1F2EF">
+              <div style="font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#9AA096; margin-bottom:11px">Qiymət, ₼</div>
+              <div style="display:flex; align-items:center; gap:8px">
+                <input value="{{ f.min }}" onChange="{{ onMin }}" placeholder="min" style="flex:1; height:38px; border:1px solid #E4E7E2; border-radius:10px; padding:0 10px; font:400 13.5px/1 Inter, sans-serif; outline:none; color:#202522; min-width:0">
+                <span style="color:#C6CBC4">—</span>
+                <input value="{{ f.max }}" onChange="{{ onMax }}" placeholder="max" style="flex:1; height:38px; border:1px solid #E4E7E2; border-radius:10px; padding:0 10px; font:400 13.5px/1 Inter, sans-serif; outline:none; color:#202522; min-width:0">
+              </div>
+            </div>
+            <div style="padding:16px; border-bottom:1px solid #F1F2EF">
+              <div style="font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#9AA096; margin-bottom:11px">Region</div>
+              <select value="{{ f.reg }}" onChange="{{ onReg }}" style="width:100%; height:38px; border:1px solid #E4E7E2; border-radius:10px; padding:0 8px; font:500 13.5px/1 Inter, sans-serif; color:#202522; background:#FFFFFF; cursor:pointer">
+                <option value="">Bütün regionlar</option>
+                <sc-for list="{{ regionOptions }}" as="r" hint-placeholder-count="6">
+                  <option value="{{ r.name }}">{{ r.name }}</option>
+                </sc-for>
+              </select>
+            </div>
+            <div style="padding:16px; border-bottom:1px solid #F1F2EF">
+              <div style="font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#9AA096; margin-bottom:11px">Vəziyyət</div>
+              <div style="display:flex; gap:7px">
+                <sc-for list="{{ condChips }}" as="c" hint-placeholder-count="2">
+                  <span onClick="{{ c.onClick }}" style="flex:1; text-align:center; font:600 13px/1 Inter, sans-serif; padding:10px 8px; border-radius:8px; cursor:pointer; color:{{ c.fg }}; background:{{ c.bg }}; border:1px solid {{ c.border }}">{{ c.label }}</span>
+                </sc-for>
+              </div>
+            </div>
+            <div style="padding:16px">
+              <div style="font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#9AA096; margin-bottom:11px">Satıcı tipi</div>
+              <div style="display:flex; gap:7px">
+                <sc-for list="{{ sellerChips }}" as="c" hint-placeholder-count="2">
+                  <span onClick="{{ c.onClick }}" style="flex:1; text-align:center; font:600 13px/1 Inter, sans-serif; padding:10px 8px; border-radius:8px; cursor:pointer; color:{{ c.fg }}; background:{{ c.bg }}; border:1px solid {{ c.border }}">{{ c.label }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          <sc-if value="{{ filterOpen }}">
+            <div style="padding:12px 16px; border-top:1px solid #E4E7E2; background:#F7F6F1; display:flex; gap:8px">
+              <button type="button" onClick="{{ closeFilters }}" style="flex:1; height:44px; border:none; border-radius:8px; background:#315B48; color:#FFFFFF; font:700 14px/1 Inter, sans-serif; cursor:pointer">{{ applyText }}</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+    <div>
+      <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; grid-template-columns:{{ gridCols }}; gap:14px">
+          <sc-for list="{{ listItems }}" as="item" hint-placeholder-count="8">
+            <dc-import name="ListingCard" item="{{ item }}" hint-size="100%,300px"></dc-import>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noListResults }}">
+        <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; padding:56px 24px; text-align:center">
+          <div style="font:700 18px/1.3 Manrope, sans-serif; color:#202522; margin-bottom:8px">Nəticə tapılmadı</div>
+          <p style="font:400 14px/1.5 Inter, sans-serif; color:#7A8078; margin:0 0 18px">Filterləri yumşaltmağa cəhd et və ya axtarış sözünü dəyiş.</p>
+          <button type="button" onClick="{{ clearFilters }}" style="height:42px; padding:0 20px; border:1px solid #315B48; border-radius:8px; background:#FFFFFF; color:#315B48; font:600 14px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#315B48; color:#FFFFFF">Filterləri sıfırla</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isDetail }}">
+  <div style="max-width:1280px; margin:0 auto; padding:20px 24px 8px">
+    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
+      <sc-for list="{{ detailCrumbs }}" as="c" hint-placeholder-count="3">
+        <span onClick="{{ c.onClick }}" style="font:500 12.5px/1 Inter, sans-serif; color:{{ c.fg }}; cursor:pointer">{{ c.label }}</span>
+        <span style="font:400 12.5px/1 Inter, sans-serif; color:#C6CBC4">{{ c.sep }}</span>
+      </sc-for>
+    </div>
+  </div>
+  <div style="max-width:1280px; margin:0 auto; padding:6px 24px 0; display:flex; align-items:flex-start; justify-content:space-between; gap:16px">
+    <h1 style="font:400 22px/1.3 Inter, sans-serif; color:#202522; margin:0; text-wrap:pretty">{{ detail.t }}</h1>
+    <button type="button" onClick="{{ favCurrent }}" aria-label="Favorit" style="width:52px; height:52px; border:none; border-radius:12px; background:#FFFFFF; box-shadow:0 1px 3px rgba(32,37,34,.09); cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0">
+      <svg width="22" height="22" viewBox="0 0 24 24" stroke="{{ detail.favStroke }}" fill="{{ detail.favFill }}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+    </button>
+  </div>
+  <div style="max-width:1280px; margin:0 auto; padding:14px 24px 56px; display:grid; grid-template-columns:{{ detailCols }}; gap:26px; align-items:start">
+    <div>
+      <div style="position:relative; aspect-ratio:4/3; background:#20241F; border-radius:12px; overflow:hidden; display:flex; align-items:center; justify-content:center">
+        <div style="width:{{ galInnerW }}; height:100%; background:#E9E5DC; background-image:repeating-linear-gradient(135deg, rgba(32,37,34,.05) 0 1px, transparent 1px 12px); display:flex; align-items:center; justify-content:center">
+          <div style="text-align:center">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#B9B2A0" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
+            <div style="font:600 12px/1 Inter, sans-serif; color:#B9B2A0; margin-top:10px; letter-spacing:.06em">FOTO {{ galLabel }}</div>
+          </div>
+        </div>
+        <button type="button" onClick="{{ galPrev }}" aria-label="Əvvəlki" style="position:absolute; left:14px; top:50%; transform:translateY(-50%); width:40px; height:40px; border:none; border-radius:50%; background:rgba(255,255,255,.92); cursor:pointer; display:flex; align-items:center; justify-content:center" style-hover="background:#FFFFFF">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#202522" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        <button type="button" onClick="{{ galNext }}" aria-label="Növbəti" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); width:40px; height:40px; border:none; border-radius:50%; background:rgba(255,255,255,.92); cursor:pointer; display:flex; align-items:center; justify-content:center" style-hover="background:#FFFFFF">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#202522" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+        </button>
+      </div>
+      <div style="display:flex; gap:10px; margin-top:12px; overflow:auto; padding-bottom:2px">
+        <sc-for list="{{ galThumbs }}" as="t" hint-placeholder-count="6">
+          <div onClick="{{ t.onClick }}" style="width:88px; height:62px; flex-shrink:0; border-radius:8px; background:#E9E5DC; background-image:repeating-linear-gradient(135deg, rgba(32,37,34,.05) 0 1px, transparent 1px 10px); cursor:pointer; outline:2px solid {{ t.border }}; outline-offset:-2px"></div>
+        </sc-for>
+      </div>
+
+      <div style="background:#FFFFFF; border-radius:12px; padding:20px; margin-top:20px">
+        <div style="display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px">
+          <span style="font:600 12px/1 Inter, sans-serif; color:#315B48; background:#EDF3EE; border-radius:6px; padding:7px 9px">{{ detail.catName }}</span>
+          <span style="font:600 12px/1 Inter, sans-serif; color:#6F7F45; background:#F1F2E9; border-radius:6px; padding:7px 9px">{{ detail.cond }}</span>
+          <span style="font:600 12px/1 Inter, sans-serif; color:#7A8078; background:#F4F5F3; border-radius:6px; padding:7px 9px">{{ detail.reg }}</span>
+        </div>
+        <div style="font:700 15px/1 Manrope, sans-serif; color:#202522; margin-bottom:14px">Təsvir</div>
+        <p style="font:400 14.5px/1.65 Inter, sans-serif; color:#3E443C; margin:0; text-wrap:pretty">{{ detail.desc }}</p>
+      </div>
+
+      <div style="background:#FFFFFF; border-radius:12px; padding:20px; margin-top:16px">
+        <div style="font:700 15px/1 Manrope, sans-serif; color:#202522; margin-bottom:14px">Xüsusiyyətlər</div>
+        <div style="display:grid; grid-template-columns:{{ specCols }}; gap:0 24px">
+          <sc-for list="{{ detailSpecs }}" as="s" hint-placeholder-count="6">
+            <div style="display:flex; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px solid #F1F2EF">
+              <span style="font:400 13.5px/1.3 Inter, sans-serif; color:#7A8078">{{ s.k }}</span>
+              <span style="font:600 13.5px/1.3 Inter, sans-serif; color:#202522; text-align:right">{{ s.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:sticky; top:80px; display:flex; flex-direction:column; gap:14px">
+      <div style="background:#FFFFFF; border-radius:12px; padding:22px">
+        <div style="font:800 32px/1.05 Manrope, sans-serif; color:#202522; letter-spacing:-.02em; margin-bottom:20px">{{ detail.priceText }}</div>
+        <div style="display:flex; flex-direction:column; gap:10px">
+          <button type="button" onClick="{{ showPhone }}" style="min-height:52px; border:none; border-radius:10px; background:#FF5A1F; color:#FFFFFF; font:700 15px/1.3 Inter, sans-serif; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:9px 12px" style-hover="background:#E94A12">
+            <span>Nömrəni göstər</span>
+            <span style="display:flex; align-items:center; gap:8px; font:700 16px/1 Manrope, sans-serif">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              {{ phoneMasked }}
+            </span>
+          </button>
+          <button type="button" style="height:52px; border:1px solid #315B48; border-radius:10px; background:#FFFFFF; color:#315B48; font:700 15px/1 Inter, sans-serif; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:9px" style-hover="background:#315B48; color:#FFFFFF">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Mesaj yaz
+          </button>
+        </div>
+      </div>
+
+      <div style="background:#FFFFFF; border-radius:12px; padding:20px">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px">
+          <div style="min-width:0">
+            <div onClick="{{ openStore }}" style="font:700 17px/1.3 Manrope, sans-serif; color:#202522; margin-bottom:6px; cursor:pointer">{{ detail.seller }}</div>
+            <div style="font:400 13px/1.4 Inter, sans-serif; color:#7A8078; margin-bottom:4px">{{ detail.sellerMeta }}</div>
+            <div onClick="{{ openStore }}" style="font:500 13.5px/1.3 Inter, sans-serif; color:#315B48; cursor:pointer">{{ detail.sellerCount }}</div>
+          </div>
+          <div style="width:56px; height:56px; border-radius:10px; background:#EFEDE4; display:flex; align-items:center; justify-content:center; flex-shrink:0">
+            <span style="font:800 16px/1 Manrope, sans-serif; color:#6F7F45">{{ detail.sellerInitial }}</span>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px">
+          <button type="button" onClick="{{ followSeller }}" style="height:44px; border:none; border-radius:8px; background:{{ detail.followBg }}; color:{{ detail.followFg }}; font:600 13.5px/1 Inter, sans-serif; cursor:pointer">{{ detail.followText }}</button>
+          <button type="button" onClick="{{ openStore }}" style="height:44px; border:none; border-radius:8px; background:#F4F5F3; color:#202522; font:600 13.5px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#EAECE7">Mağazaya keç</button>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:18px; padding-top:16px; border-top:1px solid #F1F2EF">
+          <span style="font:400 12.5px/1 Inter, sans-serif; color:#9AA096; white-space:nowrap">Elan № {{ detail.id }} • {{ detail.dateText }}</span>
+          <span style="font:500 12.5px/1 Inter, sans-serif; color:#FF5A1F; cursor:pointer; white-space:nowrap">Şikayət et</span>
+        </div>
+      </div>
+
+      <div style="background:#F1F2E9; border-radius:12px; padding:14px 16px; display:flex; gap:10px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6F7F45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <div style="font:400 12.5px/1.55 Inter, sans-serif; color:#4E5647">Ödənişi əvvəlcədən köçürmə. Məhsulu görüb yoxladıqdan sonra al. Hüquqi məhdudiyyəti olan məhsullarda yaş və sənəd tələbləri var.</div>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1280px; margin:0 auto; padding:0 24px 56px">
+    <h2 style="font:700 20px/1.2 Manrope, sans-serif; color:#202522; margin:0 0 16px; letter-spacing:-.01em">Oxşar elanlar</h2>
+    <div style="display:grid; grid-template-columns:{{ gridCols }}; gap:14px">
+      <sc-for list="{{ similar }}" as="item" hint-placeholder-count="4">
+        <dc-import name="ListingCard" item="{{ item }}" hint-size="100%,300px"></dc-import>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isFavorites }}">
+  <div style="max-width:1280px; margin:0 auto; padding:26px 24px 56px">
+    <h1 style="font:700 clamp(22px, 3vw, 30px)/1.2 Manrope, sans-serif; color:#202522; margin:0 0 6px; letter-spacing:-.01em">Favoritlər</h1>
+    <div style="font:400 13.5px/1 Inter, sans-serif; color:#7A8078; margin-bottom:20px">{{ favCountText }}</div>
+    <sc-if value="{{ hasFavs }}">
+      <div style="display:grid; grid-template-columns:{{ gridCols }}; gap:14px">
+        <sc-for list="{{ favItems }}" as="item" hint-placeholder-count="4">
+          <dc-import name="ListingCard" item="{{ item }}" hint-size="100%,300px"></dc-import>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ noFavs }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; padding:56px 24px; text-align:center">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#C6CBC4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+        <div style="font:700 18px/1.3 Manrope, sans-serif; color:#202522; margin:14px 0 8px">Hələ favorit yoxdur</div>
+        <p style="font:400 14px/1.5 Inter, sans-serif; color:#7A8078; margin:0 0 18px">Elanların üzərindəki ürək ikonuna toxunaraq buraya yığa bilərsən.</p>
+        <button type="button" onClick="{{ goListings }}" style="height:42px; padding:0 20px; border:none; border-radius:8px; background:#315B48; color:#FFFFFF; font:600 14px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#27422F">Elanlara bax</button>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+<sc-if value="{{ isCreate }}">
+  <div style="max-width:1060px; margin:0 auto; padding:26px 24px 56px">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px">
+      <div>
+        <h1 style="font:700 clamp(22px, 3vw, 30px)/1.2 Manrope, sans-serif; color:#202522; margin:0 0 6px; letter-spacing:-.01em">Yeni elan yerləşdir</h1>
+        <div style="font:400 13.5px/1 Inter, sans-serif; color:#7A8078">{{ wizStepText }}</div>
+      </div>
+      <span onClick="{{ goHome }}" style="font:600 13.5px/1 Inter, sans-serif; color:#7A8078; cursor:pointer" style-hover="color:#FF5A1F">Ləğv et</span>
+    </div>
+    <div style="height:6px; background:#E4E7E2; border-radius:100px; overflow:hidden; margin-bottom:22px">
+      <div style="height:100%; background:#FF5A1F; border-radius:100px; width:{{ wizPct }}; transition:width .25s"></div>
+    </div>
+    <div style="display:grid; grid-template-columns:{{ wizCols }}; gap:20px; align-items:start">
+      <sc-if value="{{ isDesktop }}">
+        <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; padding:8px; position:sticky; top:80px">
+          <sc-for list="{{ wizSteps }}" as="s" hint-placeholder-count="8">
+            <div onClick="{{ s.onClick }}" style="display:flex; align-items:center; gap:11px; padding:10px 10px; border-radius:8px; cursor:pointer; background:{{ s.bg }}">
+              <div style="width:24px; height:24px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:{{ s.dotBg }}; border:1.5px solid {{ s.dotBorder }}">
+                <span style="font:700 11px/1 Inter, sans-serif; color:{{ s.dotFg }}">{{ s.n }}</span>
+              </div>
+              <span style="font:500 13.5px/1.3 Inter, sans-serif; color:{{ s.fg }}">{{ s.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; overflow:hidden">
+        <div style="padding:22px 22px 6px">
+          <h2 style="font:700 19px/1.3 Manrope, sans-serif; color:#202522; margin:0 0 6px; letter-spacing:-.01em">{{ wizTitle }}</h2>
+          <p style="font:400 13.5px/1.5 Inter, sans-serif; color:#7A8078; margin:0">{{ wizHint }}</p>
+        </div>
+        <div style="padding:18px 22px 22px">
+
+          <sc-if value="{{ wizIs1 }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid; grid-template-columns:{{ wizGrid2 }}; gap:0; border:1px solid #E4E7E2; border-radius:10px; overflow:hidden">
+              <div style="border-right:1px solid #E4E7E2">
+                <sc-for list="{{ wizCatRows }}" as="c" hint-placeholder-count="8">
+                  <div onClick="{{ c.onClick }}" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:13px 14px; cursor:pointer; border-bottom:1px solid #F1F2EF; background:{{ c.bg }}" style-hover="background:#F7F6F1">
+                    <span style="font:{{ c.font }} 14px/1.3 Inter, sans-serif; color:{{ c.fg }}">{{ c.name }}</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ c.fg }}" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="background:#FAFAF7">
+                <sc-if value="{{ wizHasCat }}">
+                  <sc-for list="{{ wizSubRows }}" as="r" hint-placeholder-count="6">
+                    <div onClick="{{ r.onClick }}" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:13px 14px; cursor:pointer; border-bottom:1px solid #F1F2EF; background:{{ r.bg }}" style-hover="background:#F1F2EF">
+                      <span style="font:{{ r.font }} 14px/1.3 Inter, sans-serif; color:{{ r.fg }}">{{ r.label }}</span>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ r.fg }}" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg>
+                    </div>
+                  </sc-for>
+                </sc-if>
+                <sc-if value="{{ wizNoCat }}" hint-placeholder-val="{{ true }}">
+                  <div style="padding:20px 14px; font:400 13.5px/1.5 Inter, sans-serif; color:#9AA096">Soldan kateqoriya seç — alt kateqoriyalar burada görünəcək.</div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ wizIs2 }}">
+            <div onClick="{{ wizToCats }}" style="display:flex; align-items:center; justify-content:space-between; gap:12px; background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px; cursor:pointer" style-hover="background:#EFEFF0">
+              <div>
+                <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Kateqoriya <span style="color:#FF5A1F">*</span></div>
+                <div style="font:500 14.5px/1.3 Inter, sans-serif; color:#202522">{{ wizCatLabel }}</div>
+              </div>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#7A8078" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg>
+            </div>
+
+            <div style="background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px; margin-top:10px">
+              <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Məhsul kateqoriyası <span style="color:#FF5A1F">*</span></div>
+              <select value="{{ wiz.sub }}" onChange="{{ onWizSub }}" style="width:100%; height:26px; border:none; outline:none; padding:0; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent; font-weight:500; cursor:pointer">
+                <option value="">Seç</option>
+                <sc-for list="{{ wizSubOptions }}" as="o" hint-placeholder-count="6">
+                  <option value="{{ o.name }}">{{ o.name }}</option>
+                </sc-for>
+              </select>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px">
+              <sc-for list="{{ wizFlags }}" as="f" hint-placeholder-count="2">
+                <div onClick="{{ f.onClick }}" style="display:flex; align-items:center; justify-content:space-between; gap:12px; background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px; padding-top:15px; padding-bottom:15px; cursor:pointer">
+                  <span style="font:500 14.5px/1 Inter, sans-serif; color:#202522">{{ f.label }}</span>
+                  <div style="width:22px; height:22px; border-radius:5px; border:1.5px solid {{ f.border }}; background:{{ f.bg }}; display:flex; align-items:center; justify-content:center">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{ f.tick }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="font:700 15.5px/1.3 Manrope, sans-serif; color:#202522; margin:26px 0 12px">Şəhər və qiymət</div>
+            <div style="display:grid; grid-template-columns:{{ wizGrid2 }}; gap:10px">
+              <div style="background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px">
+                <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Şəhər <span style="color:#FF5A1F">*</span></div>
+                <select value="{{ wiz.reg }}" onChange="{{ onWizReg }}" style="width:100%; height:26px; border:none; outline:none; padding:0; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent; font-weight:500; cursor:pointer">
+                  <option value="">Şəhər seç</option>
+                  <sc-for list="{{ regionOptions }}" as="r" hint-placeholder-count="6">
+                    <option value="{{ r.name }}">{{ r.name }}</option>
+                  </sc-for>
+                </select>
+              </div>
+              <div style="background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px">
+                <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Qiymət, ₼ <span style="color:#FF5A1F">*</span></div>
+                <input value="{{ wiz.price }}" onChange="{{ onWizPrice }}" placeholder="0" style="width:100%; height:26px; border:none; outline:none; padding:0; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent; font:700 15px/1 Manrope, sans-serif; color:#315B48">
+              </div>
+            </div>
+
+            <div style="font:700 15.5px/1.3 Manrope, sans-serif; color:#202522; margin:26px 0 12px">Elanın başlığı və məzmun</div>
+            <div style="background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px">
+              <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Elanın başlığı <span style="color:#FF5A1F">*</span></div>
+              <input value="{{ wiz.title }}" onChange="{{ onWizTitle }}" placeholder="Məs. 4 nəfərlik günbəz çadır" style="width:100%; height:26px; border:none; outline:none; padding:0; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent">
+            </div>
+            <div style="background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px; margin-top:10px">
+              <textarea value="{{ wiz.desc }}" onChange="{{ onWizDesc }}" rows="6" placeholder="Üstünlüklərini və vacib məqamları qeyd edin" style="width:100%; border:none; outline:none; padding:0; font:400 14.5px/1.55 Inter, sans-serif; color:#202522; background:transparent; resize:vertical"></textarea>
+            </div>
+            <div style="text-align:right; font:400 12.5px/1 Inter, sans-serif; color:#9AA096; margin-top:7px">{{ wizDescLeft }}</div>
+
+            <div style="font:700 15.5px/1.3 Manrope, sans-serif; color:#202522; margin:26px 0 12px">Şəkillər <span style="color:#FF5A1F">*</span></div>
+            <button type="button" onClick="{{ addPhoto }}" style="width:100%; border:1.5px dashed #A9B6AC; border-radius:10px; background:#F5F5F6; padding:26px 16px; display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer" style-hover="background:#EFEFF0; border-color:#315B48">
+              <div style="width:38px; height:38px; border-radius:9px; background:#315B48; display:flex; align-items:center; justify-content:center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L8 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>
+              </div>
+              <span style="font:600 14px/1 Inter, sans-serif; color:#315B48">Şəkil əlavə et</span>
+            </button>
+            <div style="display:flex; flex-direction:column; gap:5px; margin-top:11px">
+              <div style="font:400 12.5px/1.5 Inter, sans-serif; color:#7A8078">Şəkillərin yerini dəyişmək üçün barmağınızı onların üzərində sıxılı saxlayın.</div>
+              <div style="font:400 12.5px/1.5 Inter, sans-serif; color:#7A8078">Yaxşı şəkilləri olan elanlar alıcıların daha çox diqqətini çəkir.</div>
+              <div style="font:400 12.5px/1.5 Inter, sans-serif; color:#7A8078">Şəkillərin üzərinə mətn və simvollar yerləşdirməyin.</div>
+            </div>
+            <sc-if value="{{ wizHasPhotos }}">
+              <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(96px, 1fr)); gap:10px; margin-top:12px">
+                <sc-for list="{{ photoSlots }}" as="p" hint-placeholder-count="1">
+                  <div style="position:relative; aspect-ratio:1; border-radius:10px; background:#E9E5DC; background-image:repeating-linear-gradient(135deg, rgba(32,37,34,.045) 0 1px, transparent 1px 9px); display:flex; align-items:center; justify-content:center">
+                    <span style="font:600 12px/1 Inter, sans-serif; color:#A79F8C">{{ p.label }}</span>
+                    <button type="button" onClick="{{ p.onRemove }}" aria-label="Sil" style="position:absolute; top:6px; right:6px; width:24px; height:24px; border:none; border-radius:6px; background:rgba(255,255,255,.94); cursor:pointer; display:flex; align-items:center; justify-content:center">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#202522" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+                    </button>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <div style="font:700 15.5px/1.3 Manrope, sans-serif; color:#202522; margin:26px 0 12px">Əlaqə məlumatları</div>
+            <div style="display:flex; flex-direction:column; gap:10px">
+              <div style="background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px">
+                <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Adınız <span style="color:#FF5A1F">*</span></div>
+                <input value="{{ wiz.name }}" onChange="{{ onWizName }}" placeholder="Adınızı yazın" style="width:100%; height:26px; border:none; outline:none; padding:0; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent">
+              </div>
+              <div style="background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px">
+                <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">E-mail <span style="color:#FF5A1F">*</span></div>
+                <input value="{{ wiz.email }}" onChange="{{ onWizEmail }}" placeholder="ad@mail.com" style="width:100%; height:26px; border:none; outline:none; padding:0; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent">
+              </div>
+              <div style="background:#F5F5F6; border:1px solid transparent; border-radius:10px; padding:10px 14px 12px">
+                <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Mobil nömrə <span style="color:#FF5A1F">*</span></div>
+                <input value="{{ wiz.phone }}" onChange="{{ onWizPhone }}" placeholder="+994 50 000 00 00" style="width:100%; height:26px; border:none; outline:none; padding:0; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent">
+              </div>
+              <div style="display:flex; gap:8px">
+                <sc-for list="{{ wizSellers }}" as="c" hint-placeholder-count="2">
+                  <span onClick="{{ c.onClick }}" style="flex:1; text-align:center; font:600 13.5px/1 Inter, sans-serif; padding:15px 8px; border-radius:10px; cursor:pointer; color:{{ c.fg }}; background:{{ c.bg }}; border:1px solid {{ c.border }}">{{ c.label }}</span>
+                </sc-for>
+              </div>
+            </div>
+
+            <button type="button" onClick="{{ wizNext }}" style="width:100%; height:52px; margin-top:22px; border:none; border-radius:12px; background:#FF5A1F; color:#FFFFFF; font:700 15px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#E94A12">Elanı əlavə et</button>
+            <div style="font:400 12.5px/1.55 Inter, sans-serif; color:#9AA096; margin-top:12px; text-align:center">Elan moderasiyadan sonra dərc olunur.</div>
+          </sc-if>
+
+          <sc-if value="{{ wizIs3 }}">
+            <div style="text-align:center; padding:24px 0 12px">
+              <div style="width:56px; height:56px; border-radius:50%; background:#EDF3EE; display:inline-flex; align-items:center; justify-content:center; margin-bottom:16px">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#315B48" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+              </div>
+              <div style="font:700 20px/1.3 Manrope, sans-serif; color:#202522; margin-bottom:8px">Elan yerləşdirildi</div>
+              <p style="font:400 14px/1.55 Inter, sans-serif; color:#7A8078; margin:0 auto 20px; max-width:380px">Elanın moderasiyaya göndərildi. Təsdiqdən sonra “Son elanlar” bölməsində görünəcək.</p>
+              <div style="display:flex; gap:9px; justify-content:center; flex-wrap:wrap">
+                <button type="button" onClick="{{ openNewListing }}" style="height:44px; padding:0 18px; border:none; border-radius:8px; background:#315B48; color:#FFFFFF; font:600 14px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#27422F">Elanı gör</button>
+                <button type="button" onClick="{{ goProfile }}" style="height:44px; padding:0 18px; border:1px solid #E4E7E2; border-radius:8px; background:#FFFFFF; color:#202522; font:600 14px/1 Inter, sans-serif; cursor:pointer" style-hover="border-color:#315B48">Profilə keç</button>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+        <sc-if value="{{ wizShowFooter }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:14px 22px; border-top:1px solid #E4E7E2; background:#FAFAF7; display:flex; justify-content:space-between; gap:10px">
+            <button type="button" onClick="{{ wizBack }}" style="height:44px; padding:0 18px; border:1px solid #E4E7E2; border-radius:8px; background:#FFFFFF; color:#3E443C; font:600 14px/1 Inter, sans-serif; cursor:pointer" style-hover="border-color:#315B48">Geri</button>
+            <button type="button" onClick="{{ wizNext }}" style="height:44px; padding:0 22px; border:none; border-radius:8px; background:#FF5A1F; color:#FFFFFF; font:700 14px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#E94A12">{{ wizNextText }}</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isAds }}">
+  <div style="background:#27422F; background-image:repeating-linear-gradient(115deg, rgba(217,201,163,.07) 0 1px, transparent 1px 14px)">
+    <div style="max-width:1280px; margin:0 auto; padding:52px 24px 46px; display:grid; grid-template-columns:{{ adsHeroCols }}; gap:30px; align-items:center">
+      <div>
+        <div style="display:inline-flex; align-items:center; gap:7px; background:#FF5A1F; border-radius:6px; padding:6px 10px; font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#FFFFFF; margin-bottom:16px">Reklam platforması</div>
+        <h1 style="font:800 clamp(28px, 4vw, 44px)/1.1 Manrope, sans-serif; color:#FFFFFF; margin:0 0 14px; letter-spacing:-.03em; text-wrap:pretty">Outdoor auditoriyasına birbaşa çıxış</h1>
+        <p style="font:400 16px/1.65 Inter, sans-serif; color:#C3D0C9; margin:0 0 24px; max-width:520px; text-wrap:pretty">Ovçuluq, balıqçılıq, kamp və outdoor məhsullarını axtaran istifadəçilər Ovcuprim.az-da toplanır. Brendinizi elə həmin an — alış qərarı verilən anda göstərin.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <button type="button" onClick="{{ adsContact }}" style="height:48px; padding:0 22px; border:none; border-radius:10px; background:#FF5A1F; color:#FFFFFF; font:700 14.5px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#E94A12">Kampaniya sifariş et</button>
+          <button type="button" onClick="{{ adsFormats }}" style="height:48px; padding:0 22px; border:1px solid #4E7460; border-radius:10px; background:transparent; color:#FFFFFF; font:600 14.5px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#3F6450">Formatlara bax</button>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+        <sc-for list="{{ adsStats }}" as="st" hint-placeholder-count="4">
+          <div style="background:rgba(255,255,255,.06); border:1px solid #476E58; border-radius:12px; padding:16px">
+            <div style="font:800 24px/1 Manrope, sans-serif; color:#FFFFFF; margin-bottom:6px">{{ st.v }}</div>
+            <div style="font:500 12px/1.35 Inter, sans-serif; letter-spacing:.04em; text-transform:uppercase; color:#8FA79B">{{ st.k }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <section id="ads-formats" style="max-width:1280px; margin:0 auto; padding:40px 24px 10px">
+    <h2 style="font:800 24px/1.2 Manrope, sans-serif; color:#202522; margin:0 0 6px; letter-spacing:-.02em">Reklam formatları</h2>
+    <p style="font:400 14.5px/1.6 Inter, sans-serif; color:#7A8078; margin:0 0 22px; max-width:620px">Bütün formatlar desktop və mobil versiyada ayrı ölçülərdə hazırlanır.</p>
+    <div style="display:grid; grid-template-columns:{{ adsGridCols }}; gap:14px">
+      <sc-for list="{{ adsFormatList }}" as="f" hint-placeholder-count="4">
+        <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; padding:18px">
+          <div style="font:700 11px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#FF5A1F; margin-bottom:10px">{{ f.tag }}</div>
+          <div style="font:700 16.5px/1.3 Manrope, sans-serif; color:#202522; margin-bottom:8px">{{ f.name }}</div>
+          <p style="font:400 13.5px/1.6 Inter, sans-serif; color:#7A8078; margin:0 0 14px; text-wrap:pretty">{{ f.desc }}</p>
+          <div style="display:flex; justify-content:space-between; gap:10px; border-top:1px solid #F1F2EF; padding-top:12px">
+            <span style="font:400 12.5px/1.3 Inter, sans-serif; color:#9AA096">{{ f.size }}</span>
+            <span style="font:700 13px/1.3 Inter, sans-serif; color:#315B48">{{ f.price }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1280px; margin:0 auto; padding:34px 24px 10px">
+    <h2 style="font:800 24px/1.2 Manrope, sans-serif; color:#202522; margin:0 0 22px; letter-spacing:-.02em">Necə işləyir</h2>
+    <div style="display:grid; grid-template-columns:{{ adsStepCols }}; gap:14px">
+      <sc-for list="{{ adsSteps }}" as="s" hint-placeholder-count="4">
+        <div style="background:#F1F2E9; border:1px solid #E2E6D8; border-radius:12px; padding:18px">
+          <div style="width:30px; height:30px; border-radius:50%; background:#315B48; color:#FFFFFF; display:flex; align-items:center; justify-content:center; font:700 14px/1 Manrope, sans-serif; margin-bottom:12px">{{ s.n }}</div>
+          <div style="font:700 15px/1.3 Manrope, sans-serif; color:#202522; margin-bottom:7px">{{ s.t }}</div>
+          <p style="font:400 13.5px/1.6 Inter, sans-serif; color:#4E5647; margin:0; text-wrap:pretty">{{ s.d }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="ads-contact" style="max-width:1280px; margin:0 auto; padding:34px 24px 50px">
+    <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:14px; padding:26px; display:grid; grid-template-columns:{{ adsHeroCols }}; gap:26px; align-items:start">
+      <div>
+        <h2 style="font:800 22px/1.25 Manrope, sans-serif; color:#202522; margin:0 0 10px; letter-spacing:-.02em">Kampaniya üçün müraciət</h2>
+        <p style="font:400 14.5px/1.65 Inter, sans-serif; color:#7A8078; margin:0 0 8px; max-width:460px; text-wrap:pretty">Formu doldurun — komandamız 1 iş günü ərzində qiymət cədvəli və mövcud yerləşmə təqvimi ilə əlaqə saxlayacaq.</p>
+        <div style="font:500 14.5px/1.8 Inter, sans-serif; color:#315B48">reklam@ovcuprim.az<br>(012) 526-19-19</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px">
+        <div style="background:#F5F5F6; border-radius:10px; padding:10px 14px 12px">
+          <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Şirkət / brend <span style="color:#FF5A1F">*</span></div>
+          <input value="{{ adsForm.company }}" onChange="{{ onAdsCompany }}" placeholder="Şirkətin adı" style="width:100%; height:26px; border:none; outline:none; padding:0; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent">
+        </div>
+        <div style="background:#F5F5F6; border-radius:10px; padding:10px 14px 12px">
+          <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Əlaqə <span style="color:#FF5A1F">*</span></div>
+          <input value="{{ adsForm.contact }}" onChange="{{ onAdsContact }}" placeholder="Nömrə və ya e-mail" style="width:100%; height:26px; border:none; outline:none; padding:0; font:400 14.5px/1 Inter, sans-serif; color:#202522; background:transparent">
+        </div>
+        <div style="background:#F5F5F6; border-radius:10px; padding:10px 14px 12px">
+          <div style="font:500 12px/1 Inter, sans-serif; color:#9AA096; margin-bottom:6px">Büdcə və format</div>
+          <textarea value="{{ adsForm.note }}" onChange="{{ onAdsNote }}" rows="3" placeholder="Məs. ana səhifə banneri, aylıq 800 ₼" style="width:100%; border:none; outline:none; padding:0; font:400 14.5px/1.55 Inter, sans-serif; color:#202522; background:transparent; resize:vertical"></textarea>
+        </div>
+        <button type="button" onClick="{{ adsSubmit }}" style="width:100%; height:50px; border:none; border-radius:10px; background:#FF5A1F; color:#FFFFFF; font:700 15px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#E94A12">{{ adsSubmitText }}</button>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isHelp }}">
+  <div style="background:#EDF3EE; padding:36px 24px">
+    <div style="max-width:1280px; margin:0 auto; text-align:center">
+      <div style="font:800 clamp(20px, 2.8vw, 28px)/1.3 Manrope, sans-serif; color:#202522; letter-spacing:-.01em">Salam! Sizə necə kömək edə bilərik?</div>
+    </div>
+  </div>
+  <section style="max-width:1280px; margin:0 auto; padding:28px 24px 46px; display:grid; grid-template-columns:{{ infoCols }}; gap:26px; align-items:start">
+    <div style="background:#F1F2EF; border-radius:12px; padding:10px 4px">
+      <sc-for list="{{ helpTabs }}" as="t" hint-placeholder-count="6">
+        <div onClick="{{ t.onClick }}" style="padding:12px 16px; font:{{ t.font }} 15px/1.3 Inter, sans-serif; color:{{ t.fg }}; cursor:pointer" style-hover="color:#FF5A1F">{{ t.label }}</div>
+      </sc-for>
+    </div>
+    <div>
+      <h1 style="font:800 clamp(22px, 3vw, 30px)/1.2 Manrope, sans-serif; color:#202522; margin:0 0 22px; letter-spacing:-.02em">{{ helpTitle }}</h1>
+      <sc-for list="{{ helpFaqs }}" as="q" hint-placeholder-count="6">
+        <div style="border-top:1px solid #E4E7E2">
+          <div onClick="{{ q.onClick }}" style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 2px; cursor:pointer">
+            <span style="font:500 15.5px/1.4 Inter, sans-serif; color:#202522">{{ q.q }}</span>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#7A8078" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><path d="{{ q.icon }}"></path></svg>
+          </div>
+          <sc-if value="{{ q.open }}">
+            <p style="font:400 14.5px/1.7 Inter, sans-serif; color:#3E443C; margin:0 0 20px; max-width:780px; text-wrap:pretty">{{ q.a }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+      <div style="border-top:1px solid #E4E7E2; padding-top:22px; margin-top:6px; font:400 13.5px/1.6 Inter, sans-serif; color:#7A8078">Cavab tapmadın? Bizə yaz: info@ovcuprim.az • (012) 526-19-19</div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isInfo }}">
+  <section style="max-width:1280px; margin:0 auto; padding:26px 24px 46px; display:grid; grid-template-columns:{{ infoCols }}; gap:26px; align-items:start">
+    <div style="background:#F1F2EF; border-radius:10px; overflow:hidden">
+      <sc-for list="{{ infoTabs }}" as="t" hint-placeholder-count="8">
+        <div onClick="{{ t.onClick }}" style="padding:8px 16px; font:{{ t.font }} 14px/1.35 Inter, sans-serif; color:{{ t.fg }}; background:{{ t.bg }}; cursor:pointer; text-decoration:{{ t.deco }}" style-hover="color:#FF5A1F">{{ t.label }}</div>
+      </sc-for>
+    </div>
+    <div>
+      <sc-if value="{{ infoHasKicker }}">
+        <div style="font:700 14px/1.4 Inter, sans-serif; color:#FF5A1F; margin:0 0 10px">{{ infoKicker }}</div>
+      </sc-if>
+      <h1 style="font:800 clamp(24px, 3.2vw, 34px)/1.15 Manrope, sans-serif; color:#FF5A1F; margin:0 0 20px; letter-spacing:-.02em">{{ infoTitle }}</h1>
+      <sc-for list="{{ infoBlocks }}" as="p" hint-placeholder-count="4">
+        <sc-if value="{{ p.isH }}">
+          <div style="font:700 17px/1.35 Manrope, sans-serif; color:#202522; margin:26px 0 12px">{{ p.text }}</div>
+        </sc-if>
+        <sc-if value="{{ p.isP }}" hint-placeholder-val="{{ true }}">
+          <p style="font:400 15px/1.7 Inter, sans-serif; color:#3E443C; margin:0 0 14px; max-width:820px; text-wrap:pretty"><span style="font-weight:700; color:#202522">{{ p.num }}</span>{{ p.text }}</p>
+        </sc-if>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isStores }}">
+  <section style="max-width:1280px; margin:0 auto; padding:30px 24px 40px">
+    <h1 style="font:800 clamp(24px, 3.2vw, 32px)/1.15 Manrope, sans-serif; color:#202522; margin:0 0 20px; letter-spacing:-.02em">Mağazalar</h1>
+    <div style="display:grid; grid-template-columns:{{ storeToolCols }}; gap:12px; margin-bottom:22px">
+      <div style="display:flex; align-items:center; gap:9px; background:#FFFFFF; border:1px solid #E4E7E2; border-radius:10px; padding:0 13px; height:48px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#7A8078" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input value="{{ storeQ }}" onChange="{{ onStoreQ }}" placeholder="Mağaza axtarışı" style="flex:1; min-width:0; border:none; outline:none; background:transparent; font:400 14.5px/1 Inter, sans-serif; color:#202522">
+      </div>
+      <select value="{{ storeCat }}" onChange="{{ onStoreCat }}" style="height:48px; border:1px solid #E4E7E2; border-radius:10px; background:#FFFFFF; padding:0 12px; font:500 14px/1 Inter, sans-serif; color:#202522; cursor:pointer">
+        <option value="">Kateqoriya</option>
+        <sc-for list="{{ catOptions }}" as="c" hint-placeholder-count="8">
+          <option value="{{ c.id }}">{{ c.name }}</option>
+        </sc-for>
+      </select>
+      <select value="{{ storeSort }}" onChange="{{ onStoreSort }}" style="height:48px; border:1px solid #E4E7E2; border-radius:10px; background:#FFFFFF; padding:0 12px; font:500 14px/1 Inter, sans-serif; color:#202522; cursor:pointer">
+        <option value="def">İlkin ayarlar üzrə</option>
+        <option value="count">Elan sayına görə</option>
+        <option value="name">Ada görə</option>
+      </select>
+    </div>
+    <div style="display:grid; grid-template-columns:{{ storeGridCols }}; gap:14px">
+      <sc-for list="{{ storeList }}" as="s" hint-placeholder-count="6">
+        <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; padding:16px">
+          <div onClick="{{ s.onOpen }}" style="display:flex; align-items:center; gap:13px; cursor:pointer">
+            <div style="width:54px; height:54px; border-radius:10px; background:#EFEDE4; display:flex; align-items:center; justify-content:center; flex-shrink:0">
+              <span style="font:800 16px/1 Manrope, sans-serif; color:#6F7F45">{{ s.initial }}</span>
+            </div>
+            <div style="min-width:0">
+              <div style="font:700 15.5px/1.3 Manrope, sans-serif; color:#202522; margin-bottom:5px">{{ s.name }}</div>
+              <div style="font:400 13px/1.3 Inter, sans-serif; color:#7A8078"><span style="color:#315B48; text-decoration:underline">{{ s.countText }}</span> • {{ s.ageText }}</div>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:14px">
+            <button type="button" onClick="{{ s.onFollow }}" style="height:40px; border:none; border-radius:8px; background:{{ s.followBg }}; color:{{ s.followFg }}; font:600 13.5px/1 Inter, sans-serif; cursor:pointer">{{ s.followText }}</button>
+            <button type="button" onClick="{{ s.onPhone }}" style="height:40px; border:1px solid #E4E7E2; border-radius:8px; background:#FFFFFF; color:#202522; font:600 13.5px/1 Inter, sans-serif; cursor:pointer" style-hover="border-color:#315B48">{{ s.phoneText }}</button>
+          </div>
+        </div>
+      </sc-for>
+      <div onClick="{{ goCreateStore }}" style="border:1.5px dashed #C6CBC4; border-radius:12px; padding:16px; display:flex; flex-direction:column; justify-content:center; gap:7px; cursor:pointer; background:#FAFAF7" style-hover="border-color:#315B48">
+        <div style="font:700 15px/1.3 Manrope, sans-serif; color:#315B48">Mağaza aç</div>
+        <div style="font:400 13px/1.45 Inter, sans-serif; color:#7A8078">Elanlarını mağaza vitrinində topla, izləyici qazan.</div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isStore }}">
+  <div style="background:#315B48; background-image:repeating-linear-gradient(115deg, rgba(217,201,163,.07) 0 1px, transparent 1px 14px)">
+    <div style="max-width:1280px; margin:0 auto; padding:34px 24px">
+      <div style="display:flex; align-items:flex-end; gap:18px; flex-wrap:wrap">
+        <div style="width:78px; height:78px; border-radius:12px; background:#D9C9A3; display:flex; align-items:center; justify-content:center; flex-shrink:0">
+          <span style="font:800 24px/1 Manrope, sans-serif; color:#315B48">{{ store.initial }}</span>
+        </div>
+        <div style="flex:1; min-width:200px">
+          <div style="display:flex; align-items:center; gap:9px; margin-bottom:7px; flex-wrap:wrap">
+            <h1 style="font:800 clamp(22px, 3vw, 30px)/1.15 Manrope, sans-serif; color:#FFFFFF; margin:0; letter-spacing:-.02em">{{ store.name }}</h1>
+            <sc-if value="{{ store.verified }}" hint-placeholder-val="{{ true }}">
+              <span style="display:inline-flex; align-items:center; gap:5px; font:700 11px/1 Inter, sans-serif; color:#315B48; background:#D9C9A3; border-radius:6px; padding:6px 8px">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#315B48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                TƏSDİQLƏNMİŞ
+              </span>
+            </sc-if>
+          </div>
+          <div style="font:400 14px/1.5 Inter, sans-serif; color:#C3D0C9; max-width:520px; text-wrap:pretty">{{ store.desc }}</div>
+        </div>
+        <div style="display:flex; gap:9px">
+          <button type="button" style="height:42px; padding:0 16px; border:1px solid #4E7460; border-radius:8px; background:transparent; color:#DCE4DF; font:600 13.5px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#3F6450">İzlə</button>
+          <button type="button" style="height:42px; padding:0 16px; border:none; border-radius:8px; background:#FF5A1F; color:#FFFFFF; font:700 13.5px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#E94A12">Əlaqə</button>
+        </div>
+      </div>
+      <div style="display:flex; gap:26px; flex-wrap:wrap; margin-top:24px; padding-top:20px; border-top:1px solid #476E58">
+        <sc-for list="{{ store.stats }}" as="s" hint-placeholder-count="4">
+          <div>
+            <div style="font:800 20px/1 Manrope, sans-serif; color:#FFFFFF; margin-bottom:5px">{{ s.v }}</div>
+            <div style="font:500 12px/1 Inter, sans-serif; color:#8FA79B; letter-spacing:.04em; text-transform:uppercase">{{ s.k }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1280px; margin:0 auto; padding:26px 24px 56px">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:18px">
+      <h2 style="font:700 20px/1.2 Manrope, sans-serif; color:#202522; margin:0; letter-spacing:-.01em">Mağazanın elanları</h2>
+      <div style="display:flex; gap:8px; flex-wrap:wrap">
+        <sc-for list="{{ sortChips }}" as="s" hint-placeholder-count="3">
+          <span onClick="{{ s.onClick }}" style="white-space:nowrap; font:600 13px/1 Inter, sans-serif; padding:9px 12px; border-radius:8px; cursor:pointer; color:{{ s.fg }}; background:{{ s.bg }}; border:1px solid {{ s.border }}">{{ s.label }}</span>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:{{ gridCols }}; gap:14px">
+      <sc-for list="{{ storeItems }}" as="item" hint-placeholder-count="4">
+        <dc-import name="ListingCard" item="{{ item }}" hint-size="100%,300px"></dc-import>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isProfile }}">
+  <div style="max-width:1280px; margin:0 auto; padding:26px 24px 56px">
+    <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; padding:22px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:18px">
+      <div style="width:60px; height:60px; border-radius:12px; background:#EFEDE4; display:flex; align-items:center; justify-content:center; flex-shrink:0">
+        <span style="font:700 19px/1 Manrope, sans-serif; color:#6F7F45">AM</span>
+      </div>
+      <div style="flex:1; min-width:180px">
+        <div style="font:700 19px/1.2 Manrope, sans-serif; color:#202522; margin-bottom:5px">Aydın Məmmədov</div>
+        <div style="font:400 13.5px/1 Inter, sans-serif; color:#7A8078">Fərdi satıcı • Bakı • 2024-dən üzv</div>
+      </div>
+      <button type="button" onClick="{{ goCreate }}" style="height:42px; padding:0 18px; border:none; border-radius:8px; background:#FF5A1F; color:#FFFFFF; font:700 13.5px/1 Inter, sans-serif; cursor:pointer" style-hover="background:#E94A12">+ Yeni elan</button>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin-bottom:22px">
+      <sc-for list="{{ profileStats }}" as="s" hint-placeholder-count="4">
+        <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; padding:16px">
+          <div style="font:800 22px/1 Manrope, sans-serif; color:#315B48; margin-bottom:6px">{{ s.v }}</div>
+          <div style="font:500 12.5px/1 Inter, sans-serif; color:#7A8078">{{ s.k }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px">
+      <sc-for list="{{ profileTabs }}" as="t" hint-placeholder-count="3">
+        <span onClick="{{ t.onClick }}" style="white-space:nowrap; font:600 13.5px/1 Inter, sans-serif; padding:11px 15px; border-radius:8px; cursor:pointer; color:{{ t.fg }}; background:{{ t.bg }}; border:1px solid {{ t.border }}">{{ t.label }}</span>
+      </sc-for>
+    </div>
+    <sc-if value="{{ profileRows }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; flex-direction:column; gap:10px">
+        <sc-for list="{{ myRows }}" as="r" hint-placeholder-count="4">
+          <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; padding:12px; display:flex; align-items:center; gap:14px; flex-wrap:wrap">
+            <div onClick="{{ r.onOpen }}" style="width:96px; height:72px; border-radius:8px; background:#E9E5DC; background-image:repeating-linear-gradient(135deg, rgba(32,37,34,.045) 0 1px, transparent 1px 9px); flex-shrink:0; cursor:pointer"></div>
+            <div onClick="{{ r.onOpen }}" style="flex:1; min-width:160px; cursor:pointer">
+              <div style="font:600 14.5px/1.35 Inter, sans-serif; color:#202522; margin-bottom:5px">{{ r.t }}</div>
+              <div style="font:400 12.5px/1 Inter, sans-serif; color:#7A8078">{{ r.meta }}</div>
+            </div>
+            <div style="font:700 17px/1 Manrope, sans-serif; color:#315B48">{{ r.priceText }}</div>
+            <div style="display:flex; gap:7px">
+              <span style="font:600 11.5px/1 Inter, sans-serif; color:{{ r.statusFg }}; background:{{ r.statusBg }}; border-radius:6px; padding:7px 9px">{{ r.status }}</span>
+              <span style="font:600 12.5px/1 Inter, sans-serif; color:#7A8078; border:1px solid #E4E7E2; border-radius:6px; padding:7px 9px; cursor:pointer" style-hover="border-color:#315B48; color:#315B48">Redaktə</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ profileFavGrid }}">
+      <div style="display:grid; grid-template-columns:{{ gridCols }}; gap:14px">
+        <sc-for list="{{ favItems }}" as="item" hint-placeholder-count="4">
+          <dc-import name="ListingCard" item="{{ item }}" hint-size="100%,300px"></dc-import>
+        </sc-for>
+      </div>
+      <sc-if value="{{ noFavs }}">
+        <div style="background:#FFFFFF; border:1px solid #E4E7E2; border-radius:12px; padding:44px 24px; text-align:center; font:400 14px/1.5 Inter, sans-serif; color:#7A8078">Favorit siyahın boşdur.</div>
+      </sc-if>
+    </sc-if>
+  </div>
+</sc-if>
+</main>
+
+
+
+<sc-if value="{{ isMobile }}">
+  <div style="height:76px"></div>
+  <nav style="position:fixed; bottom:0; left:0; right:0; z-index:50; background:rgba(255,255,255,.97); border-top:1px solid #E4E7E2; display:grid; grid-template-columns:repeat(5, 1fr); align-items:end; padding:8px 4px 9px; transform:{{ navTransform }}; transition:transform .22s ease">
+    <sc-for list="{{ bottomNav }}" as="b" hint-placeholder-count="5">
+      <sc-if value="{{ b.isTab }}" hint-placeholder-val="{{ true }}">
+        <div onClick="{{ b.onClick }}" style="display:flex; flex-direction:column; align-items:center; gap:5px; cursor:pointer; padding:2px 0">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="{{ b.fg }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.path }}"></path></svg>
+          <span style="font:600 9.5px/1.1 Inter, sans-serif; letter-spacing:.03em; text-transform:uppercase; color:{{ b.fg }}; text-align:center">{{ b.label }}</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ b.isFab }}">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:5px">
+          <button type="button" onClick="{{ b.onClick }}" aria-label="Yeni elan" style="width:48px; height:48px; margin-top:-22px; border:3px solid #FFFFFF; border-radius:50%; background:#FF5A1F; box-shadow:0 6px 16px rgba(255,90,31,.36); display:flex; align-items:center; justify-content:center; cursor:pointer" style-hover="background:#E94A12">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+          </button>
+          <span style="font:600 9.5px/1.1 Inter, sans-serif; letter-spacing:.03em; text-transform:uppercase; color:#FF5A1F; text-align:center">Yeni elan</span>
+        </div>
+      </sc-if>
+    </sc-for>
+  </nav>
+</sc-if>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;mobilePreview&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Görünüş&quot;},&quot;gridDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Komfort&quot;,&quot;Sıx&quot;],&quot;default&quot;:&quot;Komfort&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Görünüş&quot;},&quot;showGuide&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ana səhifə bölmələri&quot;}}">
+const CATS = [
+  {id:'ov', name:'Ovçuluq', initial:'OV', count:1240, subs:['Ov avadanlıqları','Ov geyimləri','Ov çantaları','Optika','Bıçaqlar və alətlər','Digər aksesuarlar']},
+  {id:'baliq', name:'Balıqçılıq', initial:'BA', count:2180, subs:['Tilovlar','Makara','Misina','Qarmaqlar','Yemlər','Spinning','Balıqçılıq çantaları','Balıqçılıq geyimləri','Qayıq/kayak','Aksesuarlar']},
+  {id:'kamp', name:'Kamp', initial:'KA', count:1670, subs:['Çadır','Yataq kisəsi','Karimat','Kamp mebeli','Kamp mətbəxi','Ocaq və istilik','Fənərlər','Termos','Su qabları','Hamak','Tent']},
+  {id:'geyim', name:'Outdoor geyim', initial:'GE', count:940, subs:['Gödəkçə','Şalvar','Ayaqqabı','Çəkmə','Termal geyim','Kamuflyaj geyim','Yağış geyimi','Papaq və əlcək']},
+  {id:'canta', name:'Çanta və aksesuar', initial:'ÇA', count:720, subs:['Backpack','Bel çantası','Su çantası','Fənər','GPS','Multitool','Outdoor aksesuarları']},
+  {id:'neqliyyat', name:'Outdoor nəqliyyat', initial:'NƏ', count:310, subs:['Off-road aksesuarları','Dam çadırları','Karavan aksesuarları','Qayıqlar','ATV']},
+  {id:'optika', name:'Optika və durbin', initial:'OP', count:430, subs:['Durbin','Monokulyar','Teleskopik optika','Termal kamera']},
+  {id:'bicaq', name:'Bıçaq və alət', initial:'BI', count:560, subs:['Ov bıçağı','Katlanan bıçaq','Multitool','Balta','İtiləyici']}
+];
+
+const REGIONS = [
+  {name:'Bakı', count:2140}, {name:'Sumqayıt', count:410}, {name:'Gəncə', count:520},
+  {name:'Quba', count:280}, {name:'Qəbələ', count:240}, {name:'Şəki', count:190},
+  {name:'Lənkəran', count:230}, {name:'Qusar', count:150}, {name:'Şamaxı', count:120},
+  {name:'İsmayıllı', count:110}, {name:'Zaqatala', count:95}, {name:'Naxçıvan', count:80}
+];
+
+const L = [
+  {id:1, t:'Karbon spinning tilov 2.40 m, orta test', p:185, cat:'baliq', sub:'Spinning', reg:'Bakı', days:0, cond:'Yeni', st:'store', seller:'Outdoor Pro Mağaza', top:1, sp:[['Uzunluq','2.40 m'],['Test','10–30 q'],['Material','Karbon IM7']]},
+  {id:2, t:'4 nəfərlik günbəz çadır, ikiqat örtük', p:240, cat:'kamp', sub:'Çadır', reg:'Sumqayıt', days:0, cond:'Yeni', st:'store', seller:'Kamp Evi', top:1, sp:[['Tutum','4 nəfər'],['Mövsüm','3 mövsüm'],['Çəki','4.2 kq']]},
+  {id:3, t:'Membranlı outdoor gödəkçə, su keçirməyən', p:160, cat:'geyim', sub:'Gödəkçə', reg:'Bakı', days:1, cond:'Yeni', st:'store', seller:'Trek Store', top:1, sp:[['Ölçü','L'],['Cins','Kişi'],['Membran','10.000 mm']]},
+  {id:4, t:'8x42 durbin, azimut prizma', p:320, cat:'optika', sub:'Durbin', reg:'Gəncə', days:1, cond:'İşlənmiş', st:'ind', seller:'Rəşad M.', top:1, sp:[['Böyütmə','8x'],['Obyektiv','42 mm'],['Su davamlı','Bəli']]},
+  {id:5, t:'Su keçirməyən trekking çəkmə', p:130, cat:'geyim', sub:'Çəkmə', reg:'Bakı', days:2, cond:'Yeni', st:'store', seller:'Trek Store', sp:[['Ölçü','43'],['Boğaz','Orta']]},
+  {id:6, t:'Katlanan kamp stolu və 4 stul dəsti', p:190, cat:'kamp', sub:'Kamp mebeli', reg:'Bakı', days:2, cond:'İşlənmiş', st:'ind', seller:'Elçin Q.', sp:[['Material','Alüminium'],['Çəki','6 kq']]},
+  {id:7, t:'-10°C yataq kisəsi, mumiya forma', p:95, cat:'kamp', sub:'Yataq kisəsi', reg:'Qəbələ', days:3, cond:'Yeni', st:'store', seller:'Kamp Evi', sp:[['Temperatur','-10°C'],['Dolğu','Sintetik']]},
+  {id:8, t:'Balıqçılıq makarası 4000, 6 podşipnik', p:140, cat:'baliq', sub:'Makara', reg:'Lənkəran', days:3, cond:'İşlənmiş', st:'ind', seller:'Vüqar S.', sp:[['Ölçü','4000'],['Podşipnik','6']]},
+  {id:9, t:'65L trekking bel çantası, yağış örtüyü ilə', p:175, cat:'canta', sub:'Backpack', reg:'Bakı', days:4, cond:'Yeni', st:'store', seller:'Trek Store', sp:[['Həcm','65 L'],['Çəki','1.9 kq']]},
+  {id:10, t:'Termal alt paltar dəsti, merino qarışıq', p:55, cat:'geyim', sub:'Termal geyim', reg:'Bakı', days:4, cond:'Yeni', st:'store', seller:'Outdoor Pro Mağaza', sp:[['Ölçü','M'],['Material','Merino 40%']]},
+  {id:11, t:'Portativ qaz ocağı, piezo alışdırma', p:45, cat:'kamp', sub:'Kamp mətbəxi', reg:'Quba', days:5, cond:'Yeni', st:'ind', seller:'Nicat A.', sp:[['Güc','2.8 kW'],['Çəki','380 q']]},
+  {id:12, t:'Ov çantası, kamuflyaj, 25L', p:70, cat:'ov', sub:'Ov çantaları', reg:'Şəki', days:5, cond:'İşlənmiş', st:'ind', seller:'Kamran H.', sp:[['Həcm','25 L'],['Rəng','Kamuflyaj']]},
+  {id:13, t:'Multitool 14 funksiyalı, paslanmayan', p:60, cat:'bicaq', sub:'Multitool', reg:'Bakı', days:6, cond:'Yeni', st:'store', seller:'Outdoor Pro Mağaza', sp:[['Funksiya','14'],['Material','420 polad']]},
+  {id:14, t:'Şişmə kayak, 2 nəfərlik, avarlarla', p:780, cat:'neqliyyat', sub:'Qayıqlar', reg:'Bakı', days:6, cond:'İşlənmiş', st:'ind', seller:'Tural B.', sp:[['Tutum','2 nəfər'],['Uzunluq','3.6 m']]},
+  {id:15, t:'Akkumulyatorlu baş fənəri 1200 lm', p:38, cat:'canta', sub:'Fənər', reg:'Gəncə', days:7, cond:'Yeni', st:'store', seller:'Kamp Evi', sp:[['İşıq','1200 lm'],['Batareya','5000 mAh']]},
+  {id:16, t:'Kamuflyaj ov kostyumu, membranlı', p:145, cat:'ov', sub:'Ov geyimləri', reg:'Qusar', days:7, cond:'Yeni', st:'store', seller:'Outdoor Pro Mağaza', sp:[['Ölçü','XL'],['Mövsüm','Payız/Qış']]},
+  {id:17, t:'Dam çadırı, 2 nəfərlik, avtomatik', p:1850, cat:'neqliyyat', sub:'Dam çadırları', reg:'Bakı', days:8, cond:'Yeni', st:'store', seller:'Off-Road Camp', sp:[['Tutum','2 nəfər'],['Quraşdırma','Avtomatik']]},
+  {id:18, t:'Titan termos 1 L, 12 saat istilik', p:42, cat:'kamp', sub:'Termos', reg:'Bakı', days:8, cond:'Yeni', st:'ind', seller:'Səbinə R.', sp:[['Həcm','1 L'],['Material','Titan']]},
+  {id:19, t:'Əl işi ov bıçağı, dəri qılıfla', p:110, cat:'bicaq', sub:'Ov bıçağı', reg:'İsmayıllı', days:9, cond:'Yeni', st:'ind', seller:'Fuad N.', sp:[['Tiyə','12 sm'],['Polad','D2']]},
+  {id:20, t:'Outdoor GPS naviqator, topoqrafik xəritə', p:420, cat:'canta', sub:'GPS', reg:'Bakı', days:9, cond:'İşlənmiş', st:'ind', seller:'Anar T.', sp:[['Ekran','2.6"'],['Batareya','16 saat']]},
+  {id:21, t:'Hamak asma dəsti, 200 kq yük', p:35, cat:'kamp', sub:'Hamak', reg:'Zaqatala', days:10, cond:'Yeni', st:'store', seller:'Kamp Evi', sp:[['Yük','200 kq'],['Çəki','560 q']]},
+  {id:22, t:'Balıqçılıq geyim dəsti, su keçirməyən', p:120, cat:'baliq', sub:'Balıqçılıq geyimləri', reg:'Lənkəran', days:11, cond:'İşlənmiş', st:'ind', seller:'Vüqar S.', sp:[['Ölçü','L'],['Mövsüm','Yaz/Payız']]},
+  {id:23, t:'Karimat, avtomatik şişən, 5 sm', p:68, cat:'kamp', sub:'Karimat', reg:'Bakı', days:12, cond:'Yeni', st:'store', seller:'Kamp Evi', sp:[['Qalınlıq','5 sm'],['R-dəyər','4.2']]},
+  {id:24, t:'Yem dəsti, 24 ədəd, çantada', p:52, cat:'baliq', sub:'Yemlər', reg:'Sumqayıt', days:13, cond:'Yeni', st:'store', seller:'Outdoor Pro Mağaza', sp:[['Say','24 ədəd'],['Növ','Silikon']]}
+];
+
+
+const PHOTO_IDS = {
+  ov: 16253057, baliq: 13048947, kamp: 14287, geyim: 868097,
+  canta: 10771740, neqliyyat: 17260471, optika: 14749287, bicaq: 8917189
+};
+const photoUrl = (id) => 'https://images.pexels.com/photos/' + id + '/pexels-photo-' + id + '.jpeg?auto=compress&cs=tinysrgb&w=480&h=480&fit=crop';
+
+const TIMES = ['08:45', '11:20', '14:05', '16:38', '19:12', '09:57', '13:24', '17:41'];
+
+const ICONS = {
+  ov: 'M12 2v3M12 19v3M2 12h3M19 12h3M18 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0M13 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0',
+  baliq: 'M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.47-3.44 6-7 6s-7.56-2.53-8.5-6zM18 12h.01M2 16s1.5-1 3-1M2 8s1.5 1 3 1',
+  kamp: 'M3.5 21 14 3M20.5 21 10 3M15.5 21 12 15l-3.5 6M2 21h20',
+  geyim: 'M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z',
+  canta: 'M5 10a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2zM9 5V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1M9 14h6',
+  neqliyyat: 'M5 17H3v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2M7 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0M15 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0',
+  optika: 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7zM15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0',
+  bicaq: 'M14 2 22 10 10 22H3v-7zM8 14l4 4'
+};
+
+const HELP = [
+  {k:'Populyar suallar', items:[
+    {q:'Elanım niyə dərc olunmadı?', a:'Elan moderasiyadan keçmir, əgər başlıq məhsulu təsvir etmirsə, şəkillər məhsula aid deyilsə, qiymət real deyilsə və ya məhsul qadağan olunmuş kateqoriyaya (icazəsiz ov silahı və s.) aiddirsə. Səbəb profilində elanın statusunda göstərilir.'},
+    {q:'Elana necə düzəliş edim?', a:'Profil → "Mənim elanlarım" bölməsində elanın yanındaki redaktə düyməsini basın. Düzəlişdən sonra elan yenidən qısa moderasiyadan keçir.'},
+    {q:'Elanı necə yerləşdirim?', a:'"Yeni elan" düyməsini basın, kateqoriyanı seçin, sonra formada şəhər, qiymət, başlıq, təsvir və şəkilləri doldurub "Elanı əlavə et"-ə vurun.'},
+    {q:'Elanı necə silim?', a:'Profil → "Mənim elanlarım" bölməsində elanı arxivə göndərin və ya silin. Arxivə göndərilən elanı sonra yenidən bərpa etmək mümkündür.'},
+    {q:'Elanın nömrəsini necə öyrənim?', a:'Elanın səhifəsində "Nömrəni göstər" düyməsini basın — satıcının əlaqə nömrəsi açılır. Nömrə yalnız satıcının razılığı ilə göstərilir.'},
+    {q:'Elanı necə bərpa edim?', a:'Arxivdəki elanı profil bölməsindən "Bərpa et" ilə yenidən aktivləşdirə bilərsiniz; limit dolubsa, əvvəlcə köhnə elanlardan birini arxivləşdirin.'}
+  ]},
+  {k:'Elan', items:[
+    {q:'Bir elanda bir neçə məhsul sata bilərəm?', a:'Xeyr. Bir elanda yalnız bir məhsul satıla bilər — dəstlər istisnadır (məsələn, çadır + karimat dəsti kimi satılırsa).'},
+    {q:'Nə qədər şəkil əlavə edə bilərəm?', a:'Maksimum 10 şəkil, hər biri 5 MB-a qədər. İlk şəkil əsas şəkil olur və axtarış nəticələrində göstərilir.'},
+    {q:'Elan nə qədər aktiv qalır?', a:'Elan 30 gün aktiv olur. Müddət bitəndə profildən bir kliklə yeniləmək mümkündür.'},
+    {q:'VIP və TOP arasında fərq nədir?', a:'VIP elan ana səhifədə ayrıca "Premium elanlar" blokunda göstərilir; TOP elan isə axtarış nəticələrinin yuxarısında yer alır.'}
+  ]},
+  {k:'Şəxsi kabinet', items:[
+    {q:'Hesabımı necə yaradıram?', a:'Header-dəki "Giriş" düyməsindən mobil nömrə ilə qeydiyyatdan keçin — SMS kodu ilə təsdiq kifayətdir.'},
+    {q:'Seçilmiş elanlar nə üçündür?', a:'Ürək ikonuna basdığınız elanlar "Seçilmişlər" bölməsində toplanır və qiymət dəyişəndə bildiriş ala bilərsiniz.'},
+    {q:'Nömrəmi necə dəyişim?', a:'Profil → ayarlar bölməsindən yeni nömrəni əlavə edin və SMS kodu ilə təsdiqləyin.'}
+  ]},
+  {k:'Elan üçün reklam', items:[
+    {q:'Elanımı necə önə çıxara bilərəm?', a:'Elanın səhifəsində "İrəli çək" xidmətindən istifadə edin: TOP (axtarışın yuxarısı), VIP (ana səhifə bloku) və ya rəngli çərçivə paketləri mövcuddur.'},
+    {q:'Ödəniş necə həyata keçirilir?', a:'Kart və ya mobil balans vasitəsi ilə. Xidmət ödənişdən dərhal sonra aktivləşir.'},
+    {q:'Banner reklamı sifariş etmək mümkündürmü?', a:'Bəli — banner və native formatlar üçün reklam@ovcuprim.az ünvanına yazın; ölçülər və qiymətlər "Reklam yerləşdirin" bölməsindədir.'}
+  ]},
+  {k:'Mağazalar', items:[
+    {q:'Mağaza necə açılır?', a:'Mağazalar bölməsindən "Mağaza aç"-a keçin, şirkət adı, fəaliyyət kateqoriyası və əlaqə məlumatlarını göndərin. Yoxlanışdan sonra vitrin aktivləşir.'},
+    {q:'Mağazanın üstünlükləri nədir?', a:'Elan limiti artır, elanlarda "Mağaza" nişanı görünür, vitrin səhifəsi, izləyicilər və statistika açılır.'},
+    {q:'İzləyici olmaq nə deməkdir?', a:'İzlədiyiniz mağaza yeni elan yerləşdirəndə bildiriş alırsınız.'}
+  ]},
+  {k:'Limitlər', items:[
+    {q:'Ayda nə qədər pulsuz elan yerləşdirə bilərəm?', a:'Fərdi satıcılar hər kateqoriyada ayda müəyyən sayda pulsuz elan yerləşdirir; limit dolduqda əlavə elanlar ödənişli olur.'},
+    {q:'Limit nə vaxt yenilənir?', a:'Limit hər təqvim ayının başında sıfırlanır. Arxivləşdirilən elanlar limitə daxil edilmir.'},
+    {q:'Mağazalar üçün limit necədir?', a:'Mağaza paketləri elan limitini bir neçə dəfə artırır; paketlər aylıq və rüblük təklif olunur.'}
+  ]}
+];
+
+const INFO = [
+  {k:'Yardım', title:'Yardım', paras:[
+    'Yardım bölməsi elan yerləşdirmə, axtarış, mağaza və ödənişli xidmətlərlə bağlı ən çox rast gəlinən halları izah edir.',
+    'Elan yerləşdirmək: "Yeni elan" düyməsini basın, kateqoriyanı seçin, formada şəhər, qiymət, başlıq, təsvir və şəkilləri doldurun. Elan moderasiyadan sonra dərc olunur (adətən 30 dəqiqəyə qədər).',
+    'Elanı redaktə etmək və ya silmək: Profil → "Mənim elanlarım" bölməsində hər elanın yanında redaktə və silmə düymələri var. Satılmış məhsulu arxivə göndərmək kifayətdir.',
+    'Axtarış və filterlər: axtarış sətrindən sonra kateqoriya, alt kateqoriya, region, qiymət aralığı, vəziyyət və satıcı tipi üzrə filterləyin; "Xəritə üzrə axtar" ilə regionu xəritədən seçin.',
+    'Mağaza: satıcı vitrini açmaq üçün Mağazalar → "Mağaza aç" bölməsindən keçin. Mağaza elanları kartlarda "Mağaza" nişanı ilə göstərilir.',
+    'Problem yaşayırsınızsa və ya şübhəli elana rast gəlmisinizsə, "Şikayət" düyməsindən istifadə edin, ya da (012) 526-19-19 / info@ovcuprim.az ilə əlaqə saxlayın.'
+  ]},
+  {k:'Top 10 sual', title:'Top 10 sual', paras:[
+    'Elan necə yerləşdirilir, moderasiya nə qədər çəkir, VIP və TOP nə ilə fərqlənir — ən çox verilən suallar bu bölmədə toplanır.',
+    'Elan yerləşdirmək pulsuzdur. VIP və TOP yerləşdirmə əlavə ödənişli xidmətlərdir və elanın görünmə tezliyini artırır.'
+  ]},
+  {k:'İstifadəçi razılaşması', title:'İstifadəçi razılaşması', paras:[
+    'Ovcuprim.az saytından istifadə etməklə istifadəçi bu razılaşmanın bütün şərtlərini qəbul etmiş sayılır. Razılaşma istifadəçi ilə servisin inzibatçısı arasındaki münasibətləri tənzimləyir.',
+    'İstifadəçi yerləşdirdiyi elanın məzmununa, şəkillərinə, qiymətinə və əlaqə məlumatlarının doğruluğuna görə tam məsuliyyət daşıyır. Servis satıcı ilə alıcı arasındaki əməliyyatın tərəfi deyil və məhsulun keyfiyyətinə zəmanət vermir.',
+    'Qanunvericiliklə dövriyyəsi məhdudlaşdırılan və ya qadağan olunan məhsulların, xüsusi icazə tələb edən ov silahlarının və onların hissələrinin satışı qadağandır; belə elanlar moderasiya mərhələsində silinir və istifadəçi hesabı bloklana bilər.',
+    'Bir elanda yalnız bir məhsul satıla bilər. Təkrar, aldadıcı və ya yanlış kateqoriyada yerləşdirilmiş elanlar xəbərdarlıq edilmədən silinə bilər.',
+    'İnzibatçı razılaşmanın şərtlərini birtərəfli qaydada dəyişmək hüququnu özündə saxlayır. Dəyişikliklər saytda dərc edildiyi andan qüvvəyə minir və servisdən sonraki istifadə yeni şərtlərin qəbulu sayılır.'
+  ]},
+  {k:'Kateqoriyalar üzrə limitlər', title:'Kateqoriyalar üzrə limitlər', paras:[
+    'Hər istifadəçi bir kateqoriyada ayda müəyyən sayda pulsuz elan yerləşdirə bilər. Limit aşıldıqda əlavə elanlar ödənişli olur.',
+    'Ov silahları və hüquqi məhdudiyyəti olan avadanlıq üzrə elanlar əlavə yoxlanışdan keçir.'
+  ]},
+  {k:'Ödənişli xidmətlər', title:'Ödənişli xidmətlər', paras:[
+    'VIP elan ana səhifədə ayrıca blokda göstərilir. TOP elan axtarış nəticələrinin yuxarısında yerləşir. Hər iki xidmət 7 və 30 günlük paketlərlə təklif olunur.'
+  ]},
+  {k:'Reklam yerləşdirin', title:'Reklam yerləşdirin', paras:[
+    'Ovcuprim.az ovçuluq, balıqçılıq, kamp və outdoor auditoriyasını bir yerə toplayır — brendiniz məhz hədəf müştəriyə görünür.',
+    'Banner formatları: ana səhifənin üst və orta blokları (desktop 1280×180, mobil 720×220), kateqoriya səhifələrinin yan bloku (300×600) və axtarış nəticələri arasında yerləşən native blok.',
+    'Native reklam: elan kartı formatında, "Reklam" nişanı ilə axtarış lentində göstərilir — kliklə birbaşa mağaza vitrininizə və ya kampaniya səhifəsinə aparır.',
+    'Mağaza paketləri: banner + mağaza vitrini + VIP/TOP elan kvotası birlikdə təklif olunur, aylıq və rüblük müddətlərlə.',
+    'Hesabat: kampaniya üzrə göstərilmə, klik və CTR statistikası aylıq hesabatda təqdim edilir.',
+    'Sifariş və qiymət cədvəli üçün: reklam@ovcuprim.az və ya (012) 526-19-19.'
+  ]},
+  {k:'Paketlər', title:'Paketlər', paras:[
+    'Mağazalar üçün aylıq paketlər elan limitini artırır, mağaza vitrinini və statistikanı açır.'
+  ]},
+  {k:'Qaydalar', title:'Satış qaydaları', paras:[
+    'Elanın başlığı məhsulu dəqiq təsvir etməli, qiymət real olmalıdır. Bir elanda yalnız bir məhsul satıla bilər.',
+    'Şəkillər məhsulun özünə aid olmalıdır; üzərinə əlaqə nömrəsi, mətn və ya loqo yerləşdirmək olmaz.'
+  ]},
+  {k:'Məxfilik siyasəti', title:'Məxfilik Siyasəti', kicker:'İstifadəçi Razılaşmasına Əlavə №4', paras:[
+    'Bu məxfilik siyasəti (bundan sonra "Siyasət") Ovcuprim.az Saytından İstifadəçi Razılaşmasının (bundan sonra "Razılaşma") ayrılmaz tərkib hissəsidir.',
+    '## 1. Predmet',
+    '1.1. Bu Siyasət İstifadəçinin fərdi məlumatlarının alınması, saxlanılması, işlənməsi, istifadəsi, açılması və mühafizəsi qaydalarını müəyyən edir.',
+    '1.2. İstifadəçilərin fərdi məlumat bazası Administrasiyanın internet ünvanı üzrə yerləşir.',
+    '1.3. Fərdi məlumatlar bazasının sərəncamçısı Administrasiyadır.',
+    '## 2. Fərdi məlumatların işlənməsi',
+    '2.1. Fərdi məlumatların işlənməsi dedikdə, fərdi məlumatlar üzərində aparılan əməliyyatlar (toplanması, qeydiyyatı, yazılması, sistemləşdirilməsi, uyğunlaşdırılması, təzələnməsi, dəyişdirilməsi, saxlanılması, açılması, məhv edilməsi) başa düşülür.',
+    '2.2. Administrasiya aşağıdaki məlumatları işləyir: ad, əlaqə nömrəsi, e-mail ünvanı, elanın məzmunu və şəkilləri, seçilmiş region və kateqoriyalar, texniki məlumatlar (cihaz tipi, brauzer, IP ünvan).',
+    '2.3. Fərdi məlumatlar yalnız Saytın işləməsi, elanların dərci və moderasiyası, alıcı ilə satıcı arasında əlaqənin qurulması, saxtakarlığın qarşısının alınması və xidmətlə bağlı bildirişlərin göndərilməsi məqsədi ilə işlənir.',
+    '## 3. Məlumatların açılması',
+    '3.1. İstifadəçinin əlaqə nömrəsi elanda yalnız onun razılığı ilə göstərilir.',
+    '3.2. Fərdi məlumatlar üçüncü şəxslərə satılmır və yalnız qanunvericiliyin tələbi ilə səlahiyyətli orqanlara açıqlana bilər.',
+    '3.3. Administrasiya İstifadəçinin öz elanında könüllü şəkildə açıqladığı məlumatlara görə məsuliyyət daşımır.',
+    '## 4. İstifadəçinin hüquqları',
+    '4.1. İstifadəçi öz fərdi məlumatlarına baxmaq, onları dəyişmək və ya silmək hüququna malikdir.',
+    '4.2. İstifadəçi hesabın tam ləğvini tələb edə bilər; bu halda məlumatlar qanunla müəyyən olunmuş saxlama müddəti bitdikdən sonra silinir.',
+    '4.3. Fərdi məlumatların işlənməsinə verilmiş razılıq istənilən vaxt geri götürülə bilər.',
+    '## 5. Kukilər (cookie)',
+    '5.1. Sayt sessiyanın saxlanması, seçilmiş elanların yadda qalması və statistika məqsədi ilə kukilərdən istifadə edir.',
+    '5.2. Kukilər brauzer ayarlarından söndürülə bilər, lakin bu halda Saytın bəzi funksiyaları məhdudlaşa bilər.',
+    '## 6. Yekun müddəalar',
+    '6.1. Administrasiya bu Siyasətə birtərəfli qaydada dəyişiklik etmək hüququnu özündə saxlayır; dəyişikliklər Saytda dərc edildiyi andan qüvvəyə minir.',
+    '6.2. Məxfiliklə bağlı suallar üçün: info@ovcuprim.az və ya (012) 526-19-19.'
+  ]},
+  {k:'Təhlükəsiz alış-veriş', title:'Təhlükəsiz alış-veriş', paras:[
+    'Məhsulu görmədən beh və ya avans köçürməyin. Görüşü ictimai yerdə təyin edin, bahalı avadanlığı yoxlayaraq alın.',
+    'Şübhəli elan və ya satıcı ilə rastlaşdıqda “Şikayət” düyməsindən istifadə edin.'
+  ]},
+  {k:'Yaş və uyğunluq qaydaları', title:'Yaş və uyğunluq qaydaları', paras:[
+    'Ov avadanlığı, bıçaq və oxşar məhsulların satışı yalnız 18 yaşdan yuxarı istifadəçilər üçün nəzərdə tutulub.',
+    'Ov silahı və onun hissələri üzrə elanlar müvafiq icazə sənədləri olmadan yerləşdirilə bilməz.'
+  ]},
+  {k:'Layihə haqqında', title:'Layihə haqqında', paras:[
+    'Ovcuprim.az ovçuluq, balıqçılıq, kamp və outdoor avadanlıqları üçün Azərbaycanda ixtisaslaşmış elan meydançasıdır. İstifadəçilər avadanlıq ala, sata və mağaza vitrini yarada bilər.',
+    'Platformada həm fərdi satıcılar, həm də mağazalar elan yerləşdirir; hər elan moderasiyadan keçir və kateqoriya üzrə filterlərlə tapıla bilir.',
+    'Servisin inzibatçılığını Azərbaycan Respublikasının qanunvericiliyinə uyğun qeydiyyatdan keçmiş şirkət həyata keçirir. Servisə dair bütün mülkiyyət hüquqları müstəsna olaraq şirkətə aiddir.'
+  ]}
+];
+
+const WIZ = [
+  {label:'Kateqoriya', title:'Kateqoriya seç', hint:'Elanın doğru kateqoriyada olması onun tapılma şansını kəskin artırır.'},
+  {label:'Elan məlumatları', title:'Elan məlumatları', hint:'Bütün sahələri bir səhifədə doldur — ulduzlu sahələr mütləqdir.'},
+  {label:'Hazır', title:'Elan hazırdır', hint:'Elanın moderasiyaya göndərildi.'}
+];
+
+const ATTRS = {
+  baliq: [['Uzunluq', 'məs. 2.40 m'], ['Test / ölçü', 'məs. 10–30 q'], ['Material', 'məs. karbon'], ['Marka', 'məs. seriya adı']],
+  kamp: [['Tutum', 'məs. 4 nəfər'], ['Mövsüm', 'məs. 3 mövsüm'], ['Çəki', 'məs. 4.2 kq'], ['Marka', 'məs. model']],
+  geyim: [['Ölçü', 'məs. L'], ['Cins', 'Kişi / Qadın / Uniseks'], ['Mövsüm', 'məs. Payız/Qış'], ['Material', 'məs. membran']],
+  ov: [['Ölçü / həcm', 'məs. 25 L'], ['Mövsüm', 'məs. Payız'], ['Rəng', 'məs. kamuflyaj'], ['Marka', 'məs. model']],
+  optika: [['Böyütmə', 'məs. 8x'], ['Obyektiv', 'məs. 42 mm'], ['Su davamlılığı', 'Bəli / Xeyr'], ['Marka', 'məs. model']],
+  bicaq: [['Tiyə uzunluğu', 'məs. 12 sm'], ['Polad', 'məs. D2'], ['Qılıf', 'Dəri / Plastik'], ['Marka', 'məs. model']],
+  canta: [['Həcm', 'məs. 65 L'], ['Çəki', 'məs. 1.9 kq'], ['Su davamlılığı', 'Bəli / Xeyr'], ['Marka', 'məs. model']],
+  neqliyyat: [['Tutum', 'məs. 2 nəfər'], ['Ölçü', 'məs. 3.6 m'], ['Vəziyyət detalı', 'məs. az işlənmiş'], ['Marka', 'məs. model']],
+  _: [['Ölçü', 'məs. orta'], ['Material', 'məs. alüminium'], ['Marka', 'məs. model']]
+};
+
+const CONDS = ['Yeni', 'İşlənmiş'];
+const SELLERS = ['Fərdi satıcı', 'Mağaza'];
+const SORTS = [{k:'new', l:'Ən yeni'}, {k:'asc', l:'Qiymət ↑'}, {k:'desc', l:'Qiymət ↓'}];
+
+class Component extends DCLogic {
+  state = {
+    route: 'home', narrow: false, favs: {}, q: '', searchOpen: false,
+    f: {cat:'', sub:'', reg:'', min:'', max:'', cond:'', seller:'', sort:'new', q:''},
+    homeTab: 'baliq', homeLimit: 12, current: null, gal: 0, phoneShown: false, storeName: null,
+    recent: ['çadır', 'spinning tilov', 'durbin'], profileTab: 'listings', post: null,
+    filterOpen: false, extra: [], toast: '', navHidden: false, menuOpen: false, storeQ: '', storeCat: '', storeSort: 'def', infoTab: 'Layihə haqqında', helpTab: 'Populyar suallar', faqOpen: '', adsForm: {company:'', contact:'', note:''}, adsSent: false, follows: {}, storePhones: {},
+    wiz: {step:1, cat:'', sub:'', photos:0, name:'', email:'', delivery:false, title:'', desc:'', price:'', cond:'Yeni', reg:'', phone:'+994 50 ', sellerType:'Fərdi satıcı', attrs:{}}
+  };
+
+  componentDidMount() {
+    this.onResize = () => {
+      const n = window.innerWidth < 860;
+      if (n !== this.state.narrow) this.setState({narrow: n});
+    };
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+    this.onKey = (e) => { if (e.key === 'Escape') this.setState({searchOpen:false, filterOpen:false, mapOpen:false}); };
+    window.addEventListener('keydown', this.onKey);
+    this._lastY = 0;
+    this.onScroll = () => {
+      const y = window.scrollY || 0;
+      const down = y > this._lastY + 6, up = y < this._lastY - 6;
+      if (down && y > 90 && !this.state.navHidden) this.setState({navHidden: true});
+      else if (up && this.state.navHidden) this.setState({navHidden: false});
+      if (down || up) this._lastY = y;
+      if (this.state.route !== 'home') return;
+      if (this.state.homeLimit >= this.all().length) return;
+      const doc = document.documentElement;
+      if (doc.scrollHeight - (window.scrollY + window.innerHeight) < 600) {
+        if (this._loading) return;
+        this._loading = true;
+        setTimeout(() => {
+          this._loading = false;
+          this.setState(x => ({homeLimit: x.homeLimit + 8}));
+        }, 350);
+      }
+    };
+    window.addEventListener('scroll', this.onScroll, {passive: true});
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  all() { return this.state.extra.concat(L); }
+  cat(id) { return CATS.find(c => c.id === id) || null; }
+  catName(id) { const c = this.cat(id); return c ? c.name : ''; }
+  fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₼'; }
+  ago(d) { return d === 0 ? 'Bu gün' : d === 1 ? 'Dünən' : d + ' gün əvvəl'; }
+  top() { if (typeof window !== 'undefined') window.scrollTo(0, 0); }
+  go(route, patch) { this.setState(Object.assign({route: route, searchOpen: false, filterOpen: false, mapOpen: false}, patch || {})); this.top(); }
+
+  vm(l) {
+    const fav = !!this.state.favs[l.id];
+    const badge = l.st === 'store' ? 'Mağaza' : (l.top ? 'TOP' : (l.days <= 1 ? 'Yeni' : ''));
+    const bg = badge === 'Mağaza' ? '#315B48' : badge === 'TOP' ? '#FF5A1F' : '#6F7F45';
+    return Object.assign({}, l, {
+      priceText: this.fmt(l.p),
+      dateText: this.ago(l.days),
+      regComma: l.reg + ',',
+      metaText: l.reg + ', ' + this.ago(l.days) + ', ' + TIMES[l.id % TIMES.length],
+      promoted: !!l.top || l.st === 'store',
+      catName: this.catName(l.cat),
+      badge: badge, badgeBg: bg, badgeFg: '#FFFFFF',
+      isFav: fav,
+      favFill: fav ? '#FF5A1F' : 'none',
+      favStroke: fav ? '#FF5A1F' : '#5E645C',
+      onOpen: () => this.go('detail', {current: l.id, gal: 0, phoneShown: false}),
+      onFav: (e) => { if (e) e.stopPropagation(); this.toggleFav(l.id); }
+    });
+  }
+
+  toggleFav(id) {
+    this.setState(s => {
+      const favs = Object.assign({}, s.favs);
+      if (favs[id]) delete favs[id]; else favs[id] = true;
+      return {favs: favs};
+    });
+  }
+
+  filtered() {
+    const f = this.state.f;
+    let out = this.all().slice();
+    if (f.cat) out = out.filter(l => l.cat === f.cat);
+    if (f.sub) out = out.filter(l => l.sub === f.sub);
+    if (f.reg) out = out.filter(l => l.reg === f.reg);
+    if (f.cond) out = out.filter(l => l.cond === f.cond);
+    if (f.seller) out = out.filter(l => (f.seller === 'Mağaza' ? l.st === 'store' : l.st === 'ind'));
+    const mn = parseFloat(f.min), mx = parseFloat(f.max);
+    if (!isNaN(mn)) out = out.filter(l => l.p >= mn);
+    if (!isNaN(mx)) out = out.filter(l => l.p <= mx);
+    if (f.q) {
+      const q = f.q.toLowerCase();
+      out = out.filter(l => (l.t + ' ' + l.sub + ' ' + this.catName(l.cat) + ' ' + l.seller).toLowerCase().indexOf(q) > -1);
+    }
+    if (f.sort === 'asc') out.sort((a, b) => a.p - b.p);
+    else if (f.sort === 'desc') out.sort((a, b) => b.p - a.p);
+    else out.sort((a, b) => a.days - b.days);
+    return out;
+  }
+
+  setF(patch) { this.setState(s => ({f: Object.assign({}, s.f, patch)})); }
+  setW(patch) { this.setState(s => ({wiz: Object.assign({}, s.wiz, patch)})); }
+
+  publish() {
+    const w = this.state.wiz;
+    const id = 1000 + this.state.extra.length;
+    const item = {
+      id: id, t: w.title || 'Yeni elan', p: parseInt(w.price || '0', 10) || 0,
+      cat: w.cat || 'kamp', sub: w.sub || (this.cat(w.cat || 'kamp').subs[0]),
+      reg: w.reg || 'Bakı', days: 0, cond: w.cond, st: w.sellerType === 'Mağaza' ? 'store' : 'ind',
+      seller: 'Aydın Məmmədov',
+      sp: Object.keys(w.attrs || {}).filter(k => w.attrs[k]).map(k => [k, w.attrs[k]])
+    };
+    this.setState(s => ({extra: [item].concat(s.extra), wiz: Object.assign({}, s.wiz, {step: 3})}));
+    this.top();
+  }
+
+  chip(active, label, onClick) {
+    return {
+      label: label, onClick: onClick, active: active,
+      bg: active ? '#315B48' : '#FFFFFF',
+      fg: active ? '#FFFFFF' : '#202522',
+      border: active ? '#315B48' : '#E4E7E2'
+    };
+  }
+
+  search(term) {
+    const t = (term || '').trim();
+    this.setState(s => {
+      const r = [t].concat(s.recent.filter(x => x !== t)).slice(0, 4);
+      return {route: 'listings', searchOpen: false, f: Object.assign({}, s.f, {q: t}), recent: t ? r : s.recent};
+    });
+    this.top();
+  }
+
+  renderVals() {
+    const st = this.state;
+    const p = this.props;
+    const forced = p.mobilePreview === true;
+    const mobile = forced || st.narrow;
+    const dense = (p.gridDensity || 'Komfort') === 'Sıx';
+    const items = this.filtered();
+    const nav = [
+      {label: 'Kateqoriyalar', r: 'listings', onClick: () => this.go('listings')},
+      {label: 'Elanlar', r: 'listings', onClick: () => this.go('listings', {f: Object.assign({}, st.f, {cat:'', sub:'', q:''})})},
+      {label: 'Mağazalar', r: 'stores', onClick: () => this.go('stores')}
+    ];
+    const q = st.q.trim().toLowerCase();
+    const sugCats = q ? CATS.filter(c => (c.name + ' ' + c.subs.join(' ')).toLowerCase().indexOf(q) > -1).slice(0, 3).map(c => ({
+      label: c.name, meta: c.count + ' elan',
+      onClick: () => this.go('listings', {f: Object.assign({}, st.f, {cat: c.id, sub: '', q: ''}), searchOpen: false})
+    })) : [];
+    const sugItems = q ? this.all().filter(l => (l.t + ' ' + l.sub + ' ' + l.seller).toLowerCase().indexOf(q) > -1).slice(0, 5).map(l => ({
+      label: l.t, meta: this.catName(l.cat) + ' • ' + l.reg, price: this.fmt(l.p),
+      onClick: () => this.go('detail', {current: l.id, gal: 0, phoneShown: false})
+    })) : [];
+
+    return {
+      shellStyle: forced
+        ? {width: '412px', maxWidth: '100%', flex: '0 0 auto', margin: '18px auto', border: '1px solid #E4E7E2', borderRadius: '12px', overflow: 'hidden', background: '#F7F6F1'}
+        : {width: '100%', maxWidth: '100%'},
+      isMobile: mobile, isDesktop: !mobile,
+      isStores: st.route === 'stores',
+      isInfo: st.route === 'info',
+      isHelp: st.route === 'help',
+      isAds: st.route === 'ads',
+      adsHeroCols: mobile ? '1fr' : 'minmax(0,1.15fr) minmax(0,1fr)',
+      adsGridCols: mobile ? '1fr' : 'repeat(4, minmax(0,1fr))',
+      adsStepCols: mobile ? '1fr' : 'repeat(4, minmax(0,1fr))',
+      adsStats: [
+        {v: '38 min', k: 'aylıq ziyarətçi'},
+        {v: '7 400', k: 'aktiv elan'},
+        {v: '61%', k: 'mobil trafik'},
+        {v: '2.4 dəq', k: 'orta sessiya'}
+      ],
+      adsFormatList: [
+        {tag: 'Banner', name: 'Ana səhifə üst blok', desc: 'Səhifənin ilk ekranında, kateqoriya lentinin üstündə görünən əsas banner.', size: '1280×180 / 720×220', price: '900 ₼ / ay'},
+        {tag: 'Banner', name: 'Kateqoriya yan blok', desc: 'Seçdiyiniz kateqoriyanın axtarış səhifəsində sağ sütunda sabit qalır.', size: '300×600', price: '520 ₼ / ay'},
+        {tag: 'Native', name: 'Lentdə native blok', desc: 'Elan kartı formatında, "Reklam" nişanı ilə axtarış nəticələri arasında.', size: 'kart formatı', price: '0.18 ₼ / klik'},
+        {tag: 'Paket', name: 'Mağaza paketi', desc: 'Banner + mağaza vitrini + VIP/TOP elan kvotası bir paketdə.', size: 'aylıq / rüblük', price: '1 400 ₼ / ay'}
+      ],
+      adsSteps: [
+        {n: '1', t: 'Müraciət', d: 'Formu doldurun və ya reklam@ovcuprim.az ünvanına yazın.'},
+        {n: '2', t: 'Təklif', d: '1 iş günü ərzində format, təqvim və qiymət təklifi göndəririk.'},
+        {n: '3', t: 'Yerləşmə', d: 'Materialları qəbul edirik, kampaniya 24 saat içində canlıya çıxır.'},
+        {n: '4', t: 'Hesabat', d: 'Göstərilmə, klik və CTR statistikası aylıq hesabatda təqdim olunur.'}
+      ],
+      adsForm: st.adsForm,
+      onAdsCompany: (e) => this.setState(p => ({adsForm: Object.assign({}, p.adsForm, {company: e.target.value})})),
+      onAdsContact: (e) => this.setState(p => ({adsForm: Object.assign({}, p.adsForm, {contact: e.target.value})})),
+      onAdsNote: (e) => this.setState(p => ({adsForm: Object.assign({}, p.adsForm, {note: e.target.value})})),
+      adsSubmitText: st.adsSent ? 'Müraciətiniz göndərildi ✓' : 'Müraciəti göndər',
+      adsSubmit: () => this.setState({adsSent: true}),
+      adsContact: () => { const el = document.getElementById('ads-contact'); if (el) window.scrollTo(0, el.offsetTop - 80); },
+      adsFormats: () => { const el = document.getElementById('ads-formats'); if (el) window.scrollTo(0, el.offsetTop - 80); },
+      helpTabs: HELP.map(h => ({
+        label: h.k,
+        onClick: () => this.setState({helpTab: h.k, faqOpen: ''}),
+        fg: st.helpTab === h.k ? '#FF5A1F' : '#3E443C',
+        font: st.helpTab === h.k ? '700' : '500'
+      })),
+      helpTitle: (HELP.find(h => h.k === st.helpTab) || HELP[0]).k,
+      helpFaqs: (HELP.find(h => h.k === st.helpTab) || HELP[0]).items.map(it => {
+        const open = st.faqOpen === it.q;
+        return {
+          q: it.q, a: it.a, open: open,
+          icon: open ? 'M5 12h14' : 'M12 5v14M5 12h14',
+          onClick: () => this.setState({faqOpen: open ? '' : it.q})
+        };
+      }),
+      infoCols: mobile ? '1fr' : '270px minmax(0,1fr)',
+      infoTabs: INFO.map(x => ({
+        label: x.k,
+        onClick: () => this.setState({infoTab: x.k}),
+        bg: st.infoTab === x.k ? '#FF5A1F' : 'transparent',
+        fg: st.infoTab === x.k ? '#FFFFFF' : '#315B48',
+        font: st.infoTab === x.k ? '700' : '500',
+        deco: st.infoTab === x.k ? 'none' : 'underline'
+      })),
+      infoTitle: (INFO.find(x => x.k === st.infoTab) || INFO[0]).title,
+      infoKicker: (INFO.find(x => x.k === st.infoTab) || INFO[0]).kicker || '',
+      infoHasKicker: !!(INFO.find(x => x.k === st.infoTab) || INFO[0]).kicker,
+      infoBlocks: (INFO.find(x => x.k === st.infoTab) || INFO[0]).paras.map(t => {
+        const h = t.indexOf('## ') === 0;
+        const body = h ? t.slice(3) : t;
+        const m = body.match(/^(\d+\.\d+\.)\s/);
+        return {
+          isH: h, isP: !h,
+          num: m ? m[1] + ' ' : '',
+          text: m ? body.slice(m[0].length) : body
+        };
+      }),
+      storeToolCols: mobile ? '1fr' : 'minmax(0,2fr) minmax(0,1fr) minmax(0,1fr)',
+      storeGridCols: mobile ? '1fr' : 'repeat(3, minmax(0,1fr))',
+      storeQ: st.storeQ, storeCat: st.storeCat, storeSort: st.storeSort,
+      onStoreQ: (e) => this.setState({storeQ: e.target.value}),
+      onStoreCat: (e) => this.setState({storeCat: e.target.value}),
+      onStoreSort: (e) => this.setState({storeSort: e.target.value}),
+      goCreateStore: () => this.go('create', {wiz: Object.assign({}, st.wiz, {step: 1, sellerType: 'Mağaza'})}),
+      storeList: (() => {
+        const map = {};
+        this.all().filter(l => l.st === 'store').forEach(l => {
+          if (!map[l.seller]) map[l.seller] = {name: l.seller, n: 0, cats: {}};
+          map[l.seller].n++; map[l.seller].cats[l.cat] = true;
+        });
+        let arr = Object.keys(map).map(k => map[k]);
+        const q = (st.storeQ || '').trim().toLowerCase();
+        if (q) arr = arr.filter(x => x.name.toLowerCase().indexOf(q) > -1);
+        if (st.storeCat) arr = arr.filter(x => x.cats[st.storeCat]);
+        if (st.storeSort === 'count') arr.sort((x, y) => y.n - x.n);
+        else if (st.storeSort === 'name') arr.sort((x, y) => x.name.localeCompare(y.name));
+        return arr.map((x, i) => {
+          const followed = !!st.follows[x.name];
+          return {
+            name: x.name,
+            initial: x.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+            countText: x.n + ' elan',
+            ageText: (1 + (i % 4)) + ' il Ovcuprim.az-da',
+            followText: followed ? 'İzləyirsən' : 'İzləyici ol',
+            followBg: followed ? '#EDF3EE' : '#315B48',
+            followFg: followed ? '#315B48' : '#FFFFFF',
+            phoneText: st.storePhones[x.name] ? '(012) 526-19-19' : 'Nömrəni göstər',
+            onOpen: () => this.go('store', {storeName: x.name}),
+            onFollow: () => this.setState(p => ({follows: Object.assign({}, p.follows, {[x.name]: !p.follows[x.name]})})),
+            onPhone: () => this.setState(p => ({storePhones: Object.assign({}, p.storePhones, {[x.name]: true})}))
+          };
+        });
+      })(),
+      navTransform: st.navHidden ? 'translateY(110%)' : 'translateY(0)',
+      openMenu: () => this.setState({menuOpen: true}),
+      closeMenu: () => this.setState({menuOpen: false}),
+      mobileMenuOpen: st.menuOpen && mobile,
+      desktopMenuOpen: st.menuOpen && !mobile,
+      menuItems: [
+        {label: 'Kateqoriyalar', go: () => this.go('listings')},
+        {label: 'Mağazalar', go: () => this.go('stores')},
+        {label: 'Xəritə üzrə axtarış', go: () => this.go('listings', {mapOpen: true})},
+        {label: 'Elan yerləşdir', go: () => this.go('create', {wiz: Object.assign({}, st.wiz, {step: 1})})},
+        {label: 'VIP/TOP elanlar', go: () => this.go('listings')},
+        {label: 'Qaydalar', go: () => this.go('info', {infoTab: 'Qaydalar'})},
+        {label: 'Təhlükəsiz alış-veriş', go: () => this.go('info', {infoTab: 'Təhlükəsiz alış-veriş'})},
+        {label: 'Yaş və uyğunluq qaydaları', go: () => this.go('info', {infoTab: 'Yaş və uyğunluq qaydaları'})},
+        {label: 'Əlaqə', go: () => this.go('profile')}
+      ].map(m => ({label: m.label, onClick: () => { this.setState({menuOpen: false}); m.go(); }})),
+      menuColA: [
+        {label: 'Kateqoriyalar', go: () => this.go('listings')},
+        {label: 'Mağazalar', go: () => this.go('stores')},
+        {label: 'Xəritə üzrə axtarış', go: () => this.go('listings', {mapOpen: true})},
+        {label: 'VIP/TOP elanlar', go: () => this.go('listings')}
+      ].map(m => ({label: m.label, onClick: () => { this.setState({menuOpen: false}); m.go(); }})),
+      menuColB: [
+        {label: 'Yardım', go: () => this.go('help')},
+        {label: 'Məxfilik siyasəti', go: () => this.go('info', {infoTab: 'Məxfilik siyasəti'})},
+        {label: 'Reklam yerləşdirin', go: () => this.go('ads')},
+        {label: 'Layihə haqqında', go: () => this.go('info', {infoTab: 'Layihə haqqında'})},
+        {label: 'Əlaqə', go: () => this.go('profile')}
+      ].map(m => ({label: m.label, onClick: () => { this.setState({menuOpen: false}); m.go(); }})),
+      headerTransform: st.navHidden ? 'translateY(-110%)' : 'translateY(0)',
+      showMobileHeader: mobile && st.route !== 'create',
+      isHome: st.route === 'home',
+      mapOpen: st.mapOpen,
+      openMap: () => this.setState({mapOpen: true}),
+      closeMap: () => this.setState({mapOpen: false}),
+      showGuide: this.props.showGuide !== false,
+      gridCols: mobile ? 'repeat(2, minmax(0,1fr))' : (dense ? 'repeat(auto-fit, minmax(190px, 1fr))' : 'repeat(auto-fit, minmax(230px, 1fr))'),
+      mapCols: mobile ? '1fr' : '1.1fr 1fr',
+      favCount: Object.keys(st.favs).length,
+      q: st.q,
+      f: st.f,
+      stop: (e) => { if (e) e.stopPropagation(); },
+      goHome: () => this.go('home'),
+      goListings: () => this.go('listings'),
+      goCreate: () => this.go('create', {wiz: Object.assign({}, st.wiz, {step: 1})}),
+      goFavorites: () => this.go('favorites'),
+      goProfile: () => this.go('profile'),
+      openSearch: () => this.setState({searchOpen: true}),
+      closeSearch: () => this.setState({searchOpen: false}),
+      searchOpen: st.searchOpen,
+      onQ: (e) => this.setState({q: e.target.value}),
+      onQKey: (e) => { if (e.key === 'Enter') this.search(this.state.q); },
+      submitSearch: () => this.search(this.state.q),
+      hasQ: !!st.q,
+      clearQ: () => this.setState({q: ''}),
+      onCat: (e) => this.setF({cat: e.target.value, sub: ''}),
+      onReg: (e) => this.setF({reg: e.target.value}),
+      catOptions: CATS.map(c => ({id: c.id, name: c.name})),
+      regionOptions: REGIONS.map(r => ({name: r.name})),
+      recent: st.recent.map(r => ({label: r, onClick: () => { this.setState({q: r}); this.search(r); }})),
+      hasRecent: !q && st.recent.length > 0,
+      sugCats: sugCats, sugItems: sugItems,
+      hasSugCats: sugCats.length > 0, hasSugItems: sugItems.length > 0,
+      noResults: !!q && sugCats.length === 0 && sugItems.length === 0,
+      mainNav: nav.map(n => Object.assign({}, n, {line: st.route === n.r ? '#FF5A1F' : 'transparent'})),
+      popular: ['Çadır', 'Spinning', 'Durbin', 'Yataq kisəsi', 'Multitool'].map(p => ({
+        label: p, onClick: () => { this.setState({q: p}); this.search(p); }
+      })),
+      tileCols: mobile ? 'repeat(4, minmax(0,1fr))' : 'repeat(8, minmax(0,1fr))',
+      catTiles: CATS.map(c => ({
+        name: c.name, initial: c.initial, countText: c.count + ' elan', icon: ICONS[c.id], slotId: 'cat2-' + c.id, slotIdM: 'catm-' + c.id, photo: photoUrl(PHOTO_IDS[c.id]),
+        onClick: () => this.go('listings', {f: Object.assign({}, st.f, {cat: c.id, sub: '', q: ''})})
+      })),
+      featured: this.all().filter(l => l.top).slice(0, 4).map(l => this.vm(l)),
+      latest: this.all().slice(0, st.homeLimit).map(l => this.vm(l)),
+      hasMore: st.homeLimit < this.all().length,
+      feedEnd: st.homeLimit >= this.all().length,
+      homeTabs: CATS.slice(0, 6).map(c => this.chip(st.homeTab === c.id, c.name, () => this.setState({homeTab: c.id}))),
+      tabItems: this.all().filter(l => l.cat === st.homeTab).slice(0, 4).map(l => this.vm(l)),
+      regionChips: REGIONS.map(r => ({
+        name: r.name, count: r.count,
+        onClick: () => this.go('listings', {mapOpen: false, f: Object.assign({}, st.f, {reg: r.name, cat: '', q: ''})})
+      })),
+      footerCols: [
+        {title: 'Platforma', items: ['Elanlar', 'Kateqoriyalar', 'Mağazalar', 'Xəritə üzrə axtarış']},
+        {title: 'Satıcılar', items: ['Elan yerləşdir', 'Mağaza aç', 'VIP/TOP elanlar', 'Satış qaydaları']},
+        {title: 'Dəstək', items: ['Təhlükəsiz alış-veriş', 'Yaş və uyğunluq qaydaları', 'Şikayət', 'Əlaqə']}
+      ],
+      bottomNav: [
+        {label: 'Əsas', r: 'home', path: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z', onClick: () => this.go('home')},
+        {label: 'Axtarış', r: 'search', path: 'm21 21-4.3-4.3M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0', onClick: () => this.setState({searchOpen: true})},
+        {label: 'Elan', r: 'create', path: 'M12 5v14M5 12h14', onClick: () => this.go('create')},
+        {label: 'Seçilmişlər', r: 'favorites', path: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z', onClick: () => this.go('favorites')},
+        {label: 'Profil', r: 'profile', path: 'M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0', onClick: () => this.go('profile')}
+      ].map(b => ({
+        label: b.label, path: b.path, onClick: b.onClick,
+        isFab: b.r === 'create', isTab: b.r !== 'create',
+        fg: st.route === b.r ? '#FF5A1F' : '#7A8078',
+        bg: st.route === b.r ? '#FBF1E9' : 'transparent'
+      })),
+      resultCount: items.length,
+
+      isListings: st.route === 'listings',
+      isDetail: st.route === 'detail',
+      isFavorites: st.route === 'favorites',
+      listCols: mobile ? '1fr' : '264px minmax(0,1fr)',
+      detailCols: mobile ? '1fr' : 'minmax(0,1.55fr) minmax(0,1fr)',
+      specCols: mobile ? '1fr' : '1fr 1fr',
+      listTitle: st.f.q ? '“' + st.f.q + '” üzrə nəticələr' : (st.f.cat ? this.catName(st.f.cat) : (st.f.reg ? st.f.reg + ' üzrə elanlar' : 'Bütün elanlar')),
+      countText: items.length + ' elan tapıldı' + (st.f.sub ? ' • ' + st.f.sub : ''),
+      crumbs: (() => {
+        const c = [{label: 'Ana səhifə', fg: '#7A8078', sep: '/', onClick: () => this.go('home')},
+                   {label: 'Elanlar', fg: st.f.cat ? '#7A8078' : '#202522', sep: st.f.cat ? '/' : '', onClick: () => this.go('listings')}];
+        if (st.f.cat) c.push({label: this.catName(st.f.cat), fg: '#202522', sep: st.f.sub ? '/' : '', onClick: () => this.setF({sub: ''})});
+        if (st.f.sub) c.push({label: st.f.sub, fg: '#202522', sep: '', onClick: () => {}});
+        return c;
+      })(),
+      sortChips: SORTS.map(s => this.chip(st.f.sort === s.k, s.l, () => this.setF({sort: s.k}))),
+      catFilter: CATS.map(c => ({
+        name: c.name, count: c.count,
+        bg: st.f.cat === c.id ? '#EDF3EE' : 'transparent',
+        fg: st.f.cat === c.id ? '#315B48' : '#3E443C',
+        onClick: () => this.setF({cat: st.f.cat === c.id ? '' : c.id, sub: ''})
+      })),
+      hasSubs: !!st.f.cat,
+      subChips: (this.cat(st.f.cat) ? this.cat(st.f.cat).subs : []).map(s => this.chip(st.f.sub === s, s, () => this.setF({sub: st.f.sub === s ? '' : s}))),
+      condChips: CONDS.map(c => this.chip(st.f.cond === c, c, () => this.setF({cond: st.f.cond === c ? '' : c}))),
+      sellerChips: SELLERS.map(c => this.chip(st.f.seller === c, c, () => this.setF({seller: st.f.seller === c ? '' : c}))),
+      onMin: (e) => this.setF({min: e.target.value}),
+      onMax: (e) => this.setF({max: e.target.value}),
+      clearFilters: () => this.setState({f: {cat:'', sub:'', reg:'', min:'', max:'', cond:'', seller:'', sort:'new', q:''}, q: ''}),
+      showFilters: !mobile || st.filterOpen,
+      filterOpen: st.filterOpen,
+      openFilters: () => this.setState({filterOpen: true}),
+      closeFilters: () => this.setState({filterOpen: false}),
+      applyText: items.length + ' elanı göstər',
+      activeFilterText: (() => {
+        const n = ['cat','sub','reg','min','max','cond','seller'].filter(k => st.f[k]).length;
+        return n ? '(' + n + ')' : '';
+      })(),
+      filterWrapStyle: mobile
+        ? {position:'fixed', inset:'0', zIndex:70, background:'rgba(39,66,47,.5)', padding:'40px 12px 12px', overflow:'auto'}
+        : {position:'sticky', top:'80px'},
+      filterBodyStyle: mobile ? {maxHeight:'62vh', overflow:'auto'} : {},
+      listItems: items.map(l => this.vm(l)),
+      hasResults: items.length > 0,
+      noListResults: items.length === 0,
+
+      detail: (() => {
+        const l = this.all().find(x => x.id === st.current) || L[0];
+        const v = this.vm(l);
+        v.desc = l.t + '. Vəziyyəti: ' + l.cond.toLowerCase() + '. ' + (l.st === 'store' ? 'Mağaza zəmanəti ilə satılır, çatdırılma bütün regionlara mümkündür.' : 'Şəxsi istifadədən qalıb, real alıcıya kiçik güzəşt var.') + ' Ətraflı məlumat və əlavə fotolar üçün əlaqə saxlayın.';
+        v.sellerInitial = l.seller.slice(0, 2).toUpperCase();
+        v.sellerMeta = l.st === 'store' ? 'Mağaza • Açıqdır 20:00-dək' : 'Fərdi satıcı • Bakı';
+        v.sellerCount = (l.st === 'store' ? 48 : 3) + ' elan';
+        const followed = !!st.follows[l.seller];
+        v.followText = followed ? 'İzləyirsən' : 'İzləyici ol';
+        v.followBg = followed ? '#EDF3EE' : '#E8F0FB';
+        v.followFg = followed ? '#315B48' : '#2C6BC4';
+        return v;
+      })(),
+      detailCrumbs: (() => {
+        const l = this.all().find(x => x.id === st.current) || L[0];
+        return [
+          {label: 'Ana səhifə', fg: '#7A8078', sep: '/', onClick: () => this.go('home')},
+          {label: this.catName(l.cat), fg: '#7A8078', sep: '/', onClick: () => this.go('listings', {f: Object.assign({}, st.f, {cat: l.cat, sub: '', q: ''})})},
+          {label: l.sub, fg: '#202522', sep: '', onClick: () => this.go('listings', {f: Object.assign({}, st.f, {cat: l.cat, sub: l.sub, q: ''})})}
+        ];
+      })(),
+      detailSpecs: (() => {
+        const l = this.all().find(x => x.id === st.current) || L[0];
+        const base = (l.sp || []).map(p => ({k: p[0], v: p[1]}));
+        return base.concat([
+          {k: 'Kateqoriya', v: this.catName(l.cat)},
+          {k: 'Alt kateqoriya', v: l.sub},
+          {k: 'Vəziyyət', v: l.cond},
+          {k: 'Region', v: l.reg},
+          {k: 'Çatdırılma', v: l.st === 'store' ? 'Var' : 'Yoxdur'}
+        ]);
+      })(),
+      galLabel: (st.gal + 1) + ' / 5',
+      galThumbs: [0,1,2,3,4].map(i => ({border: st.gal === i ? '#315B48' : '#E4E7E2', onClick: () => this.setState({gal: i})})),
+      galPrev: () => this.setState(s => ({gal: (s.gal + 4) % 5})),
+      galNext: () => this.setState(s => ({gal: (s.gal + 1) % 5})),
+      galInnerW: mobile ? '100%' : '78%',
+      followSeller: () => { const l = this.all().find(x => x.id === st.current) || L[0]; this.setState(p => ({follows: Object.assign({}, p.follows, {[l.seller]: !p.follows[l.seller]})})); },
+      favCurrent: () => this.toggleFav(st.current),
+      phoneText: st.phoneShown ? '+994 50 xxx 44 12' : 'Nömrəni göstər',
+      phoneMasked: st.phoneShown ? '(050) 311-44-12' : '(050) 311-44-••',
+      showPhone: () => this.setState({phoneShown: true}),
+      openStore: () => { const l = this.all().find(x => x.id === st.current) || L[0]; this.go('store', {storeName: l.seller}); },
+      similar: (() => {
+        const l = this.all().find(x => x.id === st.current) || L[0];
+        return this.all().filter(x => x.cat === l.cat && x.id !== l.id).slice(0, 4).map(x => this.vm(x));
+      })(),
+
+      favItems: this.all().filter(l => st.favs[l.id]).map(l => this.vm(l)),
+      hasFavs: Object.keys(st.favs).length > 0,
+      noFavs: Object.keys(st.favs).length === 0,
+      favCountText: Object.keys(st.favs).length + ' saxlanmış elan',
+
+      isCreate: st.route === 'create',
+      isStore: st.route === 'store',
+      isProfile: st.route === 'profile',
+
+      wiz: st.wiz,
+      wizCols: mobile ? '1fr' : '230px minmax(0,1fr)',
+      wizGrid: mobile ? '1fr 1fr' : 'repeat(4, 1fr)',
+      wizGrid2: mobile ? '1fr' : '1fr 1fr',
+      wizPreviewCols: mobile ? '1fr' : '260px minmax(0,1fr)',
+      wizPct: Math.round(st.wiz.step / 3 * 100) + '%',
+      wizStepText: 'Mərhələ ' + st.wiz.step + ' / 3',
+      wizTitle: WIZ[st.wiz.step - 1].title,
+      wizHint: WIZ[st.wiz.step - 1].hint,
+      wizSteps: WIZ.map((w, i) => {
+        const n = i + 1, done = st.wiz.step > n, cur = st.wiz.step === n;
+        return {
+          n: n, label: w.label,
+          bg: cur ? '#EDF3EE' : 'transparent',
+          fg: cur ? '#315B48' : (done ? '#3E443C' : '#9AA096'),
+          dotBg: cur ? '#315B48' : (done ? '#6F7F45' : '#FFFFFF'),
+          dotBorder: cur ? '#315B48' : (done ? '#6F7F45' : '#D7DAD5'),
+          dotFg: (cur || done) ? '#FFFFFF' : '#9AA096',
+          onClick: () => this.setState(s => ({wiz: Object.assign({}, s.wiz, {step: Math.min(n, 7)})}))
+        };
+      }),
+      wizIs1: st.wiz.step === 1, wizIs2: st.wiz.step === 2, wizIs3: st.wiz.step === 3,
+      wizShowFooter: st.wiz.step === 1,
+      wizNextText: st.wiz.step === 2 ? 'Elanı yerləşdir' : 'Davam et',
+      wizToCats: () => this.setW({step: 1}),
+      wizCatLabel: this.catName(st.wiz.cat) || 'Kateqoriya seç',
+      wizSubOptions: (this.cat(st.wiz.cat) ? this.cat(st.wiz.cat).subs : []).map(n => ({name: n})),
+      onWizSub: (e) => this.setW({sub: e.target.value}),
+      wizFlags: [
+        {label: 'Yeni?', on: st.wiz.cond === 'Yeni', onClick: () => this.setW({cond: st.wiz.cond === 'Yeni' ? 'İşlənmiş' : 'Yeni'})},
+        {label: 'Çatdırılma var?', on: !!st.wiz.delivery, onClick: () => this.setW({delivery: !st.wiz.delivery})}
+      ].map(f => ({
+        label: f.label, onClick: f.onClick,
+        border: f.on ? '#FF5A1F' : '#C6CBC4',
+        bg: f.on ? '#FF5A1F' : '#FFFFFF',
+        tick: f.on ? '#FFFFFF' : 'transparent'
+      })),
+      wizBack: () => this.setState(s => ({wiz: Object.assign({}, s.wiz, {step: Math.max(1, s.wiz.step - 1)})})),
+      wizNext: () => {
+        if (st.wiz.step === 2) return this.publish();
+        this.setState(s => ({wiz: Object.assign({}, s.wiz, {step: Math.min(3, s.wiz.step + 1)})}));
+      },
+      wizCats: CATS.map(c => ({
+        name: c.name, initial: c.initial,
+        border: st.wiz.cat === c.id ? '#315B48' : '#E4E7E2',
+        bg: st.wiz.cat === c.id ? '#F1F6F2' : '#FFFFFF',
+        onClick: () => this.setState(s => ({wiz: Object.assign({}, s.wiz, {cat: c.id, sub: ''})}))
+      })),
+      wizHasCat: !!st.wiz.cat,
+      wizNoCat: !st.wiz.cat,
+      wizCatRows: CATS.map(c => ({
+        name: c.name,
+        bg: st.wiz.cat === c.id ? '#EDF3EE' : '#FFFFFF',
+        fg: st.wiz.cat === c.id ? '#315B48' : '#3E443C',
+        font: st.wiz.cat === c.id ? '700' : '500',
+        onClick: () => this.setState(x => ({wiz: Object.assign({}, x.wiz, {cat: c.id, sub: '', step: 2})}))
+      })),
+      wizSubRows: (this.cat(st.wiz.cat) ? this.cat(st.wiz.cat).subs : []).map(sub => ({
+        label: sub,
+        bg: st.wiz.sub === sub ? '#EDF3EE' : 'transparent',
+        fg: st.wiz.sub === sub ? '#315B48' : '#3E443C',
+        font: st.wiz.sub === sub ? '700' : '500',
+        onClick: () => this.setState(x => ({wiz: Object.assign({}, x.wiz, {sub: sub, step: 2})}))
+      })),
+      wizSubs: (this.cat(st.wiz.cat) ? this.cat(st.wiz.cat).subs : []).map(s =>
+        this.chip(st.wiz.sub === s, s, () => this.setState(x => ({wiz: Object.assign({}, x.wiz, {sub: s})})))),
+      photoSlots: Array.from({length: st.wiz.photos}, (_, i) => ({
+        label: i === 0 ? 'Əsas foto' : 'Foto ' + (i + 1),
+        onRemove: () => this.setState(s => ({wiz: Object.assign({}, s.wiz, {photos: Math.max(0, s.wiz.photos - 1)})}))
+      })),
+      addPhoto: () => this.setState(s => ({wiz: Object.assign({}, s.wiz, {photos: Math.min(10, s.wiz.photos + 1)})})),
+      onWizTitle: (e) => this.setW({title: e.target.value}),
+      onWizName: (e) => this.setW({name: e.target.value}),
+      onWizEmail: (e) => this.setW({email: e.target.value}),
+      wizHasPhotos: st.wiz.photos > 0,
+      wizDescLeft: (3000 - (st.wiz.desc || '').length) + ' simvol qalıb',
+      onWizDesc: (e) => this.setW({desc: e.target.value}),
+      onWizPrice: (e) => this.setW({price: e.target.value.replace(/[^0-9]/g, '')}),
+      onWizReg: (e) => this.setW({reg: e.target.value}),
+      onWizPhone: (e) => this.setW({phone: e.target.value}),
+      wizTitleCount: st.wiz.title.length + ' / 70 simvol',
+      wizConds: CONDS.map(c => this.chip(st.wiz.cond === c, c, () => this.setW({cond: c}))),
+      wizSellers: SELLERS.map(c => this.chip(st.wiz.sellerType === c, c, () => this.setW({sellerType: c}))),
+      wizAttrs: (ATTRS[st.wiz.cat] || ATTRS._).map(a => ({
+        label: a[0], ph: a[1], value: st.wiz.attrs && st.wiz.attrs[a[0]] ? st.wiz.attrs[a[0]] : '',
+        onChange: (e) => this.setState(s => {
+          const at = Object.assign({}, s.wiz.attrs); at[a[0]] = e.target.value;
+          return {wiz: Object.assign({}, s.wiz, {attrs: at})};
+        })
+      })),
+      wizPreview: this.vm({
+        id: 999, t: st.wiz.title || 'Elan başlığı burada görünəcək', p: parseInt(st.wiz.price || '0', 10),
+        cat: st.wiz.cat || 'kamp', sub: st.wiz.sub || '—', reg: st.wiz.reg || 'Region', days: 0,
+        cond: st.wiz.cond, st: st.wiz.sellerType === 'Mağaza' ? 'store' : 'ind', seller: 'Sən'
+      }),
+      wizSummary: [
+        {k: 'Kateqoriya', v: this.catName(st.wiz.cat) || '—'},
+        {k: 'Alt kateqoriya', v: st.wiz.sub || '—'},
+        {k: 'Qiymət', v: st.wiz.price ? this.fmt(parseInt(st.wiz.price, 10)) : '—'},
+        {k: 'Vəziyyət', v: st.wiz.cond},
+        {k: 'Region', v: st.wiz.reg || '—'},
+        {k: 'Fotolar', v: st.wiz.photos + ' ədəd'},
+        {k: 'Satıcı tipi', v: st.wiz.sellerType},
+        {k: 'Əlaqə', v: st.wiz.phone}
+      ],
+      openNewListing: () => { const n = st.extra[0]; if (n) this.go('detail', {current: n.id, gal: 0, phoneShown: false}); },
+
+      store: (() => {
+        const name = st.storeName || 'Outdoor Pro Mağaza';
+        const its = this.all().filter(l => l.seller === name);
+        return {
+          name: name, initial: name.slice(0, 2).toUpperCase(), verified: true,
+          desc: 'Ov, balıqçılıq və kamp avadanlıqları üzrə ixtisaslaşmış mağaza. Bakı mərkəzli, bütün regionlara çatdırılma.',
+          stats: [
+            {k: 'Aktiv elan', v: its.length || 6},
+            {k: 'Reytinq', v: '4.8'},
+            {k: 'Rəy', v: '214'},
+            {k: 'Platformada', v: '2 il'}
+          ]
+        };
+      })(),
+      storeItems: (() => {
+        const name = st.storeName || 'Outdoor Pro Mağaza';
+        let its = this.all().filter(l => l.seller === name);
+        if (st.f.sort === 'asc') its = its.slice().sort((a,b) => a.p - b.p);
+        else if (st.f.sort === 'desc') its = its.slice().sort((a,b) => b.p - a.p);
+        return its.map(l => this.vm(l));
+      })(),
+
+      profileStats: [
+        {k: 'Aktiv elan', v: String(3 + st.extra.length)},
+        {k: 'Ümumi baxış', v: '1 284'},
+        {k: 'Favoritə əlavə', v: '46'},
+        {k: 'Zəng/mesaj', v: '19'}
+      ],
+      profileTabs: [
+        this.chip(st.profileTab === 'listings', 'Elanlarım', () => this.setState({profileTab: 'listings'})),
+        this.chip(st.profileTab === 'favs', 'Favoritlər', () => this.setState({profileTab: 'favs'})),
+        this.chip(st.profileTab === 'archive', 'Arxiv', () => this.setState({profileTab: 'archive'}))
+      ],
+      profileRows: st.profileTab !== 'favs',
+      profileFavGrid: st.profileTab === 'favs',
+      myRows: (st.profileTab === 'archive'
+        ? this.all().slice(8, 11)
+        : st.extra.concat(this.all().filter(l => l.seller === 'Rəşad M. ' || [6, 12, 19].indexOf(l.id) > -1))
+      ).map(l => {
+        const v = this.vm(l);
+        const archived = st.profileTab === 'archive';
+        v.meta = this.catName(l.cat) + ' • ' + l.reg + ' • ' + this.ago(l.days);
+        v.status = archived ? 'Arxiv' : (l.id === 999 || st.extra.indexOf(l) > -1 ? 'Moderasiyada' : 'Aktiv');
+        v.statusFg = v.status === 'Aktiv' ? '#315B48' : (v.status === 'Moderasiyada' ? '#8A5A1E' : '#7A8078');
+        v.statusBg = v.status === 'Aktiv' ? '#EDF3EE' : (v.status === 'Moderasiyada' ? '#FBF1E9' : '#F4F5F3');
+        return v;
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

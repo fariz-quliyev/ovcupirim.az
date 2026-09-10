@@ -1,0 +1,39 @@
+# --- .NET ---
+bin/
+obj/
+*.user
+*.suo
+.vs/
+artifacts/
+
+# --- Node ---
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.tsbuildinfo
+coverage/
+playwright-report/
+test-results/
+.playwright/
+
+# --- Secrets & local config ---
+.env
+.env.local
+.env.*.local
+appsettings.Development.local.json
+*.pfx
+
+# --- Local media storage (development file uploads) ---
+backend/src/Ovcuprim.Api/wwwroot/uploads/
+
+# --- Editors / OS ---
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# --- Logs ---
+logs/
+*.log
+npm-debug.log*

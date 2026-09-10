@@ -1,0 +1,76 @@
+[
+  {
+    "$comment": "FaqItem has no publish flag, so a seeded item is live. Only answers that are true of the system as built are seeded. The prototype's remaining questions assert undecided rules — listing lifetime, image limits, monthly quotas, VIP/TOP — and are held back until Phase 4 settles them.",
+    "slug": "hesab-ve-giris",
+    "nameAz": "Hesab və giriş",
+    "sortOrder": 10,
+    "items": [
+      {
+        "questionAz": "Hesabımı necə yaradıram?",
+        "answerAz": "Header-dəki “Giriş” düyməsindən mobil nömrənizi daxil edin. SMS ilə göndərilən təsdiq kodunu yazdıqdan sonra hesabınız yaradılır. Parol tələb olunmur.",
+        "sortOrder": 10
+      },
+      {
+        "questionAz": "Parol lazımdırmı?",
+        "answerAz": "Xeyr. Giriş yalnız mobil nömrə və SMS kodu ilə həyata keçirilir.",
+        "sortOrder": 20
+      },
+      {
+        "questionAz": "Təsdiq kodu gəlmirsə nə etməliyəm?",
+        "answerAz": "Kod bir neçə dəqiqə ərzində etibarlıdır. “Kodu yenidən göndər” düyməsi gözləmə müddəti bitdikdən sonra aktiv olur. Nömrənin düzgün yazıldığını yoxlayın.",
+        "sortOrder": 30
+      },
+      {
+        "questionAz": "Profil məlumatlarımı necə dəyişim?",
+        "answerAz": "Şəxsi kabinet bölməsində ad və e-mail ünvanınızı yeniləyə bilərsiniz.",
+        "sortOrder": 40
+      }
+    ]
+  },
+  {
+    "slug": "kateqoriyalar",
+    "nameAz": "Kateqoriyalar",
+    "sortOrder": 20,
+    "items": [
+      {
+        "questionAz": "Hansı məhsulları yerləşdirmək olar?",
+        "answerAz": "Ovçuluq, balıqçılıq, kamp, outdoor geyim, çanta və aksesuar, outdoor nəqliyyat, optika və bıçaq kateqoriyaları üzrə avadanlıq yerləşdirilə bilər.",
+        "sortOrder": 10
+      },
+      {
+        "questionAz": "Ov silahı yerləşdirə bilərəmmi?",
+        "answerAz": "Xeyr. Ov silahları, onların hissələri və patronlar platformada yerləşdirilə bilməz və belə elanlar moderasiyada silinir.",
+        "sortOrder": 20
+      },
+      {
+        "questionAz": "Kateqoriyaya uyğun xüsusiyyətlər nədir?",
+        "answerAz": "Hər alt kateqoriyanın öz xüsusiyyətləri var — məsələn, tilov üçün uzunluq və test, çadır üçün tutum və mövsüm. Elan yerləşdirərkən bu sahələr avtomatik göstərilir.",
+        "sortOrder": 30
+      }
+    ]
+  },
+  {
+    "slug": "elan",
+    "nameAz": "Elan",
+    "sortOrder": 30,
+    "items": []
+  },
+  {
+    "slug": "magazalar",
+    "nameAz": "Mağazalar",
+    "sortOrder": 40,
+    "items": []
+  },
+  {
+    "slug": "limitler",
+    "nameAz": "Limitlər",
+    "sortOrder": 50,
+    "items": []
+  },
+  {
+    "slug": "elan-ucun-reklam",
+    "nameAz": "Elan üçün reklam",
+    "sortOrder": 60,
+    "items": []
+  }
+]

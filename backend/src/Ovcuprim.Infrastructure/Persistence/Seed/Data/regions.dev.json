@@ -1,0 +1,18 @@
+{
+  "$comment": "DEVELOPMENT FIXTURE ONLY — never loaded outside the Development environment. These are the names carried over from the design prototype so local development and tests have selectable regions. This is NOT an authoritative dataset: it is incomplete, carries no coordinates, and no listing counts. The production dataset must be supplied from the official Azerbaijani administrative classifier and loaded through POST /api/v1/admin/regions/import.",
+
+  "regions": [
+    { "slug": "baki", "nameAz": "Bakı", "type": "City", "sortOrder": 10 },
+    { "slug": "sumqayit", "nameAz": "Sumqayıt", "type": "City", "sortOrder": 20 },
+    { "slug": "gence", "nameAz": "Gəncə", "type": "City", "sortOrder": 30 },
+    { "slug": "naxcivan", "nameAz": "Naxçıvan", "type": "AutonomousRepublic", "sortOrder": 40 },
+    { "slug": "quba", "nameAz": "Quba", "type": "Rayon", "sortOrder": 50 },
+    { "slug": "qebele", "nameAz": "Qəbələ", "type": "Rayon", "sortOrder": 60 },
+    { "slug": "seki", "nameAz": "Şəki", "type": "Rayon", "sortOrder": 70 },
+    { "slug": "lenkeran", "nameAz": "Lənkəran", "type": "Rayon", "sortOrder": 80 },
+    { "slug": "qusar", "nameAz": "Qusar", "type": "Rayon", "sortOrder": 90 },
+    { "slug": "samaxi", "nameAz": "Şamaxı", "type": "Rayon", "sortOrder": 100 },
+    { "slug": "ismayilli", "nameAz": "İsmayıllı", "type": "Rayon", "sortOrder": 110 },
+    { "slug": "zaqatala", "nameAz": "Zaqatala", "type": "Rayon", "sortOrder": 120 }
+  ]
+}

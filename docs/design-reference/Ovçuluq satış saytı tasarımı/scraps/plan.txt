@@ -1,0 +1,244 @@
+OVCUPRIM.AZ
+Frontend və UI/UX Planı
+Azərbaycan auditoriyası üçün ovçuluq, balıqçılıq, kamp və outdoor elan marketplace-i
+Layihə
+Ovcuprim.az
+Məhsul tipi
+İxtisaslaşmış elan marketplace-i
+Əsas bazar
+Azərbaycan
+Dizayn istiqaməti
+Tap.az sadəliyi + outdoor premium estetika
+[Heading1] 1. Layihənin məqsədi
+Ovcuprim.az ovçuluq, balıqçılıq, kamp, outdoor geyim və avadanlıqların alqı-satqısı üçün Azərbaycan bazarına uyğun ixtisaslaşmış elan platforması kimi qurulmalıdır. Məqsəd Tap.az kimi sadə və sürətli istifadə təcrübəsi yaratmaq, eyni zamanda outdoor sahəsinə aid güclü vizual kimlik formalaşdırmaqdır.
+Əsas prinsip: “Tap.az qədər sadə, outdoor brend qədər xarakterli, müasir marketplace qədər premium.”
+[Heading1] 2. Benchmark və dizayn istiqaməti
+Tap.az-dan götürüləcək əsas UX prinsipləri:
+[ListBullet] Sadə header və naviqasiya
+[ListBullet] Güclü axtarış
+[ListBullet] Aydın kateqoriya strukturu
+[ListBullet] Filtrlərin rahat istifadəsi
+[ListBullet] Kompakt elan kartları
+[ListBullet] Qiymətin ön planda olması
+[ListBullet] Region məlumatı
+[ListBullet] Yeni elan CTA-sı
+[ListBullet] Fərdi satıcı və mağaza modeli
+Kamping.az və Campspace-dən götürüləcək outdoor yanaşmaları:
+[ListBullet] Təbiət və outdoor fotoqrafiyası
+[ListBullet] Xəritə və region kəşfi
+[ListBullet] Böyük vizual bölmələr
+[ListBullet] Macəra/outdoor atmosferi
+[ListBullet] Kateqoriya shortcut-ları
+[ListBullet] Lifestyle məzmunu
+Kamping.az hazırda təbiət, xəritə, region və təcrübə əsaslı vizual dil qurur; Campspace isə outdoor kəşfini kateqoriyalar, filtrlər, xəritə və vizual listing-lərlə təqdim edir. Bu prinsiplər Ovcuprim.az-da elan marketplace modelinə uyğunlaşdırılmalıdır.
+[Heading1] 3. Brend və rəng sistemi
+Rəng
+HEX
+İstifadə
+Prioritet
+Forest Green
+#1F3A32
+Əsas brend, header, əsas CTA
+Əsas
+Deep Green
+#142923
+Header/footer və tünd səthlər
+Əsas
+Olive
+#6F7F45
+Secondary accent, kateqoriya elementləri
+Orta
+Sand
+#D9C9A3
+Outdoor dekorativ accent
+Aşağı
+Warm White
+#F7F6F1
+Əsas background
+Əsas
+White
+#FFFFFF
+Kartlar və kontent səthləri
+Əsas
+Charcoal
+#202522
+Mətn
+Əsas
+Orange
+#D97732
+Yeni elan, seçilmiş CTA, vurğu
+Az istifadə
+Tövsiyə olunan əsas kombinasiya: #1F3A32 + #F7F6F1 + #D97732.
+Qeyd: Saytı tam yaşıl və ya tam kamuflyaj üslubunda qurmaq tövsiyə edilmir. Bu, köhnə və həddindən artıq hərbi görünüş yarada bilər.
+[Heading1] 4. Tipografiya və UI qaydaları
+[ListBullet] Şrift: Inter və ya Manrope.
+[ListBullet] Başlıqlar: Manrope 700; əsas mətn: Inter 400/500.
+[ListBullet] Kart radiusu: 12px.
+[ListBullet] Button radiusu: 8px.
+[ListBullet] Input radiusu: 10px.
+[ListBullet] Kart kölgəsi minimal; əsasən nazik border istifadə edilməlidir.
+[ListBullet] Border rəngi: #E4E7E2.
+[ListBullet] UI çox yumru və “app-like” deyil, professional marketplace xarakterində olmalıdır.
+[Heading1] 5. Əsas kateqoriyalar
+[Heading2] Ovçuluq
+Ov avadanlıqları • Ov geyimləri • Ov çantaları • Optika • Bıçaqlar və çoxfunksiyalı alətlər • Digər ov aksesuarları
+[Heading2] Balıqçılıq
+Tilovlar • Makara • Misina • Qarmaqlar • Yemlər • Spinning • Balıqçılıq çantaları • Balıqçılıq geyimləri • Qayıq/kayak • Aksesuarlar
+[Heading2] Kamp
+Çadır • Yataq kisəsi • Karimat • Kamp mebeli • Kamp mətbəxi • Ocaq və istilik avadanlığı • Fənərlər • Termos • Su qabları • Hamak • Tent
+[Heading2] Outdoor geyim
+Gödəkçə • Şalvar • Ayaqqabı • Çəkmə • Termal geyim • Kamuflyaj geyim • Yağış geyimi • Papaq və əlcək
+[Heading2] Çanta və aksesuar
+Backpack • Bel çantası • Su çantası • Fənər • GPS • Multitool • Outdoor aksesuarları
+[Heading2] Outdoor nəqliyyat
+Off-road aksesuarları • Dam çadırları • Karavan/treyler aksesuarları • Qayıqlar • ATV və digər outdoor vasitələr
+Hüquqi cəhətdən məhdudlaşdırılan məhsullar üçün ayrıca qaydalar, uyğunluq/yaş nəzarəti və moderasiya mexanizmləri layihələndirilməlidir.
+[Heading1] 6. Homepage strukturu
+№
+Bölmə
+Məzmun
+01
+Header
+Logo, Kateqoriyalar, Elanlar, Mağazalar, Blog, Giriş, + Yeni elan
+02
+Hero
+Azərbaycan təbiəti fonunda böyük search və əsas CTA
+03
+Kateqoriyalar
+6–8 əsas kateqoriyanın sürətli seçimi
+04
+Seçilmiş elanlar
+VIP/featured elanlar və monetizasiya
+05
+Yeni elanlar
+Əsas marketplace kontenti
+06
+Kateqoriyaya görə
+Ov, Balıqçılıq, Kamp, Geyim və s.
+07
+Regionlar/Xəritə
+Azərbaycan üzrə elanların kəşfi
+08
+Outdoor bələdçi
+SEO və faydalı məzmun
+09
+CTA
+“Sən də elanını yerləşdir”
+10
+Footer
+Qaydalar, təhlükəsizlik, əlaqə və s.
+[Heading1] 7. Header
+Desktop header:
+[ListBullet] OVCUPRIM.AZ logo
+[ListBullet] Kateqoriyalar
+[ListBullet] Elanlar
+[ListBullet] Mağazalar
+[ListBullet] Blog
+[ListBullet] Axtarış ikonası
+[ListBullet] Giriş/Qeydiyyat
+[ListBullet] Əsas “+ Yeni elan” düyməsi
+Header yığcam saxlanmalı, istifadəçini çoxsaylı menyu elementləri ilə yükləməməlidir.
+[Heading1] 8. Hero bölməsi
+Tövsiyə olunan mesaj: “Təbiətə çıx. Lazım olanı tap.”
+Alt mətn: “Ov, balıqçılıq, kamp və outdoor avadanlıqları.”
+Hero daxilində böyük axtarış sahəsi, kateqoriya, region və qiymət üzrə sürətli filter olmalıdır.
+Vizual: Azərbaycan meşəsi + dağ + göl + çadır/outdoor səhnəsi. Brend yalnız silahla assosiasiya edilməməlidir.
+[Heading1] 9. Elan kartı
+[ListBullet] Foto
+[ListBullet] Favorit ikonu
+[ListBullet] Qiymət
+[ListBullet] Elan adı
+[ListBullet] Kateqoriya
+[ListBullet] Region
+[ListBullet] Elan tarixi
+[ListBullet] Yeni/Mağaza/TOP kimi məhdud sayda badge
+Desktop: 4 kart/sətir. Tablet: 3 kart/sətir. Mobile: 2 kart/sətir.
+Kartda həddindən artıq texniki məlumat göstərilməməlidir; ətraflı xüsusiyyətlər elan səhifəsində təqdim olunmalıdır.
+[Heading1] 10. Listing və filter səhifəsi
+Struktur: Breadcrumb → Kateqoriya başlığı → elan sayı → filter paneli → sıralama → listing grid.
+Ümumi filterlər: qiymət, region, yeni/işlənmiş, satıcı tipi, çatdırılma, tarix, marka.
+Kateqoriyaya xüsusi filterlər dinamik olmalıdır. Məsələn, tilov üçün uzunluq/test/material/brend; çadır üçün tutum/mövsüm/çəki; geyim üçün ölçü/cins/mövsüm/material.
+[Heading1] 11. Axtarış sistemi
+[ListBullet] Autocomplete
+[ListBullet] Kateqoriya üzrə nəticə qruplaşdırması
+[ListBullet] Marka tanıma
+[ListBullet] Yazılış variantlarının dəstəklənməsi
+[ListBullet] Son axtarışlar
+[ListBullet] Filterlərlə birlikdə işləmə
+Məsələn, “Shimano” axtarışı tilov, makara, dəst və aksesuar nəticələrini uyğun kateqoriyalar üzrə göstərə bilməlidir.
+[Heading1] 12. Elan detal səhifəsi
+[ListBullet] Böyük foto qalereyası
+[ListBullet] Elanın adı və qiyməti
+[ListBullet] Vəziyyət
+[ListBullet] Region
+[ListBullet] Əlaqə və mesaj düymələri
+[ListBullet] Təsvir
+[ListBullet] Xüsusiyyətlər
+[ListBullet] Satıcı profili
+[ListBullet] Oxşar elanlar
+[ListBullet] Favorit
+[ListBullet] Şikayət et
+[Heading1] 13. Satıcı və mağaza sistemi
+İki əsas satıcı tipi: Fərdi satıcı və Mağaza.
+Mağaza profilində logo, mağaza adı, təsvir, ünvan, telefon, elanlar, reytinq və gələcəkdə verified seller statusu göstərilə bilər.
+[Heading1] 14. Yeni elan yerləşdirmə UX-i
+1. Kateqoriya seçimi
+2. Foto əlavə etmə
+3. Başlıq və təsvir
+4. Qiymət və vəziyyət
+5. Kateqoriyaya xüsusi xüsusiyyətlər
+6. Region və əlaqə
+7. Önizləmə
+8. Elanı yerləşdir
+[Heading1] 15. Mobile UX
+Mobile versiya desktopdan daha prioritet hazırlanmalıdır.
+Bottom navigation: Ana səhifə | Axtarış | + Elan | Favoritlər | Profil.
+Elan grid-i mobil ekranda 2 sütunlu olmalı, search və filter düymələri hər zaman əlçatan saxlanmalıdır.
+[Heading1] 16. Xəritə və region kəşfi
+Azərbaycan xəritəsi regionlara görə elan sıxlığını göstərən discovery komponenti kimi istifadə edilə bilər.
+Region filterləri: Bakı, Sumqayıt, Gəncə, Quba, Qəbələ, Şəki, Lənkəran və digər rayonlar.
+[Heading1] 17. Outdoor kontent və SEO
+[ListBullet] Balıqçılığa yeni başlayanlar üçün avadanlıq
+[ListBullet] Çadır seçərkən vacib məqamlar
+[ListBullet] Kamp üçün əsas avadanlıqlar
+[ListBullet] Azərbaycanın outdoor marşrutları
+[ListBullet] Outdoor geyim seçimi
+[ListBullet] Avadanlıq müqayisələri
+Bu bölmə həm Google üzərindən üzvi trafik, həm də platformada istifadəçi etimadı və retention üçün nəzərdə tutulmalıdır.
+[Heading1] 18. Frontend texniki informasiya arxitekturası
+src/├── components/│   ├── Header│   ├── SearchBar│   ├── CategoryCard│   ├── ListingCard│   ├── FilterPanel│   ├── SellerCard│   ├── LocationSelector│   ├── PriceFilter│   ├── ImageGallery│   ├── Badge│   └── BottomNavigation├── pages/│   ├── Home│   ├── Listings│   ├── ListingDetail│   ├── Category│   ├── Search│   ├── CreateListing│   ├── Favorites│   ├── Profile│   ├── Store│   └── Blog├── layouts/│   ├── MainLayout│   └── MobileLayout└── data/    ├── categories    ├── regions    └── filters
+[Heading1] 19. MVP mərhələsi
+[ListBullet] Homepage
+[ListBullet] Kateqoriyalar
+[ListBullet] Axtarış
+[ListBullet] Listing səhifəsi
+[ListBullet] Filter
+[ListBullet] Elan detalı
+[ListBullet] Yeni elan yerləşdirmə
+[ListBullet] Qeydiyyat/Giriş
+[ListBullet] Profil
+[ListBullet] Favoritlər
+[ListBullet] Satıcı profili
+[ListBullet] Responsive mobile UI
+[ListBullet] Moderasiya üçün əsas UI
+[ListBullet] SEO əsasları
+[Heading1] 20. Phase 2
+[ListBullet] Mağaza profilləri
+[ListBullet] Verified seller
+[ListBullet] VIP/TOP elanlar
+[ListBullet] Ödəniş inteqrasiyası
+[ListBullet] Daxili mesajlaşma
+[ListBullet] Push/e-mail bildirişləri
+[ListBullet] Xəritə
+[ListBullet] Outdoor blog
+[ListBullet] Elan statistikasI
+[ListBullet] Reklam sistemi
+[Heading1] 21. Dizaynın yekun istiqaməti
+Ovcuprim.az Tap.az-ın funksional sadəliyini kopyalamaq əvəzinə onun UX məntiqini mənimsəməli, Kamping.az və Campspace kimi platformalardan isə outdoor kəşf və vizual atmosfer prinsiplərini götürməlidir. Nəticədə platforma “ümumi elan saytı” yox, Azərbaycan outdoor icmasının ixtisaslaşmış marketplace-i kimi hiss olunmalıdır.
+Brend tezisi: “Tap.az qədər sadə, outdoor brend qədər xarakterli, müasir marketplace qədər premium.”
+[Heading1] 22. Dizayn üçün əsas istinadlar
+[ListBullet] Tap.az — Azərbaycan elan marketplace UX benchmarkı.
+[ListBullet] Kamping.az — Azərbaycan outdoor, xəritə və təbiət vizual dili.
+[ListBullet] Campspace — outdoor discovery, filter və listing UX.
+[ListBullet] KampçıyızBiz — kamp/karavan marketplace və kontent ekosistemi.
+OVCUPRIM.AZ — Frontend & UI/UX Planı
