@@ -1,0 +1,22 @@
+# Build context for backend/Dockerfile. Keeps the image build fast and, more importantly, keeps
+# test projects, local secrets and generated output out of anything that gets COPY'd into a layer.
+
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Never needed to build or run the API image — excluded so a test double, a fixture, or a stray
+# credential used only in tests can never end up in a production layer by accident.
+tests/
+
+.vs/
+*.user
+*.suo
+
+# Local media uploads (development only — production mounts a persistent volume at runtime).
+src/Ovcuprim.Api/wwwroot/uploads/
+
+.git/
+.gitignore
+*.md

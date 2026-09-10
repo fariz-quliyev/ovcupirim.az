@@ -1,0 +1,18 @@
+# Build context for frontend/Dockerfile.
+
+node_modules/
+dist/
+dist-ssr/
+.vite/
+coverage/
+
+# Playwright's browser journeys, not part of the built site.
+e2e/
+playwright-report/
+test-results/
+.playwright/
+
+*.tsbuildinfo
+.git/
+.gitignore
+*.md

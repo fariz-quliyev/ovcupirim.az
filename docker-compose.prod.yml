@@ -1,0 +1,142 @@
+# OvcuPrim.az — production-shaped stack for a single instance with persistent volumes, per
+# docs/production-runbook.md's architecture decision. See docs/deployment.md for the full
+# walkthrough: first run, migrations, taxonomy/region seeding, health checks, backup, rollback.
+#
+#   cp .env.production.example .env   # then fill in every blank
+#   docker compose -f docker-compose.prod.yml build
+#   docker compose -f docker-compose.prod.yml run --rm migrate
+#   docker compose -f docker-compose.prod.yml up -d
+#
+# Three containers, two named volumes, one internal network with a fixed subnet — nothing here
+# assumes more than one instance of anything, and nothing is reachable from outside except the
+# `web` container's published port.
+#
+# `name` is explicit and load-bearing: Compose otherwise derives the project name from the current
+# directory, and this repository already has a dev-only docker-compose.yml (Postgres only) sitting
+# right next to this file. Two compose files in the same directory that both default to the
+# directory's name resolve every unqualified volume/network name identically — this file's
+# `postgres` service would then reuse the dev file's `postgres-data` volume and container instead
+# of getting its own, and a `down` on one can recreate or remove the other's containers. Pin a
+# distinct name here so this stack's resources never collide with the dev one's, in any directory.
+name: ovcuprim-prod
+
+networks:
+  ovcuprim:
+    driver: bridge
+    ipam:
+      config:
+        # Fixed on purpose: ForwardedHeaders__KnownNetworks on the api service names this exact
+        # range, so the API knows which forwarded headers to trust. Change FORWARDED_KNOWN_NETWORK
+        # in .env to match if this is ever changed.
+        - subnet: 172.28.0.0/24
+
+volumes:
+  postgres-data:
+  # Written by `api`, read by `web` (see nginx.conf's /uploads/ location) — the one thing both
+  # containers share. Losing this volume loses every uploaded listing/store image; back it up
+  # alongside the database (docs/deployment.md, "Backup").
+  uploads-data:
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - ovcuprim
+    # Not published to the host: only `migrate` and `api`, on the same network, ever reach this.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging: *default-logging
+
+  # Run once, before `api` ever starts — applies pending EF Core migrations and exits. Never part
+  # of the long-running stack: `api` itself has no migration code path (see backend/Dockerfile's
+  # remarks on why boot-time auto-migration was deliberately not added).
+  migrate:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: migrate
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # The bundle's own host-building step re-reads the startup project's normal configuration
+      # to discover the DbContext, which runs AddInfrastructure's blank-connection-string check
+      # before `--connection` below ever gets a chance to override it — so both have to agree.
+      ConnectionStrings__Default: ${CONNECTION_STRING}
+    networks:
+      - ovcuprim
+    command: ["--connection", "${CONNECTION_STRING}"]
+    restart: "no"
+    logging: *default-logging
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      ConnectionStrings__Default: ${CONNECTION_STRING}
+      Auth__Jwt__SigningKey: ${AUTH_JWT_SIGNING_KEY}
+      Auth__Security__HashingKey: ${AUTH_SECURITY_HASHING_KEY}
+      AllowedHosts: ${ALLOWED_HOSTS}
+      Cors__AllowedOrigins__0: ${CORS_ALLOWED_ORIGIN}
+      ForwardedHeaders__KnownNetworks__0: ${FORWARDED_KNOWN_NETWORK}
+      ForwardedHeaders__ForwardLimit: 1
+      Storage__Local__RootPath: ${STORAGE_ROOT_PATH}
+      Storage__Local__PublicBaseUrl: ${STORAGE_PUBLIC_BASE_URL}
+      Sms__Poctgoyercini__Username: ${SMS_POCTGOYERCINI_USERNAME}
+      Sms__Poctgoyercini__Password: ${SMS_POCTGOYERCINI_PASSWORD}
+      Payments__Epoint__PublicKey: ${PAYMENTS_EPOINT_PUBLIC_KEY}
+      Payments__Epoint__PrivateKey: ${PAYMENTS_EPOINT_PRIVATE_KEY}
+      Payments__FrontendBaseUrl: ${PAYMENTS_FRONTEND_BASE_URL}
+    volumes:
+      - uploads-data:/data/uploads
+    networks:
+      - ovcuprim
+    # Not published to the host by default — only `web`, on the same network, reaches this.
+    # For direct debugging, temporarily add: ports: ["127.0.0.1:8080:8080"]
+    logging: *default-logging
+    # HEALTHCHECK is baked into the image (liveness — see backend/Dockerfile); no override needed.
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      # Add once a certificate is mounted and nginx.conf's HTTPS server block is uncommented:
+      # - "443:443"
+    volumes:
+      # Read-only: nginx only ever serves these files, never writes them.
+      - uploads-data:/data/uploads:ro
+    networks:
+      - ovcuprim
+    logging: *default-logging
