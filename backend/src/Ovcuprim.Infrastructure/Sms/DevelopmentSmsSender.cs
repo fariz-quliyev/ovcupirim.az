@@ -19,17 +19,24 @@ public interface IOtpProbe
 }
 
 /// <summary>
-/// The Development sender: records the code for the probe and writes the message to the log.
+/// The Development/Staging sender: records the code for the probe and logs that a message was
+/// captured, without the code itself.
 /// </summary>
 /// <remarks>
 /// <para>
-/// Never registered outside Development. It used to be registered unconditionally, which would
-/// have meant a production host silently sending nothing while writing one-time codes into the
+/// Never registered outside Development or Staging (see <c>Program.cs</c>'s
+/// <c>allowSimulatedIntegrations</c>). It used to be registered unconditionally, which would have
+/// meant a production host silently sending nothing while writing one-time codes into the
 /// application log — a delivery failure and a secret in the logs at the same time.
 /// </para>
 /// <para>
-/// A real gateway implements <see cref="ISmsSender"/> and is registered in its place. Until one
-/// exists, a non-Development host refuses to start rather than pretending to send.
+/// The logged line never carries the code, only that one was captured — deliberately, since
+/// Staging's logs are not a single developer's own terminal the way Development's are, and a code
+/// belongs solely in the in-memory store <see cref="IOtpProbe"/> reads, retrievable only through
+/// the equally non-public <c>/api/v1/dev/otp/{phoneNumber}</c> route (see
+/// <c>frontend/nginx.conf</c>'s dedicated block keeping both off the public internet). A real
+/// gateway implements <see cref="ISmsSender"/> and is registered in its place; until one exists, a
+/// host that is neither refuses to start rather than pretending to send.
 /// </para>
 /// </remarks>
 public sealed class DevelopmentSmsSender(ILogger<DevelopmentSmsSender> logger) : ISmsSender, IOtpProbe
@@ -45,7 +52,9 @@ public sealed class DevelopmentSmsSender(ILogger<DevelopmentSmsSender> logger) :
             _lastCodes[phoneNumber] = code;
         }
 
-        logger.LogInformation("SMS to {PhoneNumber}: {Message}", phoneNumber, message);
+        logger.LogInformation(
+            "SMS captured for {PhoneNumber} ({Length} chars) — read the code via IOtpProbe, never from this log.",
+            phoneNumber, message.Length);
 
         return Task.CompletedTask;
     }

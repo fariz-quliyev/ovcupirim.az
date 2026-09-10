@@ -1,0 +1,138 @@
+# OvcuPrim.az — STAGING. Identical container topology to docker-compose.prod.yml, with two
+# differences: `ASPNETCORE_ENVIRONMENT=Staging` on the api service, and its own isolated project
+# name/network/volumes so this can never collide with docker-compose.prod.yml or the dev-only
+# docker-compose.yml if any of them happen to run on the same machine. See docs/deployment.md and
+# docs/staging-runbook.md for the full walkthrough.
+#
+#   cp .env.staging.example .env.staging   # then fill in every blank
+#   docker compose -f docker-compose.staging.yml --env-file .env.staging build
+#   docker compose -f docker-compose.staging.yml --env-file .env.staging run --rm migrate
+#   docker compose -f docker-compose.staging.yml --env-file .env.staging up -d
+#
+# Staging is otherwise production-shaped end to end — same images, same nginx, same fail-fast
+# checks for AllowedHosts/secrets/storage. The one real difference: ASPNETCORE_ENVIRONMENT=Staging
+# unlocks the same simulated SMS/payment gateways Development uses (see
+# backend/src/Ovcuprim.Api/Program.cs's allowSimulatedIntegrations), because neither provider has
+# a confirmed sandbox yet. This is structurally enforced, not just a convention: AddInfrastructure
+# ignores real Sms__Poctgoyercini__*/Payments__Epoint__* values entirely whenever the environment
+# is Development or Staging, so setting a real credential in .env.staging by mistake cannot
+# activate it. The diagnostic endpoints that read an OTP or drive a fake checkout exist on the api
+# container in Staging but are never reachable through the public reverse proxy — see
+# frontend/nginx.conf's dedicated `location /api/v1/dev/` block.
+
+name: ovcuprim-staging
+
+networks:
+  ovcuprim:
+    driver: bridge
+    ipam:
+      config:
+        # Distinct from docker-compose.prod.yml's 172.28.0.0/24 on purpose, so both could in
+        # principle run on the same host without a network clash. Keep FORWARDED_KNOWN_NETWORK in
+        # .env.staging matching this exact range.
+        - subnet: 172.29.0.0/24
+
+volumes:
+  postgres-data:
+  uploads-data:
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - ovcuprim
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging: *default-logging
+
+  migrate:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: migrate
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__Default: ${CONNECTION_STRING}
+    networks:
+      - ovcuprim
+    command: ["--connection", "${CONNECTION_STRING}"]
+    restart: "no"
+    logging: *default-logging
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      # The only line that differs in shape from docker-compose.prod.yml's api service — this is
+      # what the whole file exists to set. Overrides the image's own baked-in
+      # ASPNETCORE_ENVIRONMENT=Production (see backend/Dockerfile).
+      ASPNETCORE_ENVIRONMENT: Staging
+      ConnectionStrings__Default: ${CONNECTION_STRING}
+      Auth__Jwt__SigningKey: ${AUTH_JWT_SIGNING_KEY}
+      Auth__Security__HashingKey: ${AUTH_SECURITY_HASHING_KEY}
+      AllowedHosts: ${ALLOWED_HOSTS}
+      Cors__AllowedOrigins__0: ${CORS_ALLOWED_ORIGIN}
+      ForwardedHeaders__KnownNetworks__0: ${FORWARDED_KNOWN_NETWORK}
+      ForwardedHeaders__ForwardLimit: 1
+      Storage__Local__RootPath: ${STORAGE_ROOT_PATH}
+      Storage__Local__PublicBaseUrl: ${STORAGE_PUBLIC_BASE_URL}
+      # Read by AddInfrastructure but never acted on while ASPNETCORE_ENVIRONMENT=Staging — see
+      # this file's own header comment. Left blank in .env.staging.example; filling them in has no
+      # effect until Staging itself stops being treated as a simulated-integration environment.
+      Sms__Poctgoyercini__Username: ${SMS_POCTGOYERCINI_USERNAME}
+      Sms__Poctgoyercini__Password: ${SMS_POCTGOYERCINI_PASSWORD}
+      Payments__Epoint__PublicKey: ${PAYMENTS_EPOINT_PUBLIC_KEY}
+      Payments__Epoint__PrivateKey: ${PAYMENTS_EPOINT_PRIVATE_KEY}
+      Payments__FrontendBaseUrl: ${PAYMENTS_FRONTEND_BASE_URL}
+    volumes:
+      - uploads-data:/data/uploads
+    networks:
+      - ovcuprim
+    # Not published to the host by default. To drive the OTP-probe/payment-simulator endpoints
+    # directly (never through the public web container — see frontend/nginx.conf):
+    #   docker compose -f docker-compose.staging.yml exec api curl http://localhost:8080/api/v1/dev/otp/<phone>
+    logging: *default-logging
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${STAGING_HTTP_PORT:-8080}:80"
+    volumes:
+      - uploads-data:/data/uploads:ro
+    networks:
+      - ovcuprim
+    logging: *default-logging

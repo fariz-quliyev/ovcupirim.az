@@ -7,6 +7,8 @@ this order" companion to two documents that already cover the reasoning:
   drill results, production-scale query performance.
 - `docs/deployment-verification.md` — the checklist to run against a live environment after this
   procedure and after every configuration change.
+- `docs/staging-runbook.md` — the same topology run as staging (`docker-compose.staging.yml`), what
+  it simulates instead of Epoint/Poctgoyercini, and what a staging pass cannot prove.
 
 Nothing here repeats their content; it points at them where they already answer the question.
 

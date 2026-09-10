@@ -27,7 +27,18 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .Enrich.FromLogContext());
 
 builder.Services.AddApplication(builder.Configuration);
-builder.Services.AddInfrastructure(builder.Configuration, builder.Environment.IsDevelopment());
+
+// Which SMS/payment gateway gets wired in — real or simulated — not the strict deployment checks
+// below (host filtering, storage, forwarded headers, HSTS all still gate on IsDevelopment() alone,
+// unchanged). Staging is otherwise production-shaped end to end; the one thing it needs that a
+// true production host must never have is a way to complete an OTP sign-in and a payment without
+// a real SMS/Epoint account, since neither has a confirmed sandbox yet (see
+// docs/payments-epoint.md, docs/sms-poctgoyercini.md). The simulated implementations this unlocks
+// are the same ones Development already uses and are exercised by the full existing test suite;
+// the diagnostic endpoints that read an OTP or drive a fake checkout are mapped below under this
+// same condition, but never reachable through the public reverse proxy — see frontend/nginx.conf.
+var allowSimulatedIntegrations = builder.Environment.IsDevelopment() || builder.Environment.IsStaging();
+builder.Services.AddInfrastructure(builder.Configuration, allowSimulatedIntegrations);
 
 builder.Services.AddJwtAuthentication();
 builder.Services.AddAuthRateLimiting(builder.Configuration);
@@ -107,14 +118,19 @@ app.UseForwardedHeaders(ForwardedHeadersSetup.BuildOptions(
     app.Environment.IsDevelopment(),
     app.Services.GetRequiredService<ILoggerFactory>().CreateLogger("ForwardedHeaders")));
 
-if (app.Environment.IsDevelopment())
+// Staging shares this whole block with Development — see allowSimulatedIntegrations above for
+// why, and frontend/nginx.conf for how the /api/v1/dev/* routes stay off the public internet even
+// though the API itself maps them here. A real production host takes neither branch: IsStaging()
+// is false there, exactly like IsDevelopment().
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
     app.MapOpenApi();
     app.MapScalarApiReference(options => options.WithTitle("Ovcuprim API"));
 
-    // Reads back the code the Development sender captured, so a browser test can complete a real
-    // sign-in without a gateway. Mapped inside this block and nowhere else: outside Development
-    // the route does not exist, and IOtpProbe is not even registered.
+    // Reads back the code the Development/Staging sender captured, so a browser test — or a
+    // staging verification pass with no real SMS account — can complete a real sign-in without a
+    // gateway. Mapped inside this block and nowhere else: outside it the route does not exist,
+    // and IOtpProbe is not even registered.
     app.MapGet("/api/v1/dev/otp/{phoneNumber}", (string phoneNumber, IOtpProbe probe) =>
     {
         var code = probe.LastCodeFor(phoneNumber);
@@ -123,14 +139,14 @@ if (app.Environment.IsDevelopment())
     });
 
     // Stands in for the bank's own hosted checkout page — see DevelopmentPaymentGatewayClient.
-    // Mapped only in Development, and IPaymentGatewaySimulator is not even registered outside it.
+    // Mapped only here, and IPaymentGatewaySimulator is not even registered outside this block.
     app.MapGet("/api/v1/dev/payments/{orderId:guid}/checkout", (Guid orderId) => Results.Content(
         $"""
         <!doctype html>
         <html lang="az"><head><meta charset="utf-8"><title>Development checkout</title></head>
         <body>
         <h1>Development checkout — sifariş {orderId}</h1>
-        <p>This page stands in for the bank's hosted checkout. It exists only in Development.</p>
+        <p>This page stands in for the bank's hosted checkout. It exists only in Development or Staging.</p>
         <form method="post" action="/api/v1/dev/payments/{orderId}/simulate?outcome=success">
           <button type="submit" data-testid="dev-payment-succeed">Simulate successful payment</button>
         </form>

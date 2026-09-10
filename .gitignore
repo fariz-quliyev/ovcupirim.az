@@ -21,6 +21,8 @@ test-results/
 .env
 .env.local
 .env.*.local
+.env.staging
+.env.production
 appsettings.Development.local.json
 *.pfx
 
