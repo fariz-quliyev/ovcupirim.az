@@ -1,7 +1,22 @@
 import { getAccessToken, setAccessToken } from '@/api/authToken'
 import type { ProblemDetails } from '@/types/api'
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api/v1'
+/**
+ * Where the API lives, defaulting to the same-origin path the nginx image proxies.
+ *
+ * An empty string has to fall back too, not just an absent value. `??` only catches
+ * null/undefined, but Docker bakes a build arg in as `""` whenever the variable is declared and
+ * left blank — which is exactly what .env.production.example and .env.staging.example tell the
+ * operator to do for the same-origin topology. That produced `BASE_URL = ""`, turning every call
+ * into `/regions` or `/listings`: the SPA fallback answered GETs with index.html (so the JSON
+ * parse failed and every screen showed "could not load") and answered POSTs with 405. Caught on
+ * staging, where the whole site was up and no API call worked.
+ */
+export function resolveBaseUrl(configured: string | undefined): string {
+  return configured !== undefined && configured.trim().length > 0 ? configured : '/api/v1'
+}
+
+const BASE_URL = resolveBaseUrl(import.meta.env.VITE_API_BASE_URL)
 
 /** An API call that came back with a non-2xx status. Carries the parsed problem document. */
 export class ApiError extends Error {

@@ -1,8 +1,22 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getAccessToken, setAccessToken } from '@/api/authToken'
-import { ApiError, api, refreshSession } from '@/api/client'
+import { ApiError, api, refreshSession, resolveBaseUrl } from '@/api/client'
 import { fetchCall, jsonResponse, problemResponse } from '@/features/auth/authTestUtils'
+
+describe('base URL resolution', () => {
+  // Docker bakes a declared-but-blank build arg in as "", which `??` does not treat as absent.
+  // That shipped a build whose every request went to /regions instead of /api/v1/regions: the SPA
+  // fallback answered GETs with index.html and POSTs with 405, so the site loaded and nothing
+  // worked. Found on staging; both .env examples tell the operator to leave this blank.
+  it.each(['', '   ', undefined])('falls back to the same-origin path for %o', (configured) => {
+    expect(resolveBaseUrl(configured)).toBe('/api/v1')
+  })
+
+  it('keeps a real cross-origin base URL', () => {
+    expect(resolveBaseUrl('https://api.example.test/api/v1')).toBe('https://api.example.test/api/v1')
+  })
+})
 
 describe('api client', () => {
   beforeEach(() => {
