@@ -99,7 +99,10 @@ services:
       AllowedHosts: ${ALLOWED_HOSTS}
       Cors__AllowedOrigins__0: ${CORS_ALLOWED_ORIGIN}
       ForwardedHeaders__KnownNetworks__0: ${FORWARDED_KNOWN_NETWORK}
-      ForwardedHeaders__ForwardLimit: 1
+      # Must equal the number of proxies between the visitor and this container. This file publishes
+      # `web` on a loopback high port precisely so a host-level proxy can sit in front of it, which
+      # makes two hops the normal case here — see .env.staging.example.
+      ForwardedHeaders__ForwardLimit: ${FORWARDED_LIMIT:-1}
       Storage__Local__RootPath: ${STORAGE_ROOT_PATH}
       Storage__Local__PublicBaseUrl: ${STORAGE_PUBLIC_BASE_URL}
       # Read by AddInfrastructure but never acted on while ASPNETCORE_ENVIRONMENT=Staging — see

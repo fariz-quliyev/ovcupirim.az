@@ -103,7 +103,12 @@ services:
       AllowedHosts: ${ALLOWED_HOSTS}
       Cors__AllowedOrigins__0: ${CORS_ALLOWED_ORIGIN}
       ForwardedHeaders__KnownNetworks__0: ${FORWARDED_KNOWN_NETWORK}
-      ForwardedHeaders__ForwardLimit: 1
+      # Must equal the number of proxies between the visitor and this container, so it cannot be
+      # hardcoded: one too few and the API attributes every request to the nearest proxy, which
+      # makes every rate limit a single shared bucket for the whole internet and records the proxy
+      # in the audit trail. Default 1 matches this file's own topology (`web` published straight to
+      # :80). Behind an additional host-level proxy it must be 2 — see .env.production.example.
+      ForwardedHeaders__ForwardLimit: ${FORWARDED_LIMIT:-1}
       Storage__Local__RootPath: ${STORAGE_ROOT_PATH}
       Storage__Local__PublicBaseUrl: ${STORAGE_PUBLIC_BASE_URL}
       Sms__Poctgoyercini__Username: ${SMS_POCTGOYERCINI_USERNAME}
