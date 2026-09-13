@@ -60,7 +60,7 @@ const CLEANUP = [
  */
 async function execute(statement: string): Promise<void> {
   const url =
-    process.env['OVCUPRIM_E2E_DB'] ??
+    process.env['OVCUPIRIM_E2E_DB'] ??
     'postgresql://ovcuprim:ovcuprim_dev@localhost:5433/ovcuprim'
 
   if (process.env['CI']) {

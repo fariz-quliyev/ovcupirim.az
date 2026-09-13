@@ -39,7 +39,7 @@ Officially published totals for 2024, which this import's counts were checked ag
 
 ## What was imported, and why only that much
 
-`OvcuPrim`'s `Region` model is deliberately two levels at most, and only "cities and rayons" are
+`OvcuPirim`'s `Region` model is deliberately two levels at most, and only "cities and rayons" are
 ever offered in the public picker (`Region.IsSelectable`'s own doc comment predates this work and
 states this explicitly — this import honours an existing decision, it does not introduce one).
 Level I of the official classification — cities of republic subordination and rayons — **is**

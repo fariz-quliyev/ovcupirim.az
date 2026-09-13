@@ -9,7 +9,7 @@ public sealed class HealthController : ApiControllerBase
     public ActionResult<object> Get() => Ok(new
     {
         status = "ok",
-        service = "ovcuprim-api",
+        service = "ovcupirim-api",
         utc = DateTimeOffset.UtcNow
     });
 }

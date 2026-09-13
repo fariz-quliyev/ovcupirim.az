@@ -73,7 +73,7 @@ public static class DependencyInjection
             var poctgoyercini = configuration.GetSection(PoctgoyerciniSmsOptions.SectionName);
 
             // Opt-in, not automatic: which gateway account these credentials belong to — Bumer.az's
-            // existing one, or a separate one obtained for OvcuPrim — is still an open question with
+            // existing one, or a separate one obtained for OvcuPirim — is still an open question with
             // the provider (see docs/sms-poctgoyercini.md). Wiring this in unconditionally the moment
             // the code exists would presume that question answered. Instead, the safe placeholder
             // that refuses to start sending stays the default until an operator deliberately supplies

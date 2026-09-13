@@ -93,10 +93,10 @@ never touch the dev or production stack:
 
 | | Staging | Production |
 |---|---|---|
-| Compose project (`name:`) | `ovcuprim-staging` | `ovcuprim-prod` |
+| Compose project (`name:`) | `ovcupirim-staging` | `ovcupirim-prod` |
 | Env file | `.env.staging` (via `--env-file`) | `.env` |
 | Network subnet | `172.29.0.0/24` | `172.28.0.0/24` |
-| Volumes | `ovcuprim-staging_postgres-data`, `_uploads-data` | `ovcuprim-prod_*` |
+| Volumes | `ovcupirim-staging_postgres-data`, `_uploads-data` | `ovcupirim-prod_*` |
 | Published port | `${STAGING_HTTP_PORT:-8080}` → 80 | 80 (and 443) |
 
 `FORWARDED_KNOWN_NETWORK` in `.env.staging` must match the subnet above, or every visitor is rate

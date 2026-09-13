@@ -30,9 +30,9 @@ public sealed class JwtOptions
     /// <summary>Shared by the startup validation and by the JwtBearer setup.</summary>
     public const int MinimumSigningKeyLength = 32;
 
-    public string Issuer { get; set; } = "ovcuprim";
+    public string Issuer { get; set; } = "ovcupirim";
 
-    public string Audience { get; set; } = "ovcuprim-web";
+    public string Audience { get; set; } = "ovcupirim-web";
 
     /// <summary>HMAC signing key. Supplied by environment variable in production — never committed.</summary>
     public string SigningKey { get; set; } = string.Empty;

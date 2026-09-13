@@ -18,10 +18,10 @@
 # `postgres` service would then reuse the dev file's `postgres-data` volume and container instead
 # of getting its own, and a `down` on one can recreate or remove the other's containers. Pin a
 # distinct name here so this stack's resources never collide with the dev one's, in any directory.
-name: ovcuprim-prod
+name: ovcupirim-prod
 
 networks:
-  ovcuprim:
+  ovcupirim:
     driver: bridge
     ipam:
       config:
@@ -54,7 +54,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
-      - ovcuprim
+      - ovcupirim
     # Not published to the host: only `migrate` and `api`, on the same network, ever reach this.
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
@@ -80,7 +80,7 @@ services:
       # before `--connection` below ever gets a chance to override it — so both have to agree.
       ConnectionStrings__Default: ${CONNECTION_STRING}
     networks:
-      - ovcuprim
+      - ovcupirim
     command: ["--connection", "${CONNECTION_STRING}"]
     restart: "no"
     logging: *default-logging
@@ -114,7 +114,7 @@ services:
     volumes:
       - uploads-data:/data/uploads
     networks:
-      - ovcuprim
+      - ovcupirim
     # Not published to the host by default — only `web`, on the same network, reaches this.
     # For direct debugging, temporarily add: ports: ["127.0.0.1:8080:8080"]
     logging: *default-logging
@@ -138,5 +138,5 @@ services:
       # Read-only: nginx only ever serves these files, never writes them.
       - uploads-data:/data/uploads:ro
     networks:
-      - ovcuprim
+      - ovcupirim
     logging: *default-logging

@@ -48,7 +48,7 @@ public class StorageSetupTests
     [Fact]
     public void A_writable_absolute_path_outside_Development_succeeds_and_leaves_no_probe_file_behind()
     {
-        var root = Path.Combine(Path.GetTempPath(), $"ovcuprim-storage-test-{Guid.NewGuid():N}");
+        var root = Path.Combine(Path.GetTempPath(), $"ovcupirim-storage-test-{Guid.NewGuid():N}");
 
         try
         {

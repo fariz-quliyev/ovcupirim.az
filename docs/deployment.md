@@ -24,7 +24,7 @@ One host, three containers, two named volumes, one internal Docker network:
    port              │  - serves /uploads/* from the shared  │
                      │    volume directly (read-only)        │
                      └───────────────┬───────────────────────┘
-                                      │ ovcuprim network (172.28.0.0/24)
+                                      │ ovcupirim network (172.28.0.0/24)
                      ┌───────────────▼───────────────────────┐
                      │  api (.NET 10 / ASP.NET Core)          │
                      │  - Storage__Local__RootPath=/data/uploads (read-write)
@@ -48,7 +48,7 @@ Docker Compose. Revisit only if that decision itself changes.
 
 Only `web`'s port 80 (443 once TLS is added — see `frontend/nginx.conf`'s commented HTTPS block)
 is ever reachable from outside the host. `api` and `postgres` are reachable only from other
-containers on the `ovcuprim` network.
+containers on the `ovcupirim` network.
 
 ## B. First-time setup
 
@@ -149,8 +149,8 @@ stack:
   temporarily published), since its port is not exposed to the host by default:
   ```bash
   docker compose -f docker-compose.prod.yml exec postgres \
-    pg_dump -U ${POSTGRES_USER} -d ${POSTGRES_DB} -Fc -f /tmp/ovcuprim-$(date +%Y%m%d-%H%M).dump
-  docker compose -f docker-compose.prod.yml cp postgres:/tmp/ovcuprim-<timestamp>.dump ./
+    pg_dump -U ${POSTGRES_USER} -d ${POSTGRES_DB} -Fc -f /tmp/ovcupirim-$(date +%Y%m%d-%H%M).dump
+  docker compose -f docker-compose.prod.yml cp postgres:/tmp/ovcupirim-<timestamp>.dump ./
   ```
 - The `uploads-data` volume needs its own backup, alongside the database — a filesystem-level
   snapshot of the volume (`docker run --rm -v uploads-data:/data -v $(pwd):/backup alpine tar czf

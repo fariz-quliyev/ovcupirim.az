@@ -17,7 +17,7 @@ namespace Ovcuprim.Infrastructure.Sms;
 /// <remarks>
 /// Deliberately silent on which account these credentials belong to. Bumer.az already operates an
 /// account with this gateway; whether that account may also send for OvcuPirim.az, or whether
-/// OvcuPrim needs its own account and sender ID, is a question for the gateway and whoever holds
+/// OvcuPirim needs its own account and sender ID, is a question for the gateway and whoever holds
 /// the Bumer account — not something this code assumes either way. Either answer plugs in through
 /// the same two settings.
 /// </remarks>
@@ -80,9 +80,9 @@ public sealed class PoctgoyerciniSmsSender(
     public async Task SendAsync(string phoneNumber, string message, CancellationToken cancellationToken = default)
     {
         // The one phone-normalisation path this API has. No second implementation is introduced
-        // here: whatever OvcuPrim already considers a valid Azerbaijani number is what gets sent.
+        // here: whatever OvcuPirim already considers a valid Azerbaijani number is what gets sent.
         var e164 = PhoneNumber.Normalize(phoneNumber)
-            ?? throw new SmsDeliveryException("Cannot send: the phone number is not a number OvcuPrim recognises as valid.");
+            ?? throw new SmsDeliveryException("Cannot send: the phone number is not a number OvcuPirim recognises as valid.");
 
         // The gateway's Receivers entries are digits only, no leading '+' — confirmed against
         // Bumer.az's own integration (see docs/sms-poctgoyercini.md).

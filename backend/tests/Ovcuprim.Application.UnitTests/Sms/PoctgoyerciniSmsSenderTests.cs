@@ -69,7 +69,7 @@ internal sealed class RecordingLogger<T> : ILogger<T>
 
 public class PoctgoyerciniSmsSenderTests
 {
-    private const string Username = "ovcuprim_test_user";
+    private const string Username = "ovcupirim_test_user";
     private const string Password = "correct-horse-battery-staple";
     private const string SecretOtp = "482913";
 
@@ -122,7 +122,7 @@ public class PoctgoyerciniSmsSenderTests
         Assert.Equal(JsonValueKind.Array, receivers.ValueKind);
         Assert.Single(receivers.EnumerateArray());
 
-        // OvcuPrim's own normaliser ran ("0501234567" -> E.164), and the leading '+' was stripped
+        // OvcuPirim's own normaliser ran ("0501234567" -> E.164), and the leading '+' was stripped
         // for the wire format — matching what Bumer.az's own integration sends.
         Assert.Equal("994501234567", receivers[0].GetString());
 
@@ -143,7 +143,7 @@ public class PoctgoyerciniSmsSenderTests
     [Fact]
     public async Task Message_content_reaches_the_gateway_unchanged()
     {
-        // OvcuPrim composes its own template (OtpService.cs) — the sender must not alter, wrap or
+        // OvcuPirim composes its own template (OtpService.cs) — the sender must not alter, wrap or
         // re-template it.
         var (sender, handler, _) = Build();
         handler.Responder = (_, _) => Task.FromResult(JsonResponse(HttpStatusCode.OK, new { StatusCode = 200 }));
@@ -248,11 +248,11 @@ public class PoctgoyerciniSmsSenderTests
             return Task.FromResult(JsonResponse(HttpStatusCode.OK, new { StatusCode = 200 }));
         };
 
-        // Not a made-up validation path — OvcuPrim's own PhoneNumber.Normalize is what decides this,
+        // Not a made-up validation path — OvcuPirim's own PhoneNumber.Normalize is what decides this,
         // the same rule every other phone number in the application is held to.
         await Assert.ThrowsAsync<SmsDeliveryException>(() => sender.SendAsync("not a phone number", "message"));
 
-        Assert.False(called, "the gateway must never be called for a number OvcuPrim itself would reject");
+        Assert.False(called, "the gateway must never be called for a number OvcuPirim itself would reject");
     }
 
     [Fact]

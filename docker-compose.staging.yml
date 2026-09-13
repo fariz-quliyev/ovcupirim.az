@@ -20,10 +20,10 @@
 # container in Staging but are never reachable through the public reverse proxy — see
 # frontend/nginx.conf's dedicated `location /api/v1/dev/` block.
 
-name: ovcuprim-staging
+name: ovcupirim-staging
 
 networks:
-  ovcuprim:
+  ovcupirim:
     driver: bridge
     ipam:
       config:
@@ -53,7 +53,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
-      - ovcuprim
+      - ovcupirim
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -72,7 +72,7 @@ services:
     environment:
       ConnectionStrings__Default: ${CONNECTION_STRING}
     networks:
-      - ovcuprim
+      - ovcupirim
     command: ["--connection", "${CONNECTION_STRING}"]
     restart: "no"
     logging: *default-logging
@@ -113,7 +113,7 @@ services:
     volumes:
       - uploads-data:/data/uploads
     networks:
-      - ovcuprim
+      - ovcupirim
     # Not published to the host by default. To drive the OTP-probe/payment-simulator endpoints
     # directly (never through the public web container — see frontend/nginx.conf):
     #   docker compose -f docker-compose.staging.yml exec api curl http://localhost:8080/api/v1/dev/otp/<phone>
@@ -134,5 +134,5 @@ services:
     volumes:
       - uploads-data:/data/uploads:ro
     networks:
-      - ovcuprim
+      - ovcupirim
     logging: *default-logging

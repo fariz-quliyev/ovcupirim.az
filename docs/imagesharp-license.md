@@ -46,7 +46,7 @@ Earlier working notes on this project treated ImageSharp 3.1.11 as the version c
 assumption does not hold: **Six Labors' own announcement states the Split License applies to
 ImageSharp starting at v3.0.0 "going forward"** — meaning 3.1.11 is licensed under exactly the same
 terms as 4.x, not under the plain Apache 2.0 terms an earlier version would have carried. Using
-3.1.11 has no bearing on which licence condition applies; only OvcuPrim's revenue/entity status does.
+3.1.11 has no bearing on which licence condition applies; only OvcuPirim's revenue/entity status does.
 
 ## What resolves this
 

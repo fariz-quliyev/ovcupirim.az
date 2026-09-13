@@ -13,7 +13,7 @@ to open a hosted checkout and returns a URL; given a callback, it verifies the s
 it; given a provider reference, it re-checks status or requests a refund. It does not decide when a
 promotion activates — `PaymentCallbackService` does that, only after this adapter's `VerifyCallback`
 passes **and** a fresh `GetOrderStatusAsync` call confirms `Paid`. It never stores card data; Epoint's
-hosted checkout means card details never reach OvcuPrim's server at all.
+hosted checkout means card details never reach OvcuPirim's server at all.
 
 ## The gateway contract
 
@@ -135,7 +135,7 @@ From Epoint's public FAQ (epoint.az), confirmed **[A]**:
 - Cards accepted: Visa, Visa Electron, Mastercard, Maestro (Azerbaijani or international banks); a
   separate "AMEX Payment" endpoint exists in the API reference, suggesting Amex is handled distinctly.
 
-**Not found publicly** — needs direct confirmation with Epoint or whoever manages OvcuPrim's own
+**Not found publicly** — needs direct confirmation with Epoint or whoever manages OvcuPirim's own
 business registration:
 
 - Whether a formal "Development → Review → Online" application-status gate exists the way Payriff's
@@ -152,7 +152,7 @@ this adapter or its configuration:
   "0% commission in the first month," implying a normal rate applies afterward — the rate itself is
   never stated. Third-party, non-authoritative market context put general Azerbaijani PSP commissions
   around 1.5–3.5%; this is not Epoint's actual rate and must not be treated as one.
-- **Settlement timing** — how long after a payment funds actually reach OvcuPrim's bank account. Not
+- **Settlement timing** — how long after a payment funds actually reach OvcuPirim's bank account. Not
   documented publicly.
 - **Refund fees/rules** — whether Epoint charges a fee for processing a refund, any time limit on
   when a payment can be refunded, and the exact refund request contract (see "Exact endpoint paths"
@@ -171,7 +171,7 @@ this adapter or its configuration:
       portal or direct provider contact, not left on their unverified defaults.
 - [ ] `Payments:FrontendBaseUrl` is set to the real production frontend origin.
 - [ ] Commission rate, settlement timing, and refund policy are understood well enough to represent
-      them accurately to sellers, if OvcuPrim ever surfaces that information in its own UI.
+      them accurately to sellers, if OvcuPirim ever surfaces that information in its own UI.
 
 ## Callback responses, retries and late captures
 

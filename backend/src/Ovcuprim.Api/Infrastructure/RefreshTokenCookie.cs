@@ -6,7 +6,7 @@ namespace Ovcuprim.Api.Infrastructure;
 /// </summary>
 public static class RefreshTokenCookie
 {
-    public const string Name = "ovcuprim_rt";
+    public const string Name = "ovcupirim_rt";
 
     private const string Path = "/api/v1/auth";
 

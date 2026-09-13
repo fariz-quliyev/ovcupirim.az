@@ -62,8 +62,8 @@ public sealed class AuthTestHarness : IDisposable
         Otp = otpOptions ?? new OtpOptions();
         Jwt = new JwtOptions
         {
-            Issuer = "ovcuprim-test",
-            Audience = "ovcuprim-test",
+            Issuer = "ovcupirim-test",
+            Audience = "ovcupirim-test",
             SigningKey = "test-signing-key-that-is-long-enough-000",
             AccessTokenLifetime = TimeSpan.FromMinutes(15),
             RefreshTokenLifetime = TimeSpan.FromDays(30)

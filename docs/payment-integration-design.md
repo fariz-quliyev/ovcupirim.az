@@ -15,7 +15,7 @@ follows; where a fact could not be found in the providers' own public documentat
 Confidence labels used throughout, matching the convention from the Bumer.az SMS audit: **[A]** fact
 found directly in an authoritative source (the provider's own docs), **[B]** reasonable inference or
 third-party context that is not authoritative, **[C]** open question that needs direct confirmation
-from the provider or from OvcuPrim's own business/legal side.
+from the provider or from OvcuPirim's own business/legal side.
 
 ---
 
@@ -32,11 +32,11 @@ browser rendering since neither serves static HTML to a plain fetch. Supplementa
 | 1 | Merchant onboarding | Register online; both individual entrepreneurs and legal entities accepted **[A]**. Required: director/entrepreneur name, TIN, bank details, "to draw up the contract after registration" **[A]**. Formal activation gate (if any) not documented **[C]**. | Multi-step dashboard wizard: account (email/phone/password + OTP) → merchant application (only "Business" type shown — individual-entrepreneur support not confirmed **[C]**) → App Info → Company Details (incl. Tax ID) → Bank Details → **Development** status **[A]**. |
 | 2 | API authentication | Per-request signing: `public_key`/`private_key` pair, every call signs a `data` payload — see #5 **[A]**. | Static secret key in `Authorization` header, no signing, "No Bearer prefix required" **[A]**. |
 | 3 | Hosted checkout / redirect | Create Payment → `redirect_url` to bank page; `success_redirect_url`/`error_redirect_url` for browser return **[A]**. | `POST /v3/orders` → `paymentUrl` (e.g. `sbpay.payriff.com/r/{id}`); redirect-return URLs also present on the Invoice API **[A]**. |
-| 4 | Server-to-server callback | POST of `data`+`signature` to `result_url` **[A]**. `result_url` is **not** a Create Payment request parameter in the documented schema — appears to be a merchant/account-level setting, not per-order **[A/C — inferred from its absence in the request schema; needs confirmation]**. | `callbackUrl` **is** a per-order Create Order field **[A]** — more natural fit for a platform that may want to route callbacks per concern later, though OvcuPrim only needs one endpoint today. |
+| 4 | Server-to-server callback | POST of `data`+`signature` to `result_url` **[A]**. `result_url` is **not** a Create Payment request parameter in the documented schema — appears to be a merchant/account-level setting, not per-order **[A/C — inferred from its absence in the request schema; needs confirmation]**. | `callbackUrl` **is** a per-order Create Order field **[A]** — more natural fit for a platform that may want to route callbacks per concern later, though OvcuPirim only needs one endpoint today. |
 | 5 | Signature/payment verification | **Documented and concrete**: `signature = base64(sha1(private_key + data + private_key))`, applied identically to outbound requests and inbound callbacks — recompute server-side and compare **[A]**. | **Not documented.** No HMAC/signature scheme appears anywhere in the API reference (checked every page). Payriff's own guidance instead is: "the merchant verifies the final status with `GET /v3/orders/:id` before fulfilling the order" — i.e., don't trust the callback body, always re-fetch **[A — stated Payriff guidance, not an inferred gap]**. |
 | 6 | Transaction/status lookup | `POST` status endpoint with `public_key`+`transaction` (signed) → `status` (`success/failed/new/returned/error/server_error`), `code`, `amount`, `rrn`, `trace_id` — 6 status values **[A]**. | `GET /v3/orders/:id` → `paymentStatus`, a 14-value enum (`CREATED/APPROVED/CANCELED/DECLINED/REFUNDED/PREAUTH_APPROVED/EXPIRED/REVERSE/PARTIAL_REFUND/PARTIAL/ACCEPTED/REFUND_IN_PROGRESS/CASH/PENDING/PREAUTH_EXPIRED`) with numeric codes **[A]** — materially richer, useful if pre-auth/partial-refund is ever needed. |
 | 7 | Idempotency support | No documented `Idempotency-Key` mechanism. `order_id` is caller-supplied (required, max 255 chars) but retry-safety of reusing it is undocumented **[C]**. | No documented idempotency mechanism either; Payriff **generates its own** `orderId` — Create Order takes no caller-supplied external id at all **[A]**. |
-| — | *(conclusion for #7)* | **For both providers**, dedup of a duplicate order-creation call, and dedup of a re-delivered webhook, is entirely OvcuPrim's own responsibility. Neither provider's docs give us a shortcut here — see Section F. | |
+| — | *(conclusion for #7)* | **For both providers**, dedup of a duplicate order-creation call, and dedup of a re-delivered webhook, is entirely OvcuPirim's own responsibility. Neither provider's docs give us a shortcut here — see Section F. | |
 | 8 | Refund support | `/refund` endpoint exists but its docs page is a stub (title + masked endpoint, no parameter table) — thinnest documentation gap found for either provider **[A page exists / C parameters undocumented]**. | Fully documented: `POST /v3/refund` — `amount` (full or partial), `orderId`, `refundReason`; explicit note that an uncaptured `PRE_AUTH` must use Reverse/Void instead **[A]**. |
 | 9 | AZN support | AZN, USD, EUR, RUB **[A]**. | AZN, PKR, AED, SAR (reflects Payriff's Gulf/Pakistan expansion) **[A]**. Both support AZN as a first-class currency; the rest is irrelevant to an AZN-only marketplace. |
 | 10 | Sandbox/test environment | **No mention found anywhere** in the 10 primary docs pages checked (searched each for "sandbox"/"test mode"/"test card" — zero hits) **[A — confirmed absence by direct text search, not just "didn't happen to see it"]**. Doesn't prove no sandbox exists — many AZ gateways hand out test credentials only after a signed agreement — but it's a real, concrete gap **[C]**. | **Explicit and immediate**: new accounts start in "Development" status with a published sandbox test card (`4000 0075 4601 2078`, CVV `893`, exp `04/29`, OTP `123456`) usable across "all Gateway API versions, including V3" **[A]**. |
@@ -45,7 +45,7 @@ browser rendering since neither serves static HTML to a plain fetch. Supplementa
 | 12 | Production activation | No equivalent flow documented; onboarding described only as register → provide identity/TIN/bank details → "contract is drawn up" **[A]**. Whether there's a formal Development→Review→Online gate like Payriff's is **[C]**. | Explicit: sign the "Internet Acquiring Service Agreement" in-dashboard via **Asan İmza** or **Sima İmza** (Azerbaijan's national e-signature services) → status Development→Review → contact Payriff support → Online **[A]**. |
 | 13 | Marketplace-specific constraints | Has a "Split Payment Request" endpoint in the checkout section (masked, mechanics undocumented) **[A exists / C mechanics]**; also has genuine card tokenization/recurring (`cardSave`, Card Registration + Execute Pay) **[A]** — out of scope per this phase's "no subscriptions" rule, but available later. | Split Payments is a **manual, dashboard-only wallet-to-wallet transfer** between two Payriff merchant wallets — the recipient must already hold their own registered Payriff wallet and signed contract; no API, no automatic per-order split ratio **[A]**. Not usable for (and not needed by) this phase's design, but relevant if a future seller-payout phase is ever built. |
 | — | Regulatory status | Central Bank of Azerbaijan licence "№ ÖT-002" **[A — epoint.az footer]**. | EMI licence from the Central Bank of Azerbaijan, PCI DSS Level 1 **[A — docs.payriff.com]**. |
-| — | Card-data handling | Hosted checkout; card data never touches the merchant server **[A]**. | Same — PCI DSS Level 1 hosted checkout **[A]**. Both structurally satisfy OvcuPrim's "never store card data" requirement regardless of which is chosen. |
+| — | Card-data handling | Hosted checkout; card data never touches the merchant server **[A]**. | Same — PCI DSS Level 1 hosted checkout **[A]**. Both structurally satisfy OvcuPirim's "never store card data" requirement regardless of which is chosen. |
 
 ---
 
@@ -59,7 +59,7 @@ only one of the two whose callback/webhook has a **documented cryptographic sign
 (`sha1(private_key + data + private_key)`, applied identically to requests and callbacks). That is the
 sharpest concrete technical differentiator found in this research. Payriff's own documentation
 instead tells integrators to skip signature verification and always re-confirm via `GET /v3/orders/:id`
-— which is exactly what OvcuPrim's own requirement ("never trust payment success from the frontend";
+— which is exactly what OvcuPirim's own requirement ("never trust payment success from the frontend";
 "promotion activates only after verified server-side confirmation") would do anyway. So the practical
 gap is narrower than it first looks: with either provider, the design in this document treats the
 webhook purely as a "go check now" trigger and never as the source of truth by itself (Section F).
@@ -76,7 +76,7 @@ for a platform application (see open decision #7 below) — though for a single-
 feature with one callback path, that constraint may not matter in practice.
 
 **Bottom line**: neither provider's public documentation resolves the questions that would actually
-decide this — the real commission rate, the true KYC/onboarding requirements for OvcuPrim's specific
+decide this — the real commission rate, the true KYC/onboarding requirements for OvcuPirim's specific
 entity, and (for Epoint) whether a sandbox exists at all. Those need a direct conversation with each
 provider before a final choice is safe to make. Section I lists this as an explicit open decision.
 
@@ -304,7 +304,7 @@ is) regardless of promotion state, exactly as required.
     keys, or full raw payloads — the same convention `PoctgoyerciniSmsSender`/`SmsDeliveryException`
     already established for the SMS gateway.
 - **Double-payment/double-order scenarios**: a seller double-clicking "buy" must not create two
-  `PaymentOrder` rows for the same purchase intent — this is entirely OvcuPrim's responsibility with
+  `PaymentOrder` rows for the same purchase intent — this is entirely OvcuPirim's responsibility with
   either provider (neither documents order-creation idempotency). Proposed guard: a short-lived
   application-level lock or a "one `AwaitingPayment` order per listing+package at a time" unique
   constraint, to be finalised at implementation time.
@@ -378,7 +378,7 @@ anywhere.
    call, not a technical constraint.
 5. **The exact refund → promotion-reversal rule** — does any refund reverse the promotion? Only a full
    refund? Is it time-prorated? The domain model supports any of these; none is chosen here.
-6. **OvcuPrim's own onboarding details** — legal entity type, TIN, director identity, bank account for
+6. **OvcuPirim's own onboarding details** — legal entity type, TIN, director identity, bank account for
    settlement — needed for either provider's merchant application regardless of which is chosen.
 7. **Callback routing**: Payriff's per-order `callbackUrl` vs Epoint's apparent account-level
    `result_url` — worth confirming directly with Epoint whether it's actually configurable per request,

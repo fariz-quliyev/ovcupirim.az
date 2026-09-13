@@ -25,7 +25,7 @@ own documentation, which was not available to inspect.
   ```json
   { "Username": "...", "Password": "...", "Message": "...", "Receivers": ["994501234567"] }
   ```
-  `Receivers` entries are digits only — no leading `+`. OvcuPrim's own `PhoneNumber.Normalize`
+  `Receivers` entries are digits only — no leading `+`. OvcuPirim's own `PhoneNumber.Normalize`
   produces the E.164 form (`+994...`); the adapter strips the leading `+` before sending, matching
   what Bumer's integration does, and introduces no second phone-validation path to get there.
 - **Success:** the response body is JSON with an integer `StatusCode` field; `200` means accepted.
@@ -53,18 +53,18 @@ credentials happen to be present in its configuration.
 
 ## What the Bumer.az audit confirmed
 
-A separate, read-only audit of Bumer.az's own codebase and live server (not OvcuPrim's) established
+A separate, read-only audit of Bumer.az's own codebase and live server (not OvcuPirim's) established
 two facts worth recording here, since they bear directly on what goes into the configuration above:
 
 - **The account username is `bumer_s`.** This is a non-secret identifier — safe to write down, the
   same way any username is — and is recorded here purely as provenance. It is not, on its own,
-  evidence that OvcuPrim should or may use it; see the open question below.
+  evidence that OvcuPirim should or may use it; see the open question below.
 - **The password paired with that username was found exposed in Bumer's historical source and
   configuration files, and must be treated as compromised.** Bumer's own migration notes
   independently reached the same conclusion and call for rotating it. **Whatever value eventually
   goes into `Sms__Poctgoyercini__Password` here must not be that historical value** — either a
   freshly rotated password for the `bumer_s` account, or the credential for a separate account
-  obtained for OvcuPrim, but never a credential copied out of Bumer's old source or config. No such
+  obtained for OvcuPirim, but never a credential copied out of Bumer's old source or config. No such
   value has been, or should be, copied into this repository at any point — a guardrail test
   (`NoBumerCredentialLeakageTests`) exists specifically to keep it that way.
 
@@ -82,7 +82,7 @@ Deliberately not assumed anywhere in this adapter or its configuration:
 - Any IP/domain whitelist, volume cap, or contract term tied to the account.
 
 The adapter is built so either answer plugs in the same way: point
-`Sms__Poctgoyercini__Username`/`Password` at whichever account is actually approved for OvcuPrim —
+`Sms__Poctgoyercini__Username`/`Password` at whichever account is actually approved for OvcuPirim —
 the existing Bumer one (**after** its password is rotated), or a newly obtained one — and nothing
 else changes.
 

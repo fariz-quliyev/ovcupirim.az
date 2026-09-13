@@ -15,7 +15,7 @@ public enum PaymentGatewayPaymentStatus
     PartiallyRefunded = 5
 }
 
-/// <summary>What OvcuPrim asks the gateway to create a hosted-checkout order for.</summary>
+/// <summary>What OvcuPirim asks the gateway to create a hosted-checkout order for.</summary>
 public sealed record PaymentGatewayOrderRequest(
     string OrderId,
     decimal AmountAzn,

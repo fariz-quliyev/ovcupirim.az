@@ -3,7 +3,7 @@
 # OvcuPirim.az API — production image.
 #
 # Build context is the `backend/` directory:
-#   docker build -f backend/Dockerfile -t ovcuprim-api backend
+#   docker build -f backend/Dockerfile -t ovcupirim-api backend
 #
 # Three things this image deliberately does NOT do, matching how the application itself is written
 # (see StorageSetup, HostFilteringSetup, appsettings.json's blank deployment-configuration keys):

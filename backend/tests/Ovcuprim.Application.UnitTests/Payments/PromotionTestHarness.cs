@@ -19,7 +19,7 @@ public sealed class PromotionTestHarness : IDisposable
     public PromotionTestHarness()
     {
         Gateway = new RecordingPaymentGatewayClient();
-        PaymentOptions = Options.Create(new PaymentOptions { FrontendBaseUrl = "https://ovcuprim.test" });
+        PaymentOptions = Options.Create(new PaymentOptions { FrontendBaseUrl = "https://ovcupirim.test" });
 
         Packages = new PromotionPackageService(Db);
         PackageAdmin = new PromotionPackageAdminService(Db, CurrentUser, Clock);

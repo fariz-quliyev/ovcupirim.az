@@ -199,7 +199,7 @@ export async function sampleImagePath(page?: Page): Promise<string> {
   const { join } = await import('node:path')
   const { tmpdir } = await import('node:os')
 
-  const directory = join(tmpdir(), 'ovcuprim-e2e')
+  const directory = join(tmpdir(), 'ovcupirim-e2e')
   await mkdir(directory, { recursive: true })
 
   const path = join(directory, 'listing.jpg')

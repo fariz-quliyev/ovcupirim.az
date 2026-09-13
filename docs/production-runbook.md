@@ -70,11 +70,11 @@ database only.
 
 ```bash
 # Backup (custom format — compressed, restorable selectively if ever needed)
-pg_dump -h <host> -U <user> -d ovcuprim -Fc -f ovcuprim-$(date +%Y%m%d-%H%M).dump
+pg_dump -h <host> -U <user> -d ovcuprim -Fc -f ovcupirim-$(date +%Y%m%d-%H%M).dump
 
 # Restore into a NEW database — never directly over a live one
 createdb -h <host> -U <user> ovcuprim_restored
-pg_restore -h <host> -U <user> -d ovcuprim_restored ovcuprim-<timestamp>.dump
+pg_restore -h <host> -U <user> -d ovcuprim_restored ovcupirim-<timestamp>.dump
 ```
 
 Cutting a live deployment over to a restored database is a deliberate, separate decision (repoint

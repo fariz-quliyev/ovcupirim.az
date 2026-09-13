@@ -19,7 +19,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-const string CorsPolicy = "OvcuprimFrontend";
+const string CorsPolicy = "OvcupirimFrontend";
 
 builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Configuration(context.Configuration)
@@ -125,7 +125,7 @@ app.UseForwardedHeaders(ForwardedHeadersSetup.BuildOptions(
 if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference(options => options.WithTitle("Ovcuprim API"));
+    app.MapScalarApiReference(options => options.WithTitle("Ovcupirim API"));
 
     // Reads back the code the Development/Staging sender captured, so a browser test — or a
     // staging verification pass with no real SMS account — can complete a real sign-in without a

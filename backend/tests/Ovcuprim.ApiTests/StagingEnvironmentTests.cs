@@ -46,7 +46,7 @@ public class StagingEnvironmentTests
         private const string AllowedHostsVariable = "AllowedHosts";
         private const string StorageRootVariable = "Storage__Local__RootPath";
 
-        private readonly string _storageRoot = Path.Combine(Path.GetTempPath(), $"ovcuprim-staging-test-{Guid.NewGuid():N}");
+        private readonly string _storageRoot = Path.Combine(Path.GetTempPath(), $"ovcupirim-staging-test-{Guid.NewGuid():N}");
 
         public StagingFactory()
         {

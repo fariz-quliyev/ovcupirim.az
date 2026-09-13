@@ -268,7 +268,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>
                 ["Auth:RateLimits:PromotionOrderCreate:Window"] = "00:10:00",
                 ["Auth:RateLimits:PaymentCallback:PermitLimit"] = "120",
                 ["Auth:RateLimits:PaymentCallback:Window"] = "00:01:00",
-                ["Payments:FrontendBaseUrl"] = "https://ovcuprim.test",
+                ["Payments:FrontendBaseUrl"] = "https://ovcupirim.test",
                 // B-1 defaults to 10 per category per month in code, same as production. Pinned
                 // higher here for the same reason every rate limit above is pinned: this host tests
                 // many unrelated behaviours by creating listings freely, and only the tests that ask

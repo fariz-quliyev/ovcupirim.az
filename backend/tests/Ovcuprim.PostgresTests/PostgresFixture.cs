@@ -26,7 +26,7 @@ public sealed class FixedClock(DateTimeOffset now) : IDateTimeProvider
 /// <para>
 /// <b>No new dependency.</b> Npgsql and EF arrive through the Infrastructure project reference,
 /// and the database is the container the repository already uses for development. The connection
-/// string comes from <c>OVCUPRIM_TEST_DB</c>, falling back to the local development container.
+/// string comes from <c>OVCUPIRIM_TEST_DB</c>, falling back to the local development container.
 /// A database is <b>required</b> for this project — the tests fail with an actionable message
 /// without one, because a suite that goes green when the database is missing is precisely the
 /// failure mode being fixed. The other two test projects need nothing; CI supplies a service
@@ -42,7 +42,7 @@ public sealed class PostgresFixture : IAsyncLifetime
     private const string DefaultAdminConnection =
         "Host=localhost;Port=5433;Database=postgres;Username=ovcuprim;Password=ovcuprim_dev";
 
-    private readonly string _databaseName = $"ovcuprim_test_{Guid.NewGuid():N}";
+    private readonly string _databaseName = $"ovcupirim_test_{Guid.NewGuid():N}";
 
     private string? _adminConnectionString;
 
@@ -54,12 +54,12 @@ public sealed class PostgresFixture : IAsyncLifetime
     /// <summary>The message a failing test carries when no database could be reached.</summary>
     public string SkipReason { get; private set; } =
         "PostgreSQL is required by this test project. Start the development container "
-        + "(docker start ovcuprim-postgres) or set OVCUPRIM_TEST_DB.";
+        + "(docker start ovcuprim-postgres) or set OVCUPIRIM_TEST_DB.";
 
     public async Task InitializeAsync()
     {
         _adminConnectionString =
-            Environment.GetEnvironmentVariable("OVCUPRIM_TEST_DB") ?? DefaultAdminConnection;
+            Environment.GetEnvironmentVariable("OVCUPIRIM_TEST_DB") ?? DefaultAdminConnection;
 
         try
         {

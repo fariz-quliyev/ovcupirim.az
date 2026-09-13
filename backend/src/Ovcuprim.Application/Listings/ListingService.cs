@@ -21,7 +21,7 @@ public interface IListingService
 
     /// <summary>
     /// The buyer-facing page. Restricted and unclassified categories are browsable, but opening one
-    /// requires an explicit age acknowledgement — an OvcuPrim product rule, not a legal claim.
+    /// requires an explicit age acknowledgement — an OvcuPirim product rule, not a legal claim.
     /// </summary>
     Task<Result<ListingPublicDto>> GetPublicAsync(
         long shortId, bool ageConfirmed, CancellationToken cancellationToken = default);

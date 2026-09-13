@@ -15,7 +15,7 @@ interface PromotePackageDialogProps {
 }
 
 /**
- * What the seller is told before paying. Tap.az's rule, adopted as OvcuPrim's: a paid promotion is
+ * What the seller is told before paying. Tap.az's rule, adopted as OvcuPirim's: a paid promotion is
  * not refunded when the listing is later removed, sold, or blocked for breaking the rules.
  */
 const POLICY = 'Elan silinsə, satılsa və ya qaydaları pozduğuna görə bloklansa, ödəniş geri qaytarılmır.'

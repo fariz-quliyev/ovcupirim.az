@@ -52,7 +52,7 @@ public class AuthEndpointsTests
         Assert.Equal("Aydın Məmmədov", auth.User.FullName);
 
         var cookie = Assert.Single(verify.Headers.GetValues("Set-Cookie"));
-        Assert.Contains("ovcuprim_rt=", cookie, StringComparison.Ordinal);
+        Assert.Contains("ovcupirim_rt=", cookie, StringComparison.Ordinal);
         Assert.Contains("httponly", cookie, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("secure", cookie, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("samesite=strict", cookie, StringComparison.OrdinalIgnoreCase);
@@ -215,7 +215,7 @@ public class AuthEndpointsTests
         var refreshed = await response.Content.ReadFromJsonAsync<AuthResponse>();
         Assert.NotNull(refreshed);
         Assert.Equal(first.User.Id, refreshed.User.Id);
-        Assert.Contains("ovcuprim_rt=", Assert.Single(response.Headers.GetValues("Set-Cookie")), StringComparison.Ordinal);
+        Assert.Contains("ovcupirim_rt=", Assert.Single(response.Headers.GetValues("Set-Cookie")), StringComparison.Ordinal);
     }
 
     [Fact]

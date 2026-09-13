@@ -8,7 +8,7 @@
 # for now).
 #
 # Build context is the `frontend/` directory:
-#   docker build -f frontend/Dockerfile -t ovcuprim-web frontend
+#   docker build -f frontend/Dockerfile -t ovcupirim-web frontend
 
 ARG NODE_VERSION=22
 
