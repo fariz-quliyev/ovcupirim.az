@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-# OvcuPrim.az API — production image.
+# OvcuPirim.az API — production image.
 #
 # Build context is the `backend/` directory:
 #   docker build -f backend/Dockerfile -t ovcuprim-api backend

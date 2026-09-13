@@ -35,7 +35,7 @@ set).
 
 ## The one fact this repository does not have
 
-**OvcuPrim.az's actual annual gross revenue and its legal entity status.** That determines which
+**OvcuPirim.az's actual annual gross revenue and its legal entity status.** That determines which
 side of the threshold applies, and it is business information no engineering artifact in this
 repository has visibility into or authority to state. This document deliberately does not guess it.
 
@@ -50,7 +50,7 @@ terms as 4.x, not under the plain Apache 2.0 terms an earlier version would have
 
 ## What resolves this
 
-Someone with authority over OvcuPrim.az's business status confirms which condition the company
+Someone with authority over OvcuPirim.az's business status confirms which condition the company
 meets and, if the revenue/entity conditions are not met, purchases a commercial licence before this
 dependency ships in a production build the company distributes or operates commercially. Until then
 this is correctly listed as a blocker, not silently assumed clear.

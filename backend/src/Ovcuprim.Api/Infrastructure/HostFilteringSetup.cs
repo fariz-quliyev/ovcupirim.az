@@ -41,7 +41,7 @@ public static class HostFilteringSetup
         {
             throw new InvalidOperationException(
                 $"{SectionName} is not configured. Set it to the hostnames this API serves, "
-                + "for example \"ovcuprim.az;www.ovcuprim.az\". An empty value silently accepts any Host header.");
+                + "for example \"ovcupirim.az;www.ovcupirim.az\". An empty value silently accepts any Host header.");
         }
 
         if (hosts.Contains("*", StringComparer.Ordinal))

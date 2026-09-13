@@ -82,7 +82,7 @@ export function StoreForm({ existing, onSaved }: StoreFormProps) {
         error={errors['name']}
         hint={
           existing
-            ? `Ünvan dəyişmir: ovcuprim.az/magaza/${existing.slug}`
+            ? `Ünvan dəyişmir: ovcupirim.az/magaza/${existing.slug}`
             : 'Mağazanın ünvanı bu addan yaradılır və sonradan dəyişmir.'
         }
         required

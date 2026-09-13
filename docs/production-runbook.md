@@ -1,6 +1,6 @@
 # Production runbook
 
-Operational reference for running OvcuPrim.az in production: storage, logging, health checks,
+Operational reference for running OvcuPirim.az in production: storage, logging, health checks,
 backup and restore, and the performance validation behind the current index set. Companion to
 `docs/deployment-verification.md`, which is the pre-launch and post-config-change checklist; this
 document is what an operator reaches for afterwards.

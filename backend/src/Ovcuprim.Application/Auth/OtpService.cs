@@ -87,7 +87,7 @@ public sealed class OtpService(
         var minutes = (int)_options.Lifetime.TotalMinutes;
         await smsSender.SendAsync(
             phoneNumber,
-            $"Ovcuprim.az təsdiq kodu: {code}. Kod {minutes} dəqiqə etibarlıdır. Kodu heç kimlə paylaşmayın.",
+            $"Ovcupirim.az təsdiq kodu: {code}. Kod {minutes} dəqiqə etibarlıdır. Kodu heç kimlə paylaşmayın.",
             cancellationToken);
 
         return Result.Success();

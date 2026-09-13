@@ -76,7 +76,7 @@ export function AdminLayout() {
           </button>
 
           <NavLink to="/admin" className="font-heading text-sm font-extrabold tracking-wide text-ink">
-            OVCUPRIM <span className="text-muted">İdarəetmə</span>
+            OVCUPIRIM <span className="text-muted">İdarəetmə</span>
           </NavLink>
 
           <div className="ml-auto flex items-center gap-3 text-sm">

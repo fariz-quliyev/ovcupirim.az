@@ -72,7 +72,7 @@ two facts worth recording here, since they bear directly on what goes into the c
 
 Deliberately not assumed anywhere in this adapter or its configuration:
 
-- **Whether Bumer.az's existing `poctgoyercini.com` account may be reused for OvcuPrim.az**, or
+- **Whether Bumer.az's existing `poctgoyercini.com` account may be reused for OvcuPirim.az**, or
   whether a separate account is required. Knowing the account's username (above) is not the same as
   knowing the answer to this — nothing in Bumer's code or Bumer's own audit says either way. This is
   an account/contract question for whoever holds that relationship, and for the provider.
@@ -90,7 +90,7 @@ else changes.
 
 - [ ] Reuse (same account) vs. a separate account has been confirmed with whoever holds the Bumer
       relationship and/or the provider — not assumed by whoever is deploying.
-- [ ] Sender ID for OvcuPrim.az specifically has been confirmed.
+- [ ] Sender ID for OvcuPirim.az specifically has been confirmed.
 - [ ] The password being configured is a **current, freshly issued or rotated** credential — never
       a value found in Bumer's historical source or configuration.
 - [ ] `Sms__Poctgoyercini__Username`/`Password` are set as environment variables (or another secret

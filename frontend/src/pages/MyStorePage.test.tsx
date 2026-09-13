@@ -123,7 +123,7 @@ describe('MyStorePage', () => {
 
     expect(await screen.findByText('7')).toBeInTheDocument()
     expect(screen.getByText('3')).toBeInTheDocument()
-    expect(screen.getByText(/Ünvan dəyişmir: ovcuprim.az\/magaza\/ovcu-dunyasi/)).toBeInTheDocument()
+    expect(screen.getByText(/Ünvan dəyişmir: ovcupirim.az\/magaza\/ovcu-dunyasi/)).toBeInTheDocument()
   })
 
   it('saves an edit with a PUT', async () => {

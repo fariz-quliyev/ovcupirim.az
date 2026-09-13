@@ -1,4 +1,4 @@
-# Ovcuprim.az
+# Ovcupirim.az
 
 Specialised classifieds marketplace for hunting, fishing, camping and outdoor equipment in Azerbaijan.
 

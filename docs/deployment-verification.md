@@ -7,7 +7,7 @@ proxy chain, host filtering, secrets, and cache behaviour through the real edge.
 Set `BASE` to the environment's public origin.
 
 ```bash
-BASE=https://staging.ovcuprim.az
+BASE=https://staging.ovcupirim.az
 ```
 
 ---
@@ -23,7 +23,7 @@ breaking each one on a scratch instance — never on a live one.
 | `Auth__Jwt__SigningKey` short/blank | `OptionsValidationException: Auth:Jwt:SigningKey must be configured with at least 32 characters.` |
 | `Auth__Security__HashingKey` short/blank | `OptionsValidationException: Auth:Security:HashingKey must be configured with at least 32 characters.` |
 | `Storage__Local__RootPath` left at the relative default (`wwwroot/uploads`) | `InvalidOperationException: Storage:Local:RootPath ("wwwroot/uploads") is not an absolute path. …` |
-| `Payments__Epoint__PublicKey` + `Payments__Epoint__PrivateKey` set, `Payments__FrontendBaseUrl` blank or relative | `InvalidOperationException: Payments:FrontendBaseUrl must be an absolute http(s) origin (e.g. https://ovcuprim.az) when the Epoint gateway is configured. …` |
+| `Payments__Epoint__PublicKey` + `Payments__Epoint__PrivateKey` set, `Payments__FrontendBaseUrl` blank or relative | `InvalidOperationException: Payments:FrontendBaseUrl must be an absolute http(s) origin (e.g. https://ovcupirim.az) when the Epoint gateway is configured. …` |
 | `Payments__Epoint__*` blank | Starts; every purchase attempt answers 500 from the refusing placeholder gateway (deliberate — payments are opt-in, see `docs/payments-epoint.md`). |
 
 A host that starts with any of these absent or wrong is misconfigured, not lenient. The storage

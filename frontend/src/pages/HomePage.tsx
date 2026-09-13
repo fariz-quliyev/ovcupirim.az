@@ -20,7 +20,7 @@ export function HomePage() {
     <div className="py-10">
       <section className="rounded-(--radius-card) border border-line bg-surface p-8">
         <Badge tone="new">Phase 1</Badge>
-        <h1 className="mt-4 text-3xl">Ovcuprim.az</h1>
+        <h1 className="mt-4 text-3xl">Ovcupirim.az</h1>
         <p className="mt-3 max-w-2xl text-muted">
           Layihənin bünövrəsi quruldu: React + Vite + TypeScript, ASP.NET Core API, PostgreSQL və verilənlər
           bazası sxemi. Növbəti mərhələ — autentifikasiya və istifadəçilər.

@@ -120,7 +120,7 @@ public static class DependencyInjection
                     || (frontendOrigin.Scheme != Uri.UriSchemeHttps && frontendOrigin.Scheme != Uri.UriSchemeHttp))
                 {
                     throw new InvalidOperationException(
-                        "Payments:FrontendBaseUrl must be an absolute http(s) origin (e.g. https://ovcuprim.az) when the "
+                        "Payments:FrontendBaseUrl must be an absolute http(s) origin (e.g. https://ovcupirim.az) when the "
                         + "Epoint gateway is configured. Set Payments__FrontendBaseUrl — see docs/payments-epoint.md.");
                 }
 

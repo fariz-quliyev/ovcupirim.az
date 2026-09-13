@@ -16,7 +16,7 @@ namespace Ovcuprim.Infrastructure.Sms;
 /// </summary>
 /// <remarks>
 /// Deliberately silent on which account these credentials belong to. Bumer.az already operates an
-/// account with this gateway; whether that account may also send for OvcuPrim.az, or whether
+/// account with this gateway; whether that account may also send for OvcuPirim.az, or whether
 /// OvcuPrim needs its own account and sender ID, is a question for the gateway and whoever holds
 /// the Bumer account — not something this code assumes either way. Either answer plugs in through
 /// the same two settings.

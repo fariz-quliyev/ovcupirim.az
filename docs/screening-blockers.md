@@ -28,7 +28,7 @@ display, or the audit trail changes to add it.
 ### What a future prohibited-item policy needs, concretely
 
 - **The list itself.** Categories, keywords, or category-level restriction rules — sourced from
-  whoever owns marketplace legal policy for OvcuPrim.az, not authored here.
+  whoever owns marketplace legal policy for OvcuPirim.az, not authored here.
 - **A decision on where it lives.** Configuration (a JSON list, versioned in source control) is
   the shape every other policy input in this codebase uses (see `ScreeningOptions`,
   `ConfigurationListingQuotaPolicy`) and is the natural first choice; a database table only earns
@@ -37,7 +37,7 @@ display, or the audit trail changes to add it.
   it should tighten from "flag" to "reject." B-2 (the original product decision) set flag-only for
   launch; that decision is not re-litigated here, only recorded as the current state.
 - **Wording for the flag message** a moderator will read, and — if it should ever surface to a
-  seller — wording that does not assert a legal claim OvcuPrim.az has not actually decided to make.
+  seller — wording that does not assert a legal claim OvcuPirim.az has not actually decided to make.
 
 ## Already-existing category restriction, and how it relates
 

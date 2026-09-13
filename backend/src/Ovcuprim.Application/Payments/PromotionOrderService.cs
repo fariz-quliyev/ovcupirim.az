@@ -127,7 +127,7 @@ public sealed class PromotionOrderService(
                 new PaymentGatewayOrderRequest(
                     OrderId: order.Id.ToString(),
                     AmountAzn: order.AmountAzn,
-                    Description: $"OvcuPrim.az — {package.NameAz}",
+                    Description: $"OvcuPirim.az — {package.NameAz}",
                     SuccessRedirectUrl: $"{baseUrl}/promotions/orders/{order.Id}/return?outcome=success",
                     ErrorRedirectUrl: $"{baseUrl}/promotions/orders/{order.Id}/return?outcome=error"),
                 cancellationToken);

@@ -95,7 +95,7 @@ public class PoctgoyerciniSmsSenderTests
         var (sender, handler, _) = Build();
         handler.Responder = (_, _) => Task.FromResult(JsonResponse(HttpStatusCode.OK, new { StatusCode = 200 }));
 
-        await sender.SendAsync("+994501234567", $"Ovcuprim.az təsdiq kodu: {SecretOtp}.");
+        await sender.SendAsync("+994501234567", $"Ovcupirim.az təsdiq kodu: {SecretOtp}.");
 
         Assert.NotNull(handler.LastRequest);
     }
@@ -148,7 +148,7 @@ public class PoctgoyerciniSmsSenderTests
         var (sender, handler, _) = Build();
         handler.Responder = (_, _) => Task.FromResult(JsonResponse(HttpStatusCode.OK, new { StatusCode = 200 }));
 
-        const string exact = "Ovcuprim.az təsdiq kodu: 482913. Kod 5 dəqiqə etibarlıdır. Kodu heç kimlə paylaşmayın.";
+        const string exact = "Ovcupirim.az təsdiq kodu: 482913. Kod 5 dəqiqə etibarlıdır. Kodu heç kimlə paylaşmayın.";
         await sender.SendAsync("+994501234567", exact);
 
         using var body = JsonDocument.Parse(handler.LastRequestBody!);

@@ -47,7 +47,7 @@ export async function goto(page: Page, path: string): Promise<void> {
   await page.goto(path)
 
   // Rendered by React on every page, so its presence means hydration is done.
-  await page.getByRole('link', { name: /OVCUPRIM/i }).first().waitFor({ state: 'visible' })
+  await page.getByRole('link', { name: /OVCUPIRIM/i }).first().waitFor({ state: 'visible' })
 }
 
 /**

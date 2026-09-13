@@ -1,4 +1,4 @@
-# OvcuPrim.az — production-shaped stack for a single instance with persistent volumes, per
+# OvcuPirim.az — production-shaped stack for a single instance with persistent volumes, per
 # docs/production-runbook.md's architecture decision. See docs/deployment.md for the full
 # walkthrough: first run, migrations, taxonomy/region seeding, health checks, backup, rollback.
 #

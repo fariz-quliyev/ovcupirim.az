@@ -34,7 +34,7 @@ public class DeploymentHardeningTests
 
     [Theory]
     [InlineData("*")]
-    [InlineData("ovcuprim.az;*")]
+    [InlineData("ovcupirim.az;*")]
     public void A_wildcard_stops_a_production_host(string configured)
     {
         var failure = Assert.Throws<InvalidOperationException>(
@@ -46,9 +46,9 @@ public class DeploymentHardeningTests
     [Fact]
     public void Real_hostnames_are_accepted_and_reported()
     {
-        var hosts = HostFilteringSetup.Validate("ovcuprim.az; www.ovcuprim.az ", isDevelopment: false);
+        var hosts = HostFilteringSetup.Validate("ovcupirim.az; www.ovcupirim.az ", isDevelopment: false);
 
-        Assert.Equal(["ovcuprim.az", "www.ovcuprim.az"], hosts);
+        Assert.Equal(["ovcupirim.az", "www.ovcupirim.az"], hosts);
     }
 
     [Theory]
@@ -93,8 +93,8 @@ public class DeploymentHardeningTests
     [InlineData("")]
     [InlineData("   ")]
     [InlineData("/promotions")]
-    [InlineData("ovcuprim.az")]
-    [InlineData("ftp://ovcuprim.az")]
+    [InlineData("ovcupirim.az")]
+    [InlineData("ftp://ovcupirim.az")]
     public void A_configured_gateway_without_an_absolute_frontend_origin_stops_a_production_host(string? configured)
     {
         // Integration audit M-2: appsettings.json ships this blank on purpose, and blank would send the
@@ -106,8 +106,8 @@ public class DeploymentHardeningTests
     }
 
     [Theory]
-    [InlineData("https://ovcuprim.az")]
-    [InlineData("http://staging.ovcuprim.az/")]
+    [InlineData("https://ovcupirim.az")]
+    [InlineData("http://staging.ovcupirim.az/")]
     public void A_real_frontend_origin_is_accepted_alongside_gateway_keys(string configured)
     {
         AddProductionInfrastructure(configured, gatewayKeys: true);

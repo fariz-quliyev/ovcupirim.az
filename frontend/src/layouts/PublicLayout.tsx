@@ -54,7 +54,7 @@ export function PublicLayout() {
       <header className="sticky top-0 z-40 bg-brand">
         <div className="mx-auto flex h-16 max-w-[1280px] items-center gap-5 px-4 sm:px-6">
           <NavLink to="/" className="font-heading text-lg font-extrabold tracking-wide text-white">
-            OVCUPRIM<span className="text-accent">.AZ</span>
+            OVCUPIRIM<span className="text-accent">.AZ</span>
           </NavLink>
 
           <nav className="hidden flex-1 items-center gap-6 md:flex">
@@ -108,7 +108,7 @@ export function PublicLayout() {
         <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
           <div>
             <div className="font-heading text-base font-extrabold text-white">
-              OVCUPRIM<span className="text-accent">.AZ</span>
+              OVCUPIRIM<span className="text-accent">.AZ</span>
             </div>
             <p className="mt-3 max-w-xs text-sm">
               Ov, balıqçılıq, kamp və outdoor avadanlıqları üçün ixtisaslaşmış elan platforması.
@@ -133,7 +133,7 @@ export function PublicLayout() {
 
         <div className="border-t border-white/10">
           <div className="mx-auto max-w-[1280px] px-4 py-4 text-xs sm:px-6">
-            © {new Date().getFullYear()} Ovcuprim.az
+            © {new Date().getFullYear()} Ovcupirim.az
           </div>
         </div>
       </footer>

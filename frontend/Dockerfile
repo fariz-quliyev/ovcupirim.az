@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-# OvcuPrim.az frontend — production image: a Vite production build served as static files by
+# OvcuPirim.az frontend — production image: a Vite production build served as static files by
 # nginx, which also reverse-proxies /api and /health to the backend and serves /uploads directly
 # from the same persistent volume the API writes to (see nginx.conf and docs/deployment.md — this
 # is the concrete shape of the "production serves it from the CDN" line in LocalFileStorage's own

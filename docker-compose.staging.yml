@@ -1,4 +1,4 @@
-# OvcuPrim.az — STAGING. Identical container topology to docker-compose.prod.yml, with two
+# OvcuPirim.az — STAGING. Identical container topology to docker-compose.prod.yml, with two
 # differences: `ASPNETCORE_ENVIRONMENT=Staging` on the api service, and its own isolated project
 # name/network/volumes so this can never collide with docker-compose.prod.yml or the dev-only
 # docker-compose.yml if any of them happen to run on the same machine. See docs/deployment.md and
