@@ -45,5 +45,10 @@ COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 
+# 127.0.0.1, not `localhost`: inside the container `localhost` resolves to ::1 first, nginx.conf
+# binds `listen 80;` on IPv4 only, and BusyBox wget — unlike curl — does not fall back to the
+# second address. Probing `localhost` therefore fails with "connection refused" on a container
+# that is serving every request perfectly, leaving `web` permanently unhealthy. Found on the
+# staging host, where the container answered 200 on every route while Docker reported it down.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+    CMD wget --quiet --tries=1 --spider http://127.0.0.1/ || exit 1
