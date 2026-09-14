@@ -125,6 +125,18 @@ describe('HomePage', () => {
     expect(screen.getByText('Ov çantası')).toBeInTheDocument()
   })
 
+  it('puts the whole catalogue at the head of the category row', async () => {
+    // The row is one swipe on a phone. Without this tile the only way into the full tree is the
+    // "Hamısı" link above it, which is easy to swipe straight past.
+    mockHome([listing])
+    renderWithProviders(page(), { route: '/' })
+
+    expect(await screen.findByRole('link', { name: 'Kataloq' })).toHaveAttribute(
+      'href',
+      '/kateqoriyalar',
+    )
+  })
+
   it('shows a category picture once one is set, and a glyph until then', async () => {
     // imageKey is what an administrator edits; the tile falls back to its glyph while it is unset,
     // so adding photography later never leaves a category with an empty square.

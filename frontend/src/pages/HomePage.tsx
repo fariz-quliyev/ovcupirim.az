@@ -53,9 +53,12 @@ export function HomePage() {
           </div>
 
           {categories.isPending ? (
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-8" aria-busy="true">
+            <div
+              className="-mx-4 flex gap-3 overflow-hidden px-4 sm:mx-0 sm:grid sm:grid-cols-4 sm:px-0 lg:grid-cols-8"
+              aria-busy="true"
+            >
               {Array.from({ length: 8 }, (_, i) => (
-                <Skeleton key={i} className="aspect-square" />
+                <Skeleton key={i} className="aspect-square w-[88px] shrink-0 sm:w-auto" />
               ))}
             </div>
           ) : null}
@@ -63,9 +66,36 @@ export function HomePage() {
           {categories.isError ? <ErrorState onRetry={() => void categories.refetch()} /> : null}
 
           {topCategories.length > 0 ? (
-            <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+            /* One swipeable row on a phone, a grid from `sm` up.
+
+               Eight large tiles stacked three-across filled a phone screen on their own and pushed
+               the listings a thousand pixels down, which on a classifieds homepage is the one thing
+               that must not happen. The row bleeds to both screen edges — the negative margin
+               cancels the layout's padding — so it reads as something to swipe rather than a
+               truncated grid; `overflow-x: clip` on the body keeps that from becoming a page-wide
+               sideways scroll. */
+            <ul className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-8">
+              {/* First in the row, and only on a phone: the whole tree is one tap away without
+                  having to swipe past eight tiles to find the "Hamısı" link above. */}
+              <li className="w-[88px] shrink-0 snap-start sm:hidden">
+                <Link
+                  to="/kateqoriyalar"
+                  className="group flex h-full flex-col items-center gap-2 text-center"
+                >
+                  <span className="flex aspect-square w-full items-center justify-center rounded-(--radius-card) bg-interactive-soft text-cta">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="size-8" aria-hidden="true">
+                      <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
+                      <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
+                      <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
+                      <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
+                    </svg>
+                  </span>
+                  <span className="text-[13px] font-medium text-interactive">Kataloq</span>
+                </Link>
+              </li>
+
               {topCategories.map((category) => (
-                <li key={category.slug}>
+                <li key={category.slug} className="w-[88px] shrink-0 snap-start sm:w-auto">
                   {/* The square plus a label beneath it, no card around them, so the eight read as
                       one row rather than eight boxes. The square shows the category's own picture
                       when an administrator has set one and falls back to a glyph until then, so

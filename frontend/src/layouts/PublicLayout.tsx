@@ -17,12 +17,22 @@ import { HeaderSearch } from './HeaderSearch'
  * field is the point — a classifieds visitor arrives to search, and a link row cannot do that.
  */
 
+/**
+ * The phone's navigation bar. Five destinations with the posting action in the middle, raised and
+ * in the brand red — the shape every classifieds app on this market uses, and the one place a
+ * seller looks for it.
+ */
 const bottomNav = [
-  { to: '/', label: 'Əsas', end: true },
-  { to: '/axtaris', label: 'Axtarış', end: false },
-  { to: '/yeni-elan', label: 'Elan', end: false },
-  { to: '/secilmisler', label: 'Seçilmişlər', end: false },
-  { to: '/kabinet', label: 'Profil', end: false },
+  { to: '/', label: 'Əsas', end: true, d: 'M4 11.5 12 4.5l8 7M6.5 10v9.5h11V10' },
+  { to: '/axtaris', label: 'Axtarış', end: false, d: 'M11 4.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13Zm8.5 15-3.9-3.9' },
+  { to: '/yeni-elan', label: 'Elan', end: false, d: 'M12 6v12M6 12h12', primary: true },
+  {
+    to: '/secilmisler',
+    label: 'Seçilmişlər',
+    end: false,
+    d: 'M12 20s-7.5-4.6-7.5-9.6A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5-7.5 9.6-7.5 9.6Z',
+  },
+  { to: '/kabinet', label: 'Profil', end: false, d: 'M12 12a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Zm-7 8a7 7 0 0 1 14 0' },
 ]
 
 const footerColumns = [
@@ -224,16 +234,48 @@ export function PublicLayout() {
         </div>
       </footer>
 
-      <nav className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t border-line bg-surface/95 backdrop-blur md:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
         {bottomNav.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             end={item.end}
             className={({ isActive }) =>
-              `py-3 text-center text-xs font-medium ${isActive ? 'text-accent' : 'text-faint'}`
+              `flex flex-col items-center gap-1 py-2 text-[11px] font-medium ${
+                item.primary ? 'text-ink' : isActive ? 'text-cta' : 'text-faint'
+              }`
             }
           >
+            {item.primary ? (
+              // Lifted clear of the bar, the way the posting action is on every app this competes
+              // with. The bar has no clipping of its own, so it simply overhangs.
+              <span className="-mt-6 grid size-12 place-items-center rounded-full bg-cta text-white shadow-lg">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  className="size-6"
+                  aria-hidden="true"
+                >
+                  <path d={item.d} />
+                </svg>
+              </span>
+            ) : (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="size-5"
+                aria-hidden="true"
+              >
+                <path d={item.d} />
+              </svg>
+            )}
             {item.label}
           </NavLink>
         ))}
