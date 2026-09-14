@@ -14,7 +14,7 @@ const variants: Record<Variant, string> = {
   secondary: 'bg-surface text-ink border border-line hover:border-interactive',
   ghost: 'bg-transparent text-interactive hover:bg-interactive-soft',
   // Reserved for the primary conversion action — "Yeni elan" — per the design rules.
-  accent: 'bg-accent text-white hover:brightness-95',
+  accent: 'bg-cta text-white hover:brightness-95',
 }
 
 const sizes: Record<Size, string> = {

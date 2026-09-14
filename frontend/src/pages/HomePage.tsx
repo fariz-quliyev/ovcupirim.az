@@ -107,7 +107,7 @@ export function HomePage() {
 
             <button
               type="submit"
-              className="h-12 shrink-0 rounded-(--radius-input) bg-accent px-8 font-semibold text-white transition hover:brightness-95 sm:rounded-s-none"
+              className="h-12 shrink-0 rounded-(--radius-input) bg-cta px-8 font-semibold text-white transition hover:brightness-95 sm:rounded-s-none"
             >
               Axtar
             </button>
@@ -244,7 +244,7 @@ export function HomePage() {
               </p>
               <Link
                 to="/yeni-elan"
-                className="mt-5 inline-flex h-11 items-center rounded-(--radius-button) bg-accent px-5 font-semibold text-white transition hover:brightness-95"
+                className="mt-5 inline-flex h-11 items-center rounded-(--radius-button) bg-cta px-5 font-semibold text-white transition hover:brightness-95"
               >
                 Elan yerləşdir
               </Link>

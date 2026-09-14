@@ -15,6 +15,14 @@
   --color-accent: #d97732;
   --color-accent-soft: #fbf1e9;
 
+  /*
+    The primary action colour — "Axtar", "Yeni elan", "Elan yerləşdir". Kept separate from
+    --color-accent, which stays on the badges, the unread dot and the age-confirmation banner:
+    those mark state rather than invite a click, and turning them all one loud red would leave
+    nothing on the page louder than everything else.
+  */
+  --color-cta: #ff002a;
+
   --color-canvas: #f7f6f1;
   --color-surface: #ffffff;
   --color-ink: #202522;
