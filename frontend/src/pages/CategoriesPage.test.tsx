@@ -31,7 +31,7 @@ function node(slug: string, nameAz: string, children: CategoryNode[] = []): Cate
 }
 
 const tree: CategoryNode[] = [
-  node('baliqciliq', 'Balıqçılıq', [node('tilovlar', 'Tilovlar'), node('makara', 'Makara')]),
+  node('baliqciliq', 'Balıqçılıq', [node('tilovlar', 'Tilovlar'), node('makara', 'Tilov çarxı')]),
   {
     ...node('bicaq-ve-alet', 'Bıçaq və alət', [node('ov-bicagi', 'Ov bıçağı')]),
     restrictionStatus: 'Unclassified',
@@ -70,7 +70,7 @@ describe('CategoriesPage', () => {
 
     expect(await screen.findByText('Balıqçılıq')).toBeInTheDocument()
     expect(screen.getByText('Tilovlar')).toBeInTheDocument()
-    expect(screen.getByText('Makara')).toBeInTheDocument()
+    expect(screen.getByText('Tilov çarxı')).toBeInTheDocument()
     expect(screen.getByText('Bıçaq və alət')).toBeInTheDocument()
   })
 
