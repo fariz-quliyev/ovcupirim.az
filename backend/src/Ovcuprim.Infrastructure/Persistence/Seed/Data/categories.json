@@ -47,7 +47,7 @@
       { "slug": "ocaq-ve-istilik", "nameAz": "Ocaq və istilik avadanlığı", "sortOrder": 60 },
       { "slug": "termos", "nameAz": "Termos", "sortOrder": 70 },
       { "slug": "su-qablari", "nameAz": "Su qabları", "sortOrder": 80 },
-      { "slug": "hamak", "nameAz": "Hamak", "sortOrder": 90 },
+      { "slug": "hamak", "nameAz": "Asma qamak", "sortOrder": 90 },
       { "slug": "tent", "nameAz": "Tent", "sortOrder": 100 }
     ]
   },
