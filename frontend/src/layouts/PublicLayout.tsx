@@ -105,9 +105,7 @@ export function PublicLayout() {
             onClick={toggleCatalogue}
             aria-expanded={catalogueOpen}
             aria-controls="catalogue-menu"
-            className={`order-2 hidden shrink-0 items-center gap-2 rounded-(--radius-button) px-3.5 py-2 text-[15px] font-semibold text-white transition-colors sm:inline-flex ${
-              catalogueOpen ? 'bg-white/25' : 'bg-white/15 hover:bg-white/25'
-            }`}
+            className="order-2 hidden shrink-0 items-center gap-2 rounded-(--radius-button) bg-cta px-3.5 py-2 text-[15px] font-semibold text-white transition hover:brightness-95 sm:inline-flex"
           >
             {catalogueOpen ? (
               <svg
@@ -115,14 +113,13 @@ export function PublicLayout() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.2"
-                className="size-4 text-cta"
+                className="size-4"
                 aria-hidden="true"
               >
                 <path strokeLinecap="round" d="M6 6l12 12M18 6 6 18" />
               </svg>
             ) : (
-              // The brand red, the same as the search button beside it.
-              <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 text-cta" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="size-4" aria-hidden="true">
                 <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
                 <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
                 <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
