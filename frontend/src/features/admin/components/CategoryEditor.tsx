@@ -16,6 +16,15 @@ interface CategoryEditorProps {
 }
 
 /**
+ * Resolves an image key the way the public homepage does, so the preview here shows exactly what a
+ * visitor will get. Storage:Local:PublicBaseUrl is a relative `/uploads` in every environment; an
+ * absolute URL is passed through untouched.
+ */
+function categoryImagePreview(imageKey: string): string {
+  return /^https?:\/\//i.test(imageKey) ? imageKey : `/uploads/${imageKey.replace(/^\/+/, '')}`
+}
+
+/**
  * Edits a category.
  *
  * Every field of `UpdateCategoryRequest` is present, including the descriptive and SEO ones an
@@ -87,12 +96,24 @@ export function CategoryEditor({ category, busy, error, onSave }: CategoryEditor
           onChange={(event) => set('iconKey', blankToNull(event.target.value))}
         />
 
-        <Input
-          label="Şəkil açarı"
-          value={form.imageKey ?? ''}
-          maxLength={200}
-          onChange={(event) => set('imageKey', blankToNull(event.target.value))}
-        />
+        <div className="flex flex-col gap-2">
+          <Input
+            label="Şəkil açarı"
+            value={form.imageKey ?? ''}
+            maxLength={200}
+            onChange={(event) => set('imageKey', blankToNull(event.target.value))}
+            hint="Ana səhifədəki kateqoriya kafelində görünür. Yüklənmiş faylın açarı, məsələn kateqoriyalar/ovculuq.jpg — tam ünvan da yazmaq olar. Boş qalsa, kafeldə ikon göstərilir."
+          />
+
+          {/* A preview, so a mistyped key is visible here instead of on the homepage. */}
+          {form.imageKey ? (
+            <img
+              src={categoryImagePreview(form.imageKey)}
+              alt=""
+              className="h-20 w-20 rounded-(--radius-button) border border-line object-cover"
+            />
+          ) : null}
+        </div>
       </div>
 
       <Input

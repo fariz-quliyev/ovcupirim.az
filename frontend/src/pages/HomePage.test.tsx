@@ -9,7 +9,7 @@ import {
   problemResponse,
   renderWithProviders,
 } from '@/features/auth/authTestUtils'
-import type { CategoryNode, Region, StaticPageSummary } from '@/features/catalog/types'
+import type { CategoryNode, Region } from '@/features/catalog/types'
 import type { ListingCard } from '@/features/listings/types'
 import { HomePage } from '@/pages/HomePage'
 
@@ -42,16 +42,6 @@ const regions: Region[] = [
   { id: 2, slug: 'gence', nameAz: 'Gəncə', nameRu: null, listingCount: 0 },
 ]
 
-const guides: StaticPageSummary[] = [
-  {
-    slug: 'cadir-secimi',
-    titleAz: 'Çadır seçimi',
-    excerptAz: 'Mövsümə görə çadır seçmək.',
-    coverImageKey: null,
-    publishedAt: null,
-  },
-]
-
 const listing: ListingCard = {
   shortId: 2,
   slug: 'ov-cantasi-2',
@@ -71,14 +61,13 @@ const listing: ListingCard = {
   publishedAt: '2026-09-14T00:00:00Z',
 }
 
-function mockHome(items: ListingCard[]) {
+function mockHome(items: ListingCard[], categories: CategoryNode[] = tree) {
   vi.stubGlobal(
     'fetch',
     mockFetchByUrl({
       '/auth/refresh': () => problemResponse(401, 'Sessiya tapılmadı.'),
-      '/categories': () => jsonResponse(tree),
+      '/categories': () => jsonResponse(categories),
       '/regions': () => jsonResponse(regions),
-      '/pages': () => jsonResponse(guides),
       '/listings': () =>
         jsonResponse({
           items,
@@ -111,18 +100,10 @@ describe('HomePage', () => {
     mockHome([listing])
     renderWithProviders(page(), { route: '/' })
 
-    expect(
-      await screen.findByRole('heading', { name: 'Təbiətə çıx. Lazım olanı tap.' }),
-    ).toBeInTheDocument()
-
     for (const section of [
       'Kateqoriyalar',
       'Premium elanlar',
       'Son elanlar',
-      'Kateqoriyaya görə',
-      'Regionlar üzrə',
-      'Outdoor bələdçi',
-      'Sən də elanını yerləşdir',
     ]) {
       expect(await screen.findByRole('heading', { name: section })).toBeInTheDocument()
     }
@@ -132,20 +113,41 @@ describe('HomePage', () => {
     mockHome([listing])
     renderWithProviders(page(), { route: '/' })
 
-    // Top-level categories reach the tile grid, and their children the "by category" columns.
-    expect(await screen.findAllByText('Ovçuluq')).not.toHaveLength(0)
-    expect(screen.getByText('Tilovlar')).toBeInTheDocument()
+    // Every top-level category reaches the page, linking to its own catalogue. A category appears
+    // both as a tile and as a "Populyar" pill, so every match should carry the same destination.
+    const ovculuq = await screen.findAllByRole('link', { name: 'Ovçuluq' })
+    expect(ovculuq.length).toBeGreaterThan(0)
+    for (const link of ovculuq) {
+      expect(link).toHaveAttribute('href', '/elanlar/ovculuq')
+    }
+    expect(screen.getAllByRole('link', { name: 'Outdoor geyim' })[0]).toBeInTheDocument()
 
-    // Regions reach the region strip, each carrying its own count. Matched on the full accessible
-    // name — "Bakı" alone also appears inside the listing card's link.
-    expect(screen.getByRole('link', { name: /^Bakı\s*4$/ })).toHaveAttribute(
-      'href',
-      '/elanlar?region=baki',
-    )
+    // Regions populate the search band's filter.
+    expect(screen.getByRole('option', { name: 'Bakı' })).toBeInTheDocument()
 
-    // A guide article, and the newest listing.
-    expect(screen.getByText('Çadır seçimi')).toBeInTheDocument()
+    // And the newest listing is in the feed.
     expect(screen.getByText('Ov çantası')).toBeInTheDocument()
+  })
+
+  it('shows a category picture once one is set, and a glyph until then', async () => {
+    // imageKey is what an administrator edits; the tile falls back to its glyph while it is unset,
+    // so adding photography later never leaves a category with an empty square.
+    mockHome([listing], [
+      { ...tree[0]!, imageKey: 'categories/ovculuq.jpg' },
+      tree[1]!,
+    ])
+    renderWithProviders(page(), { route: '/' })
+
+    // The tile picture is decorative — the category name beside it already says what it is — so it
+    // carries an empty alt and is presentational, which means it has no `img` role to query by.
+    await screen.findAllByRole('link', { name: 'Ovçuluq' })
+    const pictures = document.querySelectorAll('img')
+
+    expect(pictures).toHaveLength(1)
+    expect(pictures[0]).toHaveAttribute('src', '/uploads/categories/ovculuq.jpg')
+
+    // The second category has no picture, and its tile is still there.
+    expect(screen.getAllByRole('link', { name: 'Balıqçılıq' })[0]).toBeInTheDocument()
   })
 
   it('keeps the premium and listing sections in place when there is nothing to show', async () => {

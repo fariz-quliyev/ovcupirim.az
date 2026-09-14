@@ -7,27 +7,38 @@ import { ErrorState } from '@/components/ui/ErrorState'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { catalogueKeys, searchListings } from '@/features/listings/api'
 import { ListingCard } from '@/features/listings/ListingCard'
-import { useCategoryTree, useRegions, useStaticPages } from '@/features/catalog/hooks'
+import { useCategoryTree, useRegions } from '@/features/catalog/hooks'
 import { CategoryIcon } from '@/features/home/CategoryIcon'
 
 /**
- * The homepage, following the ten-section structure in the design reference
- * (docs/design-reference — "6. Homepage strukturu"). Sections 01 and 10, the header and footer,
- * belong to PublicLayout; everything between them lives here:
+ * The homepage: search, categories, promoted listings, newest listings — in that order, and
+ * nothing else. The header and footer belong to PublicLayout.
  *
- *   02 Hero            04 Seçilmiş elanlar   06 Kateqoriyaya görə   08 Outdoor bələdçi
- *   03 Kateqoriyalar   05 Son elanlar        07 Regionlar           09 CTA
+ * It is deliberately short. A classifieds visitor arrives to search or to browse, so the page puts
+ * both within the first screen and then gets out of the way; the editorial sections that once sat
+ * below the feed (by-category, regions, guide, a closing call to action) pushed the listings down
+ * without helping anyone find anything, and the catalogue, category and region pages already cover
+ * that ground.
  *
  * Every section is driven by the real taxonomy and listing APIs. Where the data does not exist
- * yet, the section keeps its designed shape and states plainly why it is empty, rather than being
- * dropped — an empty marketplace still has to read as a marketplace.
+ * yet, the section keeps its shape and states plainly why it is empty rather than being dropped —
+ * an empty marketplace still has to read as a marketplace.
  */
 
 /** How many latest listings the feed shows before handing off to the catalogue. */
 const LATEST_PAGE_SIZE = 12
 
-/** The four the design names for "Kateqoriyaya görə"; the rest stay in the tile grid above. */
-const FEATURED_CATEGORY_SLUGS = ['ovculuq', 'baliqciliq', 'kamp', 'outdoor-geyim']
+/**
+ * Where a category picture lives once an administrator sets one.
+ *
+ * The API hands back the storage key rather than a URL — unlike a listing, which is resolved
+ * server-side — so the public path is composed here. It matches Storage:Local:PublicBaseUrl, which
+ * is a relative `/uploads` in every environment. An absolute URL is passed through untouched, so a
+ * key that already points somewhere else keeps working.
+ */
+function categoryImageUrl(imageKey: string): string {
+  return /^https?:\/\//i.test(imageKey) ? imageKey : `/uploads/${imageKey.replace(/^\/+/, '')}`
+}
 
 export function HomePage() {
   const navigate = useNavigate()
@@ -36,7 +47,6 @@ export function HomePage() {
 
   const categories = useCategoryTree()
   const regions = useRegions()
-  const guides = useStaticPages('guide')
 
   const latest = useQuery({
     queryKey: catalogueKeys.search({ sort: 'newest', pageSize: String(LATEST_PAGE_SIZE) }),
@@ -59,25 +69,19 @@ export function HomePage() {
 
   return (
     <div>
-      {/* 02 — Hero. Full-bleed band with the content still on the 1280 grid, matching the design's
+      {/* Search band. Full-bleed, with the content still on the 1280 grid, matching the design's
           own `<section>` + inner container. The negative margin escapes the layout's max width;
           `overflow-x: clip` on the body (styles/index.css) keeps that from ever becoming a
           sideways scroll.
 
-          White with a hairline rule beneath, exactly as the design's own search section is
-          (`background:#FFFFFF; border-bottom:1px solid #E4E7E2`). The green belongs to the sticky
-          header above it, which is where the design puts it — a second green band underneath made
-          the whole top of the page read as one dark mass. */}
+          No headline above it, deliberately: a classifieds visitor arrives wanting to search or to
+          browse categories, so both are on screen immediately. That is how the design reference's
+          own homepage opens, and how the marketplace this one is modelled on does it. White with a
+          hairline rule beneath (`background:#FFFFFF; border-bottom:1px solid #E4E7E2`); the green
+          belongs to the sticky header above. */}
       <section className="mx-[calc(50%-50vw)] border-b border-line bg-surface">
-        <div className="mx-auto max-w-[1280px] px-4 py-12 sm:px-6 sm:py-16">
-          <h1 className="max-w-2xl text-3xl leading-tight text-balance sm:text-[40px]">
-            Təbiətə çıx. Lazım olanı tap.
-          </h1>
-          <p className="mt-3 max-w-xl text-muted">
-            Ov, balıqçılıq, kamp və outdoor avadanlıqları.
-          </p>
-
-          <form onSubmit={submitSearch} className="mt-7 flex flex-col gap-2 sm:flex-row">
+        <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6">
+          <form onSubmit={submitSearch} className="flex flex-col gap-2 sm:flex-row">
             <div className="flex min-w-0 flex-1 overflow-hidden rounded-(--radius-input) border border-line bg-surface">
               <input
                 value={term}
@@ -150,14 +154,25 @@ export function HomePage() {
             <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-8">
               {topCategories.map((category) => (
                 <li key={category.slug}>
-                  {/* The design's tile is the square plus a label beneath it — no card around
-                      them — so the eight read as one row rather than eight boxes. */}
+                  {/* The square plus a label beneath it, no card around them, so the eight read as
+                      one row rather than eight boxes. The square shows the category's own picture
+                      when an administrator has set one and falls back to a glyph until then, so
+                      adding photography later changes what is inside the tile, not the grid. */}
                   <Link
                     to={`/elanlar/${category.slug}`}
                     className="group flex h-full flex-col items-center gap-2 text-center"
                   >
-                    <span className="flex aspect-square w-full items-center justify-center rounded-(--radius-card) bg-interactive-soft text-interactive transition-colors group-hover:bg-interactive group-hover:text-white">
-                      <CategoryIcon iconKey={category.iconKey} className="h-12 w-12" />
+                    <span className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-(--radius-card) bg-interactive-soft text-interactive transition-colors group-hover:bg-interactive group-hover:text-white">
+                      {category.imageKey ? (
+                        <img
+                          src={categoryImageUrl(category.imageKey)}
+                          alt=""
+                          loading="lazy"
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <CategoryIcon iconKey={category.iconKey} className="h-12 w-12" />
+                      )}
                     </span>
                     <span className="text-[13px] font-medium text-interactive text-pretty">
                       {category.nameAz}
@@ -237,127 +252,6 @@ export function HomePage() {
           ) : null}
         </section>
 
-        {/* 06 — Kateqoriyaya görə. The four the design names, each opened up one level. */}
-        {topCategories.length > 0 ? (
-          <section className="pb-10">
-            <h2 className="mb-5 text-xl">Kateqoriyaya görə</h2>
-
-            <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-              {topCategories
-                .filter((category) => FEATURED_CATEGORY_SLUGS.includes(category.slug))
-                .map((category) => (
-                  <div
-                    key={category.slug}
-                    className="rounded-(--radius-card) border border-line bg-surface p-5"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-interactive">
-                        <CategoryIcon iconKey={category.iconKey} className="h-5 w-5" />
-                      </span>
-                      <h3 className="text-base">
-                        <Link to={`/elanlar/${category.slug}`} className="hover:text-interactive">
-                          {category.nameAz}
-                        </Link>
-                      </h3>
-                    </div>
-
-                    <ul className="mt-3 space-y-1.5">
-                      {category.children.slice(0, 6).map((child) => (
-                        <li key={child.slug}>
-                          <Link
-                            to={`/elanlar/${category.slug}/${child.slug}`}
-                            className="text-sm text-muted hover:text-interactive"
-                          >
-                            {child.nameAz}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-            </div>
-          </section>
-        ) : null}
-
-        {/* 07 — Regionlar. The design shows a map; until one exists the same discovery is offered
-            as the region list the catalogue already filters by. */}
-        {(regions.data ?? []).length > 0 ? (
-          <section className="pb-10">
-            <div className="mb-5 flex items-baseline justify-between gap-4">
-              <h2 className="text-xl">Regionlar üzrə</h2>
-              <Link to="/elanlar" className="text-sm font-semibold text-interactive hover:text-accent">
-                Bütün regionlar →
-              </Link>
-            </div>
-
-            <ul className="flex flex-wrap gap-2">
-              {(regions.data ?? []).slice(0, 18).map((region) => (
-                <li key={region.slug}>
-                  <Link
-                    to={`/elanlar?region=${region.slug}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-2 text-sm text-ink transition-colors hover:border-interactive"
-                  >
-                    {region.nameAz}
-                    <span className="text-xs text-faint tabular-nums">{region.listingCount}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
-
-        {/* 08 — Outdoor bələdçi. */}
-        <section className="pb-10">
-          <div className="mb-5 flex items-baseline justify-between gap-4">
-            <h2 className="text-xl">Outdoor bələdçi</h2>
-            <Link to="/beledci" className="text-sm font-semibold text-interactive hover:text-accent">
-              Bütün məqalələr →
-            </Link>
-          </div>
-
-          {(guides.data ?? []).length > 0 ? (
-            <ul className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
-              {(guides.data ?? []).slice(0, 3).map((page) => (
-                <li key={page.slug}>
-                  <Link
-                    to={`/beledci/${page.slug}`}
-                    className="flex h-full flex-col rounded-(--radius-card) border border-line bg-surface p-5 transition-colors hover:border-interactive"
-                  >
-                    <h3 className="text-base">{page.titleAz}</h3>
-                    {page.excerptAz ? (
-                      <p className="mt-2 line-clamp-3 text-sm text-muted">{page.excerptAz}</p>
-                    ) : null}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="rounded-(--radius-card) border border-dashed border-line bg-surface px-6 py-10 text-center">
-              <p className="text-ink">Bələdçi məqalələri hazırlanır.</p>
-              <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-                Avadanlıq seçimi və outdoor təcrübəsi üzrə materiallar tezliklə burada olacaq.
-              </p>
-            </div>
-          )}
-        </section>
-
-        {/* 09 — CTA. */}
-        <section className="pb-14">
-          <div className="flex flex-col items-start gap-5 rounded-(--radius-card) bg-brand px-6 py-9 text-white sm:flex-row sm:items-center sm:justify-between sm:px-9">
-            <div>
-              <h2 className="text-2xl text-white">Sən də elanını yerləşdir</h2>
-              <p className="mt-2 max-w-lg text-white/75">
-                Ov, balıqçılıq, kamp və outdoor avadanlığını Azərbaycan üzrə alıcılara çatdır.
-              </p>
-            </div>
-            <Link
-              to="/yeni-elan"
-              className="inline-flex h-12 shrink-0 items-center rounded-(--radius-button) bg-accent px-6 font-semibold text-white transition hover:brightness-95"
-            >
-              Yeni elan
-            </Link>
-          </div>
-        </section>
       </div>
     </div>
   )
