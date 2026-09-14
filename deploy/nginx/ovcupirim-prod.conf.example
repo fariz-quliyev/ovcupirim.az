@@ -1,0 +1,65 @@
+# Host nginx vhost for production — copy to /etc/nginx/sites-available/ovcupirim.az and symlink.
+#
+# This server also runs another production site whose nginx vhost owns `default_server` on both
+# ports. Nothing here takes that role, so a request arriving with an unknown Host still lands where
+# it did before this file existed. Never edit the other site's vhost; only add this one.
+#
+# Upstream is the `web` container from docker-compose.prod.yml, published on loopback only
+# (PROD_HTTP_PORT). Docker's published-port DNAT sits ahead of ufw, so a 0.0.0.0 bind would be
+# publicly reachable even with the firewall denying that port.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ovcupirim.az www.ovcupirim.az;
+
+    # Must stay on port 80 for unattended certificate renewal.
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    # nginx 1.24 on this host: http2 goes on the listen directive, not a standalone `http2 on;`.
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name ovcupirim.az www.ovcupirim.az;
+
+    ssl_certificate     /etc/letsencrypt/live/ovcupirim.az/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ovcupirim.az/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSLovcupirimprod:10m;
+    ssl_session_timeout 1d;
+
+    # Matches the API's own upload limit plus multipart overhead.
+    client_max_body_size 10m;
+
+    location / {
+        proxy_pass http://127.0.0.1:8081;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host              $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host  $host;
+
+        # $remote_addr, not $proxy_add_x_forwarded_for. Two reasons, and both matter:
+        #
+        # 1. conf.d/cloudflare-realip.conf has already rewritten $remote_addr to the real client
+        #    whenever the peer is a trusted CDN edge, so this is the true caller.
+        # 2. Appending would carry forward whatever X-Forwarded-For the caller sent. This is the
+        #    trust boundary, so any client-supplied value is discarded here rather than forwarded.
+        #
+        # The result is a single-entry header. The `web` container appends its own peer, so the API
+        # sees exactly two hops — which is why FORWARDED_LIMIT is 2 and not 3, and why the API has
+        # to trust only its own compose network rather than a list of CDN ranges.
+        proxy_set_header X-Real-IP       $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+
+        proxy_read_timeout 60s;
+    }
+}

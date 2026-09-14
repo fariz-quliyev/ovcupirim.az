@@ -136,9 +136,12 @@ services:
       api:
         condition: service_healthy
     ports:
-      - "80:80"
-      # Add once a certificate is mounted and nginx.conf's HTTPS server block is uncommented:
-      # - "443:443"
+      # Loopback by default, never 0.0.0.0. This host also serves another production site whose
+      # nginx owns :80 and :443, so binding them here would fail outright — and Docker publishes
+      # through its own DNAT chain, which sits *ahead* of ufw, so a 0.0.0.0 bind would be reachable
+      # from the internet even with the firewall denying that port. TLS is terminated by the host
+      # nginx in front, which proxies to this port; see docs/deployment.md.
+      - "${PROD_HTTP_PORT:-127.0.0.1:8081}:80"
     volumes:
       # Read-only: nginx only ever serves these files, never writes them.
       - uploads-data:/data/uploads:ro
