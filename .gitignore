@@ -39,3 +39,6 @@ Thumbs.db
 logs/
 *.log
 npm-debug.log*
+
+# Local drop folder for category images — these live in the server's uploads volume, not in git.
+kateqoriya-sekilleri/
