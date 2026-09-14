@@ -64,19 +64,21 @@ export function HomePage() {
           `overflow-x: clip` on the body (styles/index.css) keeps that from ever becoming a
           sideways scroll.
 
-          The design asks for an Azerbaijani outdoor scene here; until that photography exists the
-          band carries the brand greens rather than a stock stand-in. */}
-      <section className="mx-[calc(50%-50vw)] bg-brand bg-linear-to-b from-brand to-brand-deep text-white">
+          White with a hairline rule beneath, exactly as the design's own search section is
+          (`background:#FFFFFF; border-bottom:1px solid #E4E7E2`). The green belongs to the sticky
+          header above it, which is where the design puts it — a second green band underneath made
+          the whole top of the page read as one dark mass. */}
+      <section className="mx-[calc(50%-50vw)] border-b border-line bg-surface">
         <div className="mx-auto max-w-[1280px] px-4 py-12 sm:px-6 sm:py-16">
           <h1 className="max-w-2xl text-3xl leading-tight text-balance sm:text-[40px]">
             Təbiətə çıx. Lazım olanı tap.
           </h1>
-          <p className="mt-3 max-w-xl text-white/75">
+          <p className="mt-3 max-w-xl text-muted">
             Ov, balıqçılıq, kamp və outdoor avadanlıqları.
           </p>
 
           <form onSubmit={submitSearch} className="mt-7 flex flex-col gap-2 sm:flex-row">
-            <div className="flex min-w-0 flex-1 overflow-hidden rounded-(--radius-input) bg-surface">
+            <div className="flex min-w-0 flex-1 overflow-hidden rounded-(--radius-input) border border-line bg-surface">
               <input
                 value={term}
                 onChange={(event) => setTerm(event.target.value)}
@@ -109,12 +111,12 @@ export function HomePage() {
 
           {topCategories.length > 0 ? (
             <div className="mt-4 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-white/60">Populyar:</span>
+              <span className="text-xs text-muted">Populyar:</span>
               {topCategories.slice(0, 5).map((category) => (
                 <Link
                   key={category.slug}
                   to={`/elanlar/${category.slug}`}
-                  className="rounded-full border border-white/25 px-3 py-1.5 text-xs font-medium text-white/90 transition hover:border-white hover:bg-white/10"
+                  className="rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-interactive hover:bg-canvas"
                 >
                   {category.nameAz}
                 </Link>
