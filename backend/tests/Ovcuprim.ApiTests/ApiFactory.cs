@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ovcuprim.Application.Abstractions;
+using Ovcuprim.Application.Auth;
 using Ovcuprim.Domain.Entities;
 using Ovcuprim.Domain.Enums;
 using Ovcuprim.Application.Listings.Search;
@@ -146,6 +149,26 @@ public sealed class CapturingSmsSender : ISmsSender
         {
             var message = _sent.Last(m => m.PhoneNumber == phoneNumber).Message;
             return new string(message.SkipWhile(c => !char.IsAsciiDigit(c)).TakeWhile(char.IsAsciiDigit).ToArray());
+        }
+    }
+
+    /// <summary>A snapshot, so a caller can assert that nothing at all was sent.</summary>
+    public IReadOnlyList<(string PhoneNumber, string Message)> Sent
+    {
+        get
+        {
+            lock (_sent)
+            {
+                return [.. _sent];
+            }
+        }
+    }
+
+    public void Clear()
+    {
+        lock (_sent)
+        {
+            _sent.Clear();
         }
     }
 }
@@ -324,7 +347,15 @@ public sealed class ApiFactory : WebApplicationFactory<Program>
         BaseAddress = new Uri("https://localhost")
     });
 
+    /// <summary>The password every administrator in the API tests signs in with.</summary>
+    public const string AdminPassword = "api-testleri-ucun-parol";
+
     /// <summary>Promotes a registered user, so role-gated endpoints can be exercised.</summary>
+    /// <remarks>
+    /// Promoting to Admin also sets a password, because that promotion takes the account out of the
+    /// SMS flow: from here on the only way in is the password door, for the tests exactly as for
+    /// production.
+    /// </remarks>
     public async Task SetRoleAsync(string phoneNumber, UserRole role)
     {
         using var scope = Services.CreateScope();
@@ -332,7 +363,47 @@ public sealed class ApiFactory : WebApplicationFactory<Program>
 
         var user = await db.Users.SingleAsync(u => u.PhoneNumber == phoneNumber);
         user.Role = role;
+
+        if (role == UserRole.Admin)
+        {
+            user.PasswordHash = scope.ServiceProvider.GetRequiredService<IPasswordHasher>().Hash(AdminPassword);
+        }
+
         await db.SaveChangesAsync();
+    }
+
+    /// <summary>
+    /// A fresh client signed in as the given account, by whichever door that account actually uses:
+    /// the password endpoint for an administrator, the SMS flow for everyone else.
+    /// </summary>
+    /// <remarks>
+    /// Call after <see cref="SetRoleAsync"/> — the role has to be inside a freshly minted token, so
+    /// the sign-in must happen after the promotion, not before.
+    /// </remarks>
+    public async Task<HttpClient> SignInAsync(string phoneNumber, UserRole role)
+    {
+        var client = CreateApiClient();
+
+        HttpResponseMessage response;
+
+        if (role == UserRole.Admin)
+        {
+            response = await client.PostAsJsonAsync(
+                "/api/v1/auth/admin/login", new AdminLoginRequest(phoneNumber, AdminPassword));
+        }
+        else
+        {
+            await client.PostAsJsonAsync("/api/v1/auth/login", new LoginRequest(phoneNumber));
+            response = await client.PostAsJsonAsync("/api/v1/auth/verify",
+                new VerifyOtpRequest(phoneNumber, Sms.LastCodeFor(phoneNumber), OtpPurpose.Login));
+        }
+
+        var auth = (await response.Content.ReadFromJsonAsync<AuthResponse>())
+            ?? throw new InvalidOperationException($"Sign-in failed with {response.StatusCode}.");
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.AccessToken);
+
+        return client;
     }
 
     public async Task<User> GetUserAsync(string phoneNumber)

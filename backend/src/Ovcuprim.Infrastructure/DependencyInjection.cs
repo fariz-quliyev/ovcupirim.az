@@ -55,6 +55,7 @@ public static class DependencyInjection
         services.AddSingleton<IFileStorage, LocalFileStorage>();
         services.AddSingleton<IImageProcessor, ImageSharpProcessor>();
         services.AddSingleton<ISecretHasher, SecretHasher>();
+        services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
         services.AddSingleton<ISecureTokenGenerator, SecureTokenGenerator>();
         services.AddSingleton<ITokenService, JwtTokenService>();
 

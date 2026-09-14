@@ -50,16 +50,9 @@ public class CatalogueEndpointsTests
 
         await factory.SetRoleAsync(phone, role);
 
-        // Sign in again so the promoted role is inside a freshly minted token.
-        var fresh = factory.CreateApiClient();
-        await fresh.PostAsJsonAsync("/api/v1/auth/login", new LoginRequest(phone));
-        var verify = await fresh.PostAsJsonAsync("/api/v1/auth/verify",
-            new VerifyOtpRequest(phone, factory.Sms.LastCodeFor(phone), OtpPurpose.Login));
-
-        var auth = (await verify.Content.ReadFromJsonAsync<AuthResponse>())!;
-        fresh.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.AccessToken);
-
-        return fresh;
+        // Sign in again so the promoted role is inside a freshly minted token — through whichever
+        // door that role uses, since an Admin account is outside the SMS flow.
+        return await factory.SignInAsync(phone, role);
     }
 
     private static MultipartFormDataContent JpegUpload()

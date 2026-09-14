@@ -57,6 +57,28 @@ public sealed class AuthController(IAuthService authService) : ApiControllerBase
         return CompleteAuth(result);
     }
 
+    /// <summary>
+    /// Signs an administrator in with a password. No SMS is sent and no code is involved: an Admin
+    /// account is excluded from the OTP flow entirely, so this is the only door to the panel.
+    /// </summary>
+    /// <remarks>
+    /// Anonymous like the rest of this controller — it has to be, it is a sign-in — which is why it
+    /// carries the tightest rate limit on the API alongside a per-account lockout, and why every
+    /// rejection returns one identical message.
+    /// </remarks>
+    [HttpPost("admin/login")]
+    [EnableRateLimiting(AuthenticationSetup.RateLimits.AdminLogin)]
+    [ProducesResponseType<AuthResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
+    public async Task<ActionResult<AuthResponse>> AdminLogin(AdminLoginRequest request, CancellationToken cancellationToken)
+    {
+        var result = await authService.AdminPasswordLoginAsync(request, ClientIp(), cancellationToken);
+
+        return CompleteAuth(result);
+    }
+
     /// <summary>Rotates the refresh token cookie and issues a fresh access token.</summary>
     [HttpPost("refresh")]
     [ProducesResponseType<AuthResponse>(StatusCodes.Status200OK)]

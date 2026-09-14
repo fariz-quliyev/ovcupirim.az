@@ -35,6 +35,8 @@ const sections: AdminSection[] = [
   { to: '/admin/regions', label: 'Regionlar', roles: ['Admin'] },
   { to: '/admin/users', label: 'İstifadəçilər', roles: ['Admin'] },
   { to: '/admin/audit', label: 'Audit jurnalı', roles: ['Admin'] },
+  // Admin-only because only an Admin account has a password at all.
+  { to: '/admin/parol', label: 'Parolu dəyiş', roles: ['Admin'] },
 ]
 
 export function AdminLayout() {

@@ -23,6 +23,7 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
 
         services.Configure<OtpOptions>(configuration.GetSection(OtpOptions.SectionName));
+        services.Configure<AdminLoginOptions>(configuration.GetSection(AdminLoginOptions.SectionName));
         // Same treatment as the peppering key below. The JwtBearer setup also checks this, but that
         // check runs when the authentication handler first resolves its options — on the first
         // request, not at boot — so on its own it is a late failure too.

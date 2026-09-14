@@ -14,6 +14,19 @@ export function requestLoginCode(phoneNumber: string): Promise<OtpRequestRespons
   return api.post<OtpRequestResponse>('/auth/login', { phoneNumber })
 }
 
+/**
+ * The administrator's only door. An Admin account is excluded from the SMS flow server-side, so
+ * there is no code step here and none to fall back on.
+ */
+export function adminLogin(phoneNumber: string, password: string): Promise<AuthResponse> {
+  return api.post<AuthResponse>('/auth/admin/login', { phoneNumber, password })
+}
+
+/** Ends every session on success, this one included — the caller signs in again afterwards. */
+export function changePassword(currentPassword: string, newPassword: string): Promise<void> {
+  return api.post<void>('/users/me/password', { currentPassword, newPassword })
+}
+
 export function resendCode(phoneNumber: string, purpose: OtpPurposeValue): Promise<OtpRequestResponse> {
   return api.post<OtpRequestResponse>('/auth/otp/resend', { phoneNumber, purpose })
 }

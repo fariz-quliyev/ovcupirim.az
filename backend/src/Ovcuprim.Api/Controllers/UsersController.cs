@@ -10,7 +10,10 @@ using Ovcuprim.Application.Users;
 namespace Ovcuprim.Api.Controllers;
 
 [Authorize]
-public sealed class UsersController(IUserService userService, ICurrentUser currentUser) : ApiControllerBase
+public sealed class UsersController(
+    IUserService userService,
+    IAuthService authService,
+    ICurrentUser currentUser) : ApiControllerBase
 {
     /// <summary>The caller's own profile.</summary>
     [HttpGet("me")]
@@ -42,6 +45,40 @@ public sealed class UsersController(IUserService userService, ICurrentUser curre
 
         var result = await userService.UpdateProfileAsync(userId, request, cancellationToken);
         return FromResult(result);
+    }
+
+    /// <summary>
+    /// Changes the caller's own administrator password. Admin-only, because no other account has a
+    /// password at all.
+    /// </summary>
+    /// <remarks>
+    /// Succeeds with 204 and ends every session the account had, this one included — so the browser
+    /// signs in again straight afterwards. The refresh cookie is cleared here to match: leaving a
+    /// revoked token in the browser only produces a confusing 401 on the next page load.
+    /// </remarks>
+    [HttpPost("me/password")]
+    [Authorize(Policy = AuthenticationSetup.Policies.Admin)]
+    [EnableRateLimiting(AuthenticationSetup.RateLimits.AdminAction)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult> ChangePassword(ChangePasswordRequest request, CancellationToken cancellationToken)
+    {
+        if (currentUser.UserId is not { } userId)
+        {
+            return Problem(Result.Failure(ResultError.Unauthorized, "Giriş tələb olunur."));
+        }
+
+        var result = await authService.ChangePasswordAsync(
+            userId, request, HttpContext.Connection.RemoteIpAddress?.ToString(), cancellationToken);
+
+        if (result.Succeeded)
+        {
+            RefreshTokenCookie.Clear(Response);
+        }
+
+        return AdminNoContent(result);
     }
 
     /// <summary>Administrative user listing — the first role-gated endpoint, extended in Phase 7.</summary>

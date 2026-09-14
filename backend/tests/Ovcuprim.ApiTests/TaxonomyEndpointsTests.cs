@@ -36,16 +36,9 @@ public class TaxonomyEndpointsTests
             await factory.SetRoleAsync(Phone, role);
         }
 
-        // Sign in again so the role is inside a freshly minted token.
-        var fresh = factory.CreateApiClient();
-        await fresh.PostAsJsonAsync("/api/v1/auth/login", new LoginRequest(Phone));
-        var verify = await fresh.PostAsJsonAsync("/api/v1/auth/verify",
-            new VerifyOtpRequest(Phone, factory.Sms.LastCodeFor(Phone), OtpPurpose.Login));
-
-        var auth = (await verify.Content.ReadFromJsonAsync<AuthResponse>())!;
-        fresh.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.AccessToken);
-
-        return fresh;
+        // Sign in again so the role is inside a freshly minted token — through whichever door that
+        // role uses, since an Admin account is outside the SMS flow.
+        return await factory.SignInAsync(Phone, role);
     }
 
     [Fact]

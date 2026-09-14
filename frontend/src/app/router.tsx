@@ -4,6 +4,8 @@ import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 import { AdminLayout } from '@/layouts/AdminLayout'
 import { PublicLayout } from '@/layouts/PublicLayout'
 import { AdminAuditPage } from '@/pages/admin/AdminAuditPage'
+import { AdminLoginPage } from '@/pages/admin/AdminLoginPage'
+import { AdminPasswordPage } from '@/pages/admin/AdminPasswordPage'
 import { AdminPackagesPage } from '@/pages/admin/AdminPackagesPage'
 import { AdminPaymentsPage } from '@/pages/admin/AdminPaymentsPage'
 import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage'
@@ -98,9 +100,12 @@ export const router = createBrowserRouter([
    * the data. Every endpoint behind these routes enforces its own policy and answers 403 to a
    * moderator who types an admin-only URL directly.
    */
+  // Outside the guard, and outside the public layout: the operator sign-in screen has to be
+  // reachable by someone who is not signed in, which is the whole point of it.
+  { path: '/admin/giris', element: <AdminLoginPage /> },
   {
     path: '/admin',
-    element: <ProtectedRoute roles={['Admin', 'Moderator']} />,
+    element: <ProtectedRoute roles={['Admin', 'Moderator']} signInPath="/admin/giris" />,
     children: [
       {
         element: <AdminLayout />,
@@ -120,6 +125,7 @@ export const router = createBrowserRouter([
               { path: 'audit', element: <AdminAuditPage /> },
               { path: 'payments', element: <AdminPaymentsPage /> },
               { path: 'packages', element: <AdminPackagesPage /> },
+              { path: 'parol', element: <AdminPasswordPage /> },
             ],
           },
 

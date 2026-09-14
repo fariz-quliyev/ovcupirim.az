@@ -56,6 +56,41 @@ public sealed class VerifyOtpRequestValidator : AbstractValidator<VerifyOtpReque
     }
 }
 
+public sealed class AdminLoginRequestValidator : AbstractValidator<AdminLoginRequest>
+{
+    public AdminLoginRequestValidator()
+    {
+        RuleFor(x => x.PhoneNumber)
+            .NotEmpty().WithMessage("Telefon nömrəsi tələb olunur.")
+            .Must(PhoneNumber.IsValid).WithMessage("Telefon nömrəsi düzgün deyil.");
+
+        // Only presence and an upper bound here. Rejecting a short password at this gate would
+        // answer "that is not the password format" to a guesser, and it would refuse a legitimate
+        // sign-in if the policy is ever tightened above what the stored password satisfies.
+        RuleFor(x => x.Password)
+            .NotEmpty().WithMessage("Parol tələb olunur.")
+            .MaximumLength(AdminLoginOptions.MaximumPasswordLength);
+    }
+}
+
+public sealed class ChangePasswordRequestValidator : AbstractValidator<ChangePasswordRequest>
+{
+    public ChangePasswordRequestValidator()
+    {
+        RuleFor(x => x.CurrentPassword)
+            .NotEmpty().WithMessage("Cari parol tələb olunur.")
+            .MaximumLength(AdminLoginOptions.MaximumPasswordLength);
+
+        RuleFor(x => x.NewPassword)
+            .NotEmpty().WithMessage("Yeni parol tələb olunur.")
+            .MinimumLength(AdminLoginOptions.MinimumPasswordLength)
+                .WithMessage($"Parol ən azı {AdminLoginOptions.MinimumPasswordLength} simvol olmalıdır.")
+            .MaximumLength(AdminLoginOptions.MaximumPasswordLength)
+                .WithMessage($"Parol {AdminLoginOptions.MaximumPasswordLength} simvoldan uzun ola bilməz.")
+            .NotEqual(x => x.CurrentPassword).WithMessage("Yeni parol cari paroldan fərqli olmalıdır.");
+    }
+}
+
 public sealed class UpdateProfileRequestValidator : AbstractValidator<UpdateProfileRequest>
 {
     public UpdateProfileRequestValidator()

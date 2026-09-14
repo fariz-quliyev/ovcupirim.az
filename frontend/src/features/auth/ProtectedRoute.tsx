@@ -8,13 +8,19 @@ import type { UserRole } from './types'
 interface ProtectedRouteProps {
   /** When given, the signed-in user must hold one of these roles. */
   roles?: UserRole[]
+
+  /**
+   * Where to send someone who is not signed in. The admin area points at its own screen, because
+   * an administrator cannot sign in on the public one — that account is outside the SMS flow.
+   */
+  signInPath?: string
 }
 
 /**
  * Client-side guard. It keeps unauthenticated users out of account screens; the API enforces
  * the same rules independently, so a bypass here grants nothing.
  */
-export function ProtectedRoute({ roles }: ProtectedRouteProps) {
+export function ProtectedRoute({ roles, signInPath = '/giris' }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading, user } = useAuth()
   const location = useLocation()
 
@@ -29,7 +35,7 @@ export function ProtectedRoute({ roles }: ProtectedRouteProps) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/giris" replace state={{ from: location.pathname }} />
+    return <Navigate to={signInPath} replace state={{ from: location.pathname }} />
   }
 
   if (roles && user && !roles.includes(user.role)) {

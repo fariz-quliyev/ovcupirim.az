@@ -15,8 +15,23 @@ public class User : AuditableEntity, ISoftDeletable
     /// <summary>Optional — used for recovery and notifications only.</summary>
     public string? Email { get; set; }
 
-    /// <summary>Null when the account authenticates by OTP alone.</summary>
+    /// <summary>
+    /// Null when the account authenticates by OTP alone, which is every ordinary user. Only an
+    /// administrator has one: the admin panel is reached by password and never by SMS.
+    /// </summary>
     public string? PasswordHash { get; set; }
+
+    /// <summary>
+    /// Consecutive failed password attempts. Reset by a successful sign-in and by a password change.
+    /// </summary>
+    public int FailedLoginAttempts { get; set; }
+
+    /// <summary>
+    /// Set when <see cref="FailedLoginAttempts"/> crosses the threshold. While it is in the future
+    /// the password is refused no matter how correct it is, which is what makes guessing expensive
+    /// for an attacker who has more addresses than the per-IP limiter can see.
+    /// </summary>
+    public DateTimeOffset? LockedUntil { get; set; }
 
     public string FullName { get; set; } = null!;
 

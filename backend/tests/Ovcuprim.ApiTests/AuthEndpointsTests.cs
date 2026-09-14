@@ -251,21 +251,72 @@ public class AuthEndpointsTests
         var asUser = await client.GetAsync("/api/v1/users");
         Assert.Equal(HttpStatusCode.Forbidden, asUser.StatusCode);
 
-        // Promote, then sign in again so the new role is inside a freshly minted token.
+        // Promote, then sign in again so the new role is inside a freshly minted token. The
+        // promotion moves the account to the password door — see the SMS-flow tests below.
         await factory.SetRoleAsync(Phone, UserRole.Admin);
 
-        var adminClient = factory.CreateApiClient();
-        await adminClient.PostAsJsonAsync("/api/v1/auth/login", new LoginRequest(Phone));
-        var verify = await adminClient.PostAsJsonAsync("/api/v1/auth/verify",
-            new VerifyOtpRequest(Phone, factory.Sms.LastCodeFor(Phone), OtpPurpose.Login));
-
-        var auth = (await verify.Content.ReadFromJsonAsync<AuthResponse>())!;
-        adminClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.AccessToken);
+        var adminClient = await factory.SignInAsync(Phone, UserRole.Admin);
 
         var asAdmin = await adminClient.GetAsync("/api/v1/users");
 
         Assert.Equal(HttpStatusCode.OK, asAdmin.StatusCode);
-        Assert.Equal("Admin", auth.User.Role);
+    }
+
+    [Fact]
+    public async Task An_administrator_is_shut_out_of_the_sms_flow_and_signs_in_by_password()
+    {
+        using var factory = new ApiFactory();
+        await RegisteredClientAsync(factory);
+        await factory.SetRoleAsync(Phone, UserRole.Admin);
+
+        factory.Sms.Clear();
+
+        // Asking for a login code looks exactly like it does for any other number...
+        var request = await factory.CreateApiClient()
+            .PostAsJsonAsync("/api/v1/auth/login", new LoginRequest(Phone));
+
+        Assert.Equal(HttpStatusCode.OK, request.StatusCode);
+
+        // ...but nothing is sent, so there is no code to intercept and no code that can be verified.
+        Assert.Empty(factory.Sms.Sent);
+
+        var password = await factory.CreateApiClient().PostAsJsonAsync(
+            "/api/v1/auth/admin/login", new AdminLoginRequest(Phone, ApiFactory.AdminPassword));
+
+        Assert.Equal(HttpStatusCode.OK, password.StatusCode);
+        Assert.Equal("Admin", (await password.Content.ReadFromJsonAsync<AuthResponse>())!.User.Role);
+    }
+
+    [Fact]
+    public async Task The_password_door_refuses_a_wrong_password_and_a_non_administrator_alike()
+    {
+        using var factory = new ApiFactory();
+        await RegisteredClientAsync(factory);
+        await factory.SetRoleAsync(Phone, UserRole.Admin);
+
+        var client = factory.CreateApiClient();
+
+        var wrongPassword = await client.PostAsJsonAsync(
+            "/api/v1/auth/admin/login", new AdminLoginRequest(Phone, "yanlis-parol-2026"));
+
+        var unknownNumber = await client.PostAsJsonAsync(
+            "/api/v1/auth/admin/login", new AdminLoginRequest("+994559999999", ApiFactory.AdminPassword));
+
+        Assert.Equal(HttpStatusCode.Unauthorized, wrongPassword.StatusCode);
+        Assert.Equal(HttpStatusCode.Unauthorized, unknownNumber.StatusCode);
+
+        // Identical but for the per-request traceId, so the response cannot be used to work out
+        // whether a number belongs to the administrator.
+        static async Task<string> WithoutTraceId(HttpResponseMessage response)
+        {
+            using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+
+            return string.Join('|', document.RootElement.EnumerateObject()
+                .Where(p => p.Name != "traceId")
+                .Select(p => $"{p.Name}={p.Value}"));
+        }
+
+        Assert.Equal(await WithoutTraceId(wrongPassword), await WithoutTraceId(unknownNumber));
     }
 
     [Fact]

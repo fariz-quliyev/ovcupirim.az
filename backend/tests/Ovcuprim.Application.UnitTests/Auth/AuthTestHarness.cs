@@ -69,10 +69,14 @@ public sealed class AuthTestHarness : IDisposable
             RefreshTokenLifetime = TimeSpan.FromDays(30)
         };
 
-        Hasher = new SecretHasher(Options.Create(new SecurityOptions
+        var security = Options.Create(new SecurityOptions
         {
             HashingKey = "test-hashing-key-that-is-long-enough-000"
-        }));
+        });
+
+        Hasher = new SecretHasher(security);
+        Passwords = new Pbkdf2PasswordHasher(security);
+        AdminLogin = new AdminLoginOptions();
 
         var generator = new SecureTokenGenerator();
         TokenService = new JwtTokenService(Options.Create(Jwt), Clock);
@@ -83,14 +87,19 @@ public sealed class AuthTestHarness : IDisposable
             NullLogger<OtpService>.Instance);
 
         AuthService = new AuthService(
-            Db, OtpService, TokenService, Hasher, generator, Clock,
-            Options.Create(Jwt), Options.Create(Otp),
+            Db, OtpService, TokenService, Hasher, Passwords, generator, Clock,
+            Options.Create(Jwt), Options.Create(Otp), Options.Create(AdminLogin),
             NullLogger<AuthService>.Instance);
 
         UserService = new UserService(Db, CurrentUser, Clock);
     }
 
     public AppDbContext Db { get; }
+
+    /// <summary>The real PBKDF2 hasher, not a stub — the lockout tests turn on genuine verification.</summary>
+    public IPasswordHasher Passwords { get; }
+
+    public AdminLoginOptions AdminLogin { get; }
 
     public FakeClock Clock { get; }
 
@@ -137,6 +146,21 @@ public sealed class AuthTestHarness : IDisposable
 
         return user;
     }
+
+    /// <summary>The administrator the password tests sign in as.</summary>
+    public async Task<User> SeedAdminAsync(string password = AdminPassword, string phone = AdminPhone)
+    {
+        var admin = await SeedUserAsync(phone, UserRole.Admin);
+
+        admin.PasswordHash = Passwords.Hash(password);
+        await Db.SaveChangesAsync();
+
+        return admin;
+    }
+
+    public const string AdminPhone = "+994557654321";
+
+    public const string AdminPassword = "duzgun-parol-2026";
 
     /// <summary>Registers and verifies in one step, returning the issued tokens.</summary>
     public async Task<AuthTokens> RegisterAndVerifyAsync(string phone = Phone)

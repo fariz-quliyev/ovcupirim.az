@@ -27,6 +27,15 @@ public static class AuthenticationSetup
         /// <summary>Guessing a code. Complements the per-code attempt counter.</summary>
         public const string OtpVerify = "otp-verify";
 
+        /// <summary>
+        /// Guessing the administrator's password. Tighter than every other anonymous policy: there
+        /// is exactly one account behind it, it holds the whole panel, and no legitimate person
+        /// types their password ten times in a quarter of an hour. The per-account lockout is the
+        /// other half — this bounds one address, that bounds the account however many addresses
+        /// an attacker has.
+        /// </summary>
+        public const string AdminLogin = "admin-login";
+
         public const string Auth = "auth";
 
         /// <summary>Creating listings: generous for a real seller, costly for a scripted flood.</summary>
@@ -193,6 +202,9 @@ public static class AuthenticationSetup
         // Session restore happens on every full page load, and behind a carrier NAT a whole pool of
         // people share one partition key.
         ("Session", RateLimits.Auth, false, 30, TimeSpan.FromMinutes(1)),
+        // One account, one person, one password. Ten attempts a quarter-hour is generous for
+        // someone mistyping and nowhere near enough to be worth scripting.
+        ("AdminLogin", RateLimits.AdminLogin, false, 10, TimeSpan.FromMinutes(15)),
         ("ListingCreate", RateLimits.ListingCreate, false, 20, TimeSpan.FromMinutes(10)),
         ("MediaUpload", RateLimits.MediaUpload, false, 60, TimeSpan.FromMinutes(10)),
         ("ListingSearch", RateLimits.ListingSearch, false, 300, TimeSpan.FromMinutes(1)),

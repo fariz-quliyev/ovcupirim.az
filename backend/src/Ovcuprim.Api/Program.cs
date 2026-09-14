@@ -6,8 +6,10 @@ using Microsoft.Extensions.Options;
 using Ovcuprim.Api.Infrastructure;
 using Ovcuprim.Application;
 using Ovcuprim.Application.Abstractions;
+using Ovcuprim.Application.Auth;
 using Ovcuprim.Application.Listings.Search;
 using Ovcuprim.Application.Payments;
+using Ovcuprim.Domain.Entities;
 using Ovcuprim.Domain.Enums;
 using Ovcuprim.Infrastructure;
 using Ovcuprim.Infrastructure.Payments;
@@ -232,6 +234,122 @@ if (args.Contains("--seed", StringComparer.OrdinalIgnoreCase))
         $"attribute definitions {report.AttributeDefinitions}, options {report.AttributeOptions}, " +
         $"regions {report.Regions}, pages {report.StaticPages}, " +
         $"FAQ categories {report.FaqCategories}, FAQ items {report.FaqItems}.");
+
+    return;
+}
+
+// `dotnet run -- --set-admin-password` sets or resets the administrator password, then exits.
+//
+// This is the bootstrap: the panel is reached by password, so the first password cannot itself be
+// set through the panel. It is also the only recovery path — an administrator who forgets their
+// password has no SMS reset to fall back on, by design.
+//
+// Both values are read from stdin, never from arguments. An argument would survive in the shell
+// history, in the process list while it runs, and in `docker inspect` afterwards. Reaching this
+// command at all requires a shell on the host, which already implies database access, so it grants
+// nothing that was not already available — it just does it correctly.
+if (args.Contains("--set-admin-password", StringComparer.OrdinalIgnoreCase))
+{
+    // stderr, not stdout: stdout may be piped somewhere that treats it as data.
+    await Console.Error.WriteLineAsync(
+        "stdin: 1) telefon nömrəsi  2) parol  3) ad və soyad (yalnız yeni hesab yaradılarkən).");
+
+    var phoneInput = await Console.In.ReadLineAsync();
+    var password = await Console.In.ReadLineAsync();
+    var fullName = (await Console.In.ReadLineAsync())?.Trim();
+
+    var phone = Ovcuprim.Application.Common.PhoneNumber.Normalize(phoneInput ?? string.Empty);
+
+    if (phone is null)
+    {
+        await Console.Error.WriteLineAsync("Telefon nömrəsi düzgün deyil. Nümunə: +994501234567");
+        return;
+    }
+
+    if (string.IsNullOrEmpty(password) || password.Length < AdminLoginOptions.MinimumPasswordLength)
+    {
+        await Console.Error.WriteLineAsync(
+            $"Parol ən azı {AdminLoginOptions.MinimumPasswordLength} simvol olmalıdır.");
+        return;
+    }
+
+    using var scope = app.Services.CreateScope();
+    var database = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+    var timeProvider = scope.ServiceProvider.GetRequiredService<IDateTimeProvider>();
+    var now = timeProvider.UtcNow;
+
+    // Past the query filter: a soft-deleted row still holds the phone number, and silently creating
+    // a second account on the same number would fail on the unique index anyway.
+    var account = await database.Users
+        .IgnoreQueryFilters()
+        .FirstOrDefaultAsync(u => u.PhoneNumber == phone);
+
+    var created = account is null;
+
+    if (account is null)
+    {
+        if (string.IsNullOrWhiteSpace(fullName))
+        {
+            await Console.Error.WriteLineAsync("Yeni hesab üçün üçüncü sətirdə ad və soyad tələb olunur.");
+            return;
+        }
+
+        account = new User
+        {
+            Id = Guid.NewGuid(),
+            PhoneNumber = phone,
+            FullName = fullName,
+            CreatedAt = now
+        };
+
+        database.Users.Add(account);
+    }
+
+    // Promoting an existing account is deliberate and announced below, not silent: the operator
+    // may well be resetting the password of an account that is already the administrator.
+    var promoted = account.Role != UserRole.Admin;
+
+    account.Role = UserRole.Admin;
+    account.Status = UserStatus.Active;
+    account.DeletedAt = null;
+    account.PasswordHash = passwordHasher.Hash(password);
+    account.FailedLoginAttempts = 0;
+    account.LockedUntil = null;
+
+    // An administrator does not sign in by SMS, so this flag can never be set the usual way. The
+    // number is verified by the operator standing at the console, which is a stronger check.
+    account.IsPhoneVerified = true;
+
+    // Any session that existed under the old password ends here.
+    var sessions = await database.RefreshTokens
+        .Where(t => t.UserId == account.Id && t.RevokedAt == null)
+        .ToListAsync();
+
+    foreach (var session in sessions)
+    {
+        session.RevokedAt = now;
+    }
+
+    database.AuditLogs.Add(new AuditLog
+    {
+        Id = Guid.NewGuid(),
+        ActorUserId = account.Id,
+        EntityType = nameof(User),
+        EntityId = account.Id.ToString(),
+        Action = created ? "AdminAccountCreatedFromConsole" : "AdminPasswordResetFromConsole",
+        PayloadJson = Ovcuprim.Application.Common.AuditPayload.From(new { promoted, revokedSessions = sessions.Count }),
+        CreatedAt = now
+    });
+
+    await database.SaveChangesAsync();
+
+    // Masked: this line ends up in a terminal scrollback and possibly a deployment log.
+    await Console.Error.WriteLineAsync(
+        $"{(created ? "Administrator hesabı yaradıldı" : "Parol yeniləndi")}: "
+        + $"{Ovcuprim.Application.Common.PhoneNumber.Mask(phone)}"
+        + $"{(promoted && !created ? " (hesab Admin roluna yüksəldildi)" : string.Empty)}"
+        + $", {sessions.Count} aktiv sessiya bağlandı.");
 
     return;
 }
