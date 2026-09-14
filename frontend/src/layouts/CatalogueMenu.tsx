@@ -131,9 +131,11 @@ export function CatalogueMenu({ onClose }: { onClose: () => void }) {
               {active ? (
                 <nav aria-label={`${active.nameAz} alt kateqoriyaları`} className="overflow-y-auto">
                   {active.children.length > 0 ? (
-                    <ul className="md:columns-2 md:gap-8">
+                    // One column, like the reference. Two columns flow down-then-across, which
+                    // reads as an arbitrary split on the short lists most categories have.
+                    <ul className="max-w-lg">
                       {active.children.map((child) => (
-                        <li key={child.slug} className="break-inside-avoid">
+                        <li key={child.slug}>
                           <Link
                             to={`/elanlar/${child.slug}`}
                             onClick={onClose}
