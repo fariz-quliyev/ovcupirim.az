@@ -104,7 +104,7 @@ export function PublicLayout() {
         <Outlet />
       </main>
 
-      <footer className="bg-brand-deep text-white/80">
+      <footer className="bg-brand text-white/80">
         <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
           <div>
             <div className="font-heading text-base font-extrabold text-white">

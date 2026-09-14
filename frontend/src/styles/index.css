@@ -6,8 +6,15 @@
   interactive surfaces, and the documented orange as a sparing accent.
 */
 @theme {
-  --color-brand: #1f3a32;
-  --color-brand-deep: #142923;
+  /*
+    The band colour — header, footer, the storefront banner, the store badge. One value rather
+    than the previous pair: the header and the footer sit at opposite ends of the page and never
+    touch, so giving them separate shades bought nothing and only let them drift apart.
+
+    White on it measures 6.17:1, comfortably past the 4.5:1 AA threshold, and the footer's
+    white/80 body text still measures 4.82:1.
+  */
+  --color-brand: #1f6e50;
   --color-interactive: #315b48;
   --color-interactive-soft: #edf3ee;
   --color-olive: #6f7f45;
