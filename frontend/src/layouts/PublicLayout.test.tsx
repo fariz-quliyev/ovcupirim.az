@@ -87,13 +87,15 @@ describe('PublicLayout header', () => {
     const header = within(screen.getByRole('banner'))
 
     for (const [label, href] of [
-      ['Kataloq', '/kateqoriyalar'],
       ['Seçilmişlər', '/secilmisler'],
       ['Giriş', '/giris'],
       ['+ Yeni elan', '/yeni-elan'],
     ] as const) {
       expect(header.getByRole('link', { name: label })).toHaveAttribute('href', href)
     }
+
+    // Kataloq opens the panel in place, so it is a button rather than a link.
+    expect(header.getByRole('button', { name: 'Kataloq' })).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('still reaches the sections the old link row carried, from the footer', async () => {

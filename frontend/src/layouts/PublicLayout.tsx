@@ -1,9 +1,11 @@
-import { NavLink, Outlet } from 'react-router'
+import { useState } from 'react'
+import { NavLink, Outlet, useLocation } from 'react-router'
 
 import { Button } from '@/components/ui/Button'
 import { useAuth } from '@/features/auth/useAuth'
 import { NotificationBell } from '@/features/notifications/NotificationBell'
 
+import { CatalogueMenu } from './CatalogueMenu'
 import { HeaderSearch } from './HeaderSearch'
 
 /**
@@ -53,13 +55,42 @@ const footerColumns = [
 
 export function PublicLayout() {
   const { user, isLoading } = useAuth()
+  const location = useLocation()
+
+  /**
+   * The route the catalogue panel was opened on, rather than a plain boolean. Derived this way it
+   * closes itself on any navigation — a link inside it, or the browser's back button — without an
+   * effect that sets state after the render it is reacting to.
+   *
+   * It opens on click, not on hover. The reference does both, but hover-to-open needs a
+   * close-on-leave to go with it, and that pair turns a pointer merely crossing the header into a
+   * panel that opens and shuts; it also leaves nothing sensible for a touch screen, which has no
+   * hover at all. Click alone is unambiguous, and it is what the button's ✕ state describes.
+   * Pointing at a category inside the panel still swaps the second column — that is the part of the
+   * reference's behaviour worth copying.
+   */
+  const [openedOn, setOpenedOn] = useState<string | null>(null)
+  const catalogueOpen = openedOn === location.pathname
+
+  function toggleCatalogue() {
+    setOpenedOn(catalogueOpen ? null : location.pathname)
+  }
+
+  function closeCatalogue() {
+    setOpenedOn(null)
+  }
 
   return (
     <div className="flex min-h-dvh flex-col">
+      {/* `relative` so the catalogue panel hangs off the bar rather than off the page: sticky
+          already makes this a containing block, but saying so keeps the intent on the element. */}
       <header className="sticky top-0 z-40 bg-brand">
         {/* Wraps below `lg`, where the search field takes a line of its own rather than being
             squeezed to nothing between the brand and the actions. */}
-        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-3 gap-y-2.5 px-4 py-2.5 sm:px-6 lg:h-16 lg:flex-nowrap lg:gap-4 lg:py-0">
+        {/* Above the catalogue panel's click-catching backdrop, which covers the viewport while the
+            panel is open — without this the search field and the buttons beside it would be behind
+            it, and a click meant for them would only close the panel. */}
+        <div className="relative z-50 mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-3 gap-y-2.5 px-4 py-2.5 sm:px-6 lg:h-16 lg:flex-nowrap lg:gap-4 lg:py-0">
           <NavLink
             to="/"
             className="order-1 font-heading text-lg font-extrabold tracking-wide text-white"
@@ -67,18 +98,38 @@ export function PublicLayout() {
             OVCUPIRIM<span className="text-accent">.AZ</span>
           </NavLink>
 
-          <NavLink
-            to="/kateqoriyalar"
-            className="order-2 hidden shrink-0 items-center gap-2 rounded-(--radius-button) bg-white/15 px-3.5 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-white/25 sm:inline-flex"
+          {/* A button, not a link: it opens the catalogue panel in place. /kateqoriyalar is still
+              the page behind it — the phone, which never sees this button, goes there instead. */}
+          <button
+            type="button"
+            onClick={toggleCatalogue}
+            aria-expanded={catalogueOpen}
+            aria-controls="catalogue-menu"
+            className={`order-2 hidden shrink-0 items-center gap-2 rounded-(--radius-button) px-3.5 py-2 text-[15px] font-semibold text-white transition-colors sm:inline-flex ${
+              catalogueOpen ? 'bg-white/25' : 'bg-white/15 hover:bg-white/25'
+            }`}
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" className="size-4" aria-hidden="true">
-              <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
-              <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
-              <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
-              <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
-            </svg>
+            {catalogueOpen ? (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                className="size-4"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" d="M6 6l12 12M18 6 6 18" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" fill="currentColor" className="size-4" aria-hidden="true">
+                <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
+                <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
+                <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
+                <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
+              </svg>
+            )}
             Kataloq
-          </NavLink>
+          </button>
 
           <HeaderSearch className="order-4 w-full lg:order-3 lg:w-auto lg:flex-1" />
 
@@ -133,6 +184,8 @@ export function PublicLayout() {
             )}
           </div>
         </div>
+
+        {catalogueOpen ? <CatalogueMenu onClose={closeCatalogue} /> : null}
       </header>
 
       <main className="mx-auto w-full max-w-[1280px] flex-1 px-4 pb-24 sm:px-6 md:pb-10">
