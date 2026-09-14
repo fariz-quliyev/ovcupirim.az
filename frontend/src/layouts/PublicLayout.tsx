@@ -104,19 +104,25 @@ export function PublicLayout() {
               </svg>
             </NavLink>
 
+            {isLoading ? null : user ? <NotificationBell /> : null}
+
+            {/* Before the sign-in control, as on the reference. The bottom bar already carries
+                "Elan" on a phone, so this is the desktop affordance. */}
+            <NavLink to="/yeni-elan" className="hidden sm:block">
+              <Button variant="accent" size="sm">
+                + Yeni elan
+              </Button>
+            </NavLink>
+
             {isLoading ? (
               <span className="h-5 w-16 animate-pulse rounded bg-white/20" aria-hidden="true" />
             ) : user ? (
-              <>
-                <NotificationBell />
-
-                <NavLink
-                  to="/kabinet"
-                  className="hidden max-w-40 truncate px-1 text-[15px] font-medium text-white/90 hover:text-white sm:block"
-                >
-                  {user.fullName}
-                </NavLink>
-              </>
+              <NavLink
+                to="/kabinet"
+                className="hidden max-w-40 truncate px-1 text-[15px] font-medium text-white/90 hover:text-white sm:block"
+              >
+                {user.fullName}
+              </NavLink>
             ) : (
               <NavLink
                 to="/giris"
@@ -125,13 +131,6 @@ export function PublicLayout() {
                 Giriş
               </NavLink>
             )}
-
-            {/* The bottom bar already carries "Elan" on a phone, so this is the desktop affordance. */}
-            <NavLink to="/yeni-elan" className="hidden sm:block">
-              <Button variant="accent" size="sm">
-                + Yeni elan
-              </Button>
-            </NavLink>
           </div>
         </div>
       </header>
