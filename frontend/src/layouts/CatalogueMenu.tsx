@@ -62,9 +62,10 @@ export function CatalogueMenu({ onClose }: { onClose: () => void }) {
 
   const [activeSlug, setActiveSlug] = useState<string | null>(null)
 
-  // The first category is selected on open so the right column is never blank, and it follows the
-  // data rather than a hard-coded slug — the taxonomy is administrator-editable.
-  const active = tree.find((category) => category.slug === activeSlug) ?? tree[0]
+  // Nothing is selected when the panel opens: the second column fills in only once a category is
+  // pointed at or tabbed to. Pre-selecting the first one would show a set of subcategories nobody
+  // asked for, and highlight a row the reader's eye had not landed on yet.
+  const active = tree.find((category) => category.slug === activeSlug) ?? null
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -162,7 +163,13 @@ export function CatalogueMenu({ onClose }: { onClose: () => void }) {
                     <Chevron />
                   </Link>
                 </nav>
-              ) : null}
+              ) : (
+                // The column keeps its width so the panel does not resize the moment a category is
+                // pointed at, and says what to do rather than sitting blank.
+                <p className="hidden px-3 py-2.5 text-sm text-muted md:block">
+                  Alt bölmələri görmək üçün kateqoriyanın üzərinə gəlin.
+                </p>
+              )}
             </div>
           )}
         </div>

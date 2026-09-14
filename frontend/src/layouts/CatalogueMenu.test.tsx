@@ -89,29 +89,37 @@ describe('CatalogueMenu', () => {
     expect(screen.getByRole('button', { name: 'Kataloq' })).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('opens on the first category, so the second column is never blank', async () => {
+  it('opens with nothing selected', async () => {
     mockTaxonomy()
     renderWithProviders(page(), { route: '/' })
     await openMenu()
 
-    const subcategories = await screen.findByRole('navigation', {
-      name: 'Ovçuluq alt kateqoriyaları',
-    })
+    await screen.findByRole('navigation', { name: 'Kateqoriyalar' })
 
-    expect(within(subcategories).getByRole('link', { name: 'Ov çantaları' })).toHaveAttribute(
-      'href',
-      '/elanlar/ov-cantalari',
-    )
+    // No category is chosen for the reader, so no subcategories are shown yet.
+    expect(
+      screen.queryByRole('navigation', { name: /alt kateqoriyaları/ }),
+    ).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Ov çantaları' })).not.toBeInTheDocument()
+    expect(
+      screen.getByText('Alt bölmələri görmək üçün kateqoriyanın üzərinə gəlin.'),
+    ).toBeInTheDocument()
   })
 
-  it('swaps the second column when another category is pointed at', async () => {
+  it('fills the second column from whichever category is pointed at, and swaps on the next', async () => {
     mockTaxonomy()
     renderWithProviders(page(), { route: '/' })
     const user = await openMenu()
 
     const primary = within(await screen.findByRole('navigation', { name: 'Kateqoriyalar' }))
-    await user.hover(primary.getByRole('link', { name: 'Balıqçılıq' }))
 
+    await user.hover(primary.getByRole('link', { name: 'Ovçuluq' }))
+    expect(
+      within(await screen.findByRole('navigation', { name: 'Ovçuluq alt kateqoriyaları' }))
+        .getByRole('link', { name: 'Ov çantaları' }),
+    ).toHaveAttribute('href', '/elanlar/ov-cantalari')
+
+    await user.hover(primary.getByRole('link', { name: 'Balıqçılıq' }))
     const subcategories = await screen.findByRole('navigation', {
       name: 'Balıqçılıq alt kateqoriyaları',
     })
@@ -144,6 +152,9 @@ describe('CatalogueMenu', () => {
     renderWithProviders(page(), { route: '/' })
     const user = await openMenu()
 
+    const primary = within(await screen.findByRole('navigation', { name: 'Kateqoriyalar' }))
+    await user.hover(primary.getByRole('link', { name: 'Ovçuluq' }))
+
     await user.click(await screen.findByRole('link', { name: 'Ov geyimləri' }))
 
     expect(screen.getByRole('status')).toHaveTextContent('/elanlar/ov-geyimleri')
@@ -153,7 +164,10 @@ describe('CatalogueMenu', () => {
   it('says so plainly when a category has no subcategories yet', async () => {
     mockTaxonomy([tree[2]!])
     renderWithProviders(page(), { route: '/' })
-    await openMenu()
+    const user = await openMenu()
+
+    const primary = within(await screen.findByRole('navigation', { name: 'Kateqoriyalar' }))
+    await user.hover(primary.getByRole('link', { name: 'Kamp' }))
 
     expect(await screen.findByText('Bu bölmədə hələ alt kateqoriya yoxdur.')).toBeInTheDocument()
 
