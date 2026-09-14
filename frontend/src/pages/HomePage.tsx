@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { Link } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 
 import { Badge } from '@/components/ui/Badge'
@@ -7,12 +6,13 @@ import { ErrorState } from '@/components/ui/ErrorState'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { catalogueKeys, searchListings } from '@/features/listings/api'
 import { ListingCard } from '@/features/listings/ListingCard'
-import { useCategoryTree, useRegions } from '@/features/catalog/hooks'
+import { useCategoryTree } from '@/features/catalog/hooks'
 import { CategoryIcon } from '@/features/home/CategoryIcon'
 
 /**
- * The homepage: search, categories, promoted listings, newest listings — in that order, and
- * nothing else. The header and footer belong to PublicLayout.
+ * The homepage: categories, promoted listings, newest listings — in that order, and nothing else.
+ * The header and footer belong to PublicLayout, and search now lives in the header, on every page,
+ * rather than in a band this page owned alone.
  *
  * It is deliberately short. A classifieds visitor arrives to search or to browse, so the page puts
  * both within the first screen and then gets out of the way; the editorial sections that once sat
@@ -41,95 +41,18 @@ function categoryImageUrl(imageKey: string): string {
 }
 
 export function HomePage() {
-  const navigate = useNavigate()
-  const [term, setTerm] = useState('')
-  const [regionSlug, setRegionSlug] = useState('')
-
   const categories = useCategoryTree()
-  const regions = useRegions()
 
   const latest = useQuery({
     queryKey: catalogueKeys.search({ sort: 'newest', pageSize: String(LATEST_PAGE_SIZE) }),
     queryFn: () => searchListings({ sort: 'newest', pageSize: String(LATEST_PAGE_SIZE) }),
   })
 
-  function submitSearch(event: React.FormEvent) {
-    event.preventDefault()
-
-    const params = new URLSearchParams()
-    if (term.trim()) params.set('q', term.trim())
-    if (regionSlug) params.set('region', regionSlug)
-
-    const query = params.toString()
-    void navigate(query ? `/axtaris?${query}` : '/elanlar')
-  }
-
   const topCategories = categories.data ?? []
   const listings = latest.data?.items ?? []
 
   return (
     <div>
-      {/* Search band. Full-bleed, with the content still on the 1280 grid, matching the design's
-          own `<section>` + inner container. The negative margin escapes the layout's max width;
-          `overflow-x: clip` on the body (styles/index.css) keeps that from ever becoming a
-          sideways scroll.
-
-          No headline above it, deliberately: a classifieds visitor arrives wanting to search or to
-          browse categories, so both are on screen immediately. That is how the design reference's
-          own homepage opens, and how the marketplace this one is modelled on does it. White with a
-          hairline rule beneath (`background:#FFFFFF; border-bottom:1px solid #E4E7E2`); the green
-          belongs to the sticky header above. */}
-      <section className="mx-[calc(50%-50vw)] border-b border-line bg-surface">
-        <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6">
-          <form onSubmit={submitSearch} className="flex flex-col gap-2 sm:flex-row">
-            <div className="flex min-w-0 flex-1 overflow-hidden rounded-(--radius-input) border border-line bg-surface">
-              <input
-                value={term}
-                onChange={(event) => setTerm(event.target.value)}
-                aria-label="Avadanlıq və ya marka axtarışı"
-                placeholder="Avadanlıq və ya marka axtarışı"
-                className="min-w-0 flex-1 px-4 text-[15px] text-ink outline-none"
-              />
-              <select
-                value={regionSlug}
-                onChange={(event) => setRegionSlug(event.target.value)}
-                aria-label="Region"
-                className="hidden h-12 border-l border-line bg-surface px-3 text-sm text-ink outline-none sm:block"
-              >
-                <option value="">Bütün regionlar</option>
-                {(regions.data ?? []).map((region) => (
-                  <option key={region.slug} value={region.slug}>
-                    {region.nameAz}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <button
-              type="submit"
-              className="h-12 shrink-0 rounded-(--radius-input) bg-cta px-8 font-semibold text-white transition hover:brightness-95 sm:rounded-s-none"
-            >
-              Axtar
-            </button>
-          </form>
-
-          {topCategories.length > 0 ? (
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-muted">Populyar:</span>
-              {topCategories.slice(0, 5).map((category) => (
-                <Link
-                  key={category.slug}
-                  to={`/elanlar/${category.slug}`}
-                  className="rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-interactive hover:bg-canvas"
-                >
-                  {category.nameAz}
-                </Link>
-              ))}
-            </div>
-          ) : null}
-        </div>
-      </section>
-
       <div>
         {/* 03 — Kateqoriyalar. Eight tiles on desktop, a single swipe row on a phone. */}
         <section className="py-10">

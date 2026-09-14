@@ -113,17 +113,13 @@ describe('HomePage', () => {
     mockHome([listing])
     renderWithProviders(page(), { route: '/' })
 
-    // Every top-level category reaches the page, linking to its own catalogue. A category appears
-    // both as a tile and as a "Populyar" pill, so every match should carry the same destination.
+    // Every top-level category reaches the page, linking to its own catalogue.
     const ovculuq = await screen.findAllByRole('link', { name: 'Ovçuluq' })
     expect(ovculuq.length).toBeGreaterThan(0)
     for (const link of ovculuq) {
       expect(link).toHaveAttribute('href', '/elanlar/ovculuq')
     }
     expect(screen.getAllByRole('link', { name: 'Outdoor geyim' })[0]).toBeInTheDocument()
-
-    // Regions populate the search band's filter.
-    expect(screen.getByRole('option', { name: 'Bakı' })).toBeInTheDocument()
 
     // And the newest listing is in the feed.
     expect(screen.getByText('Ov çantası')).toBeInTheDocument()

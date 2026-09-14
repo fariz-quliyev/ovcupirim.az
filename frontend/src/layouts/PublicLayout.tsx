@@ -4,12 +4,16 @@ import { Button } from '@/components/ui/Button'
 import { useAuth } from '@/features/auth/useAuth'
 import { NotificationBell } from '@/features/notifications/NotificationBell'
 
-const mainNav = [
-  { to: '/kateqoriyalar', label: 'Kateqoriyalar' },
-  { to: '/elanlar', label: 'Elanlar' },
-  { to: '/magazalar', label: 'Mağazalar' },
-  { to: '/beledci', label: 'Bələdçi' },
-]
+import { HeaderSearch } from './HeaderSearch'
+
+/**
+ * The header is one row: brand, catalogue, search, actions — the arrangement the marketplace this
+ * one is modelled on uses, and the one the site was asked for.
+ *
+ * The four navigation links it replaces (Kateqoriyalar, Elanlar, Mağazalar, Bələdçi) are not lost:
+ * "Kataloq" opens the category tree, and the footer carries all four. Trading them for the search
+ * field is the point — a classifieds visitor arrives to search, and a link row cannot do that.
+ */
 
 const bottomNav = [
   { to: '/', label: 'Əsas', end: true },
@@ -40,6 +44,7 @@ const footerColumns = [
     title: 'Dəstək',
     links: [
       { to: '/yardim', label: 'Yardım' },
+      { to: '/beledci', label: 'Bələdçi' },
       { to: '/melumat/tehlukesiz-alis-veris', label: 'Təhlükəsiz alış-veriş' },
       { to: '/melumat/yas-qaydalari', label: 'Yaş və uyğunluq qaydaları' },
     ],
@@ -52,26 +57,53 @@ export function PublicLayout() {
   return (
     <div className="flex min-h-dvh flex-col">
       <header className="sticky top-0 z-40 bg-brand">
-        <div className="mx-auto flex h-16 max-w-[1280px] items-center gap-5 px-4 sm:px-6">
-          <NavLink to="/" className="font-heading text-lg font-extrabold tracking-wide text-white">
+        {/* Wraps below `lg`, where the search field takes a line of its own rather than being
+            squeezed to nothing between the brand and the actions. */}
+        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-3 gap-y-2.5 px-4 py-2.5 sm:px-6 lg:h-16 lg:flex-nowrap lg:gap-4 lg:py-0">
+          <NavLink
+            to="/"
+            className="order-1 font-heading text-lg font-extrabold tracking-wide text-white"
+          >
             OVCUPIRIM<span className="text-accent">.AZ</span>
           </NavLink>
 
-          <nav className="hidden flex-1 items-center gap-6 md:flex">
-            {mainNav.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  `text-[15px] font-medium transition-colors ${isActive ? 'text-accent' : 'text-white/90 hover:text-white'}`
-                }
-              >
-                {item.label}
-              </NavLink>
-            ))}
-          </nav>
+          <NavLink
+            to="/kateqoriyalar"
+            className="order-2 hidden shrink-0 items-center gap-2 rounded-(--radius-button) bg-white/15 px-3.5 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-white/25 sm:inline-flex"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" className="size-4" aria-hidden="true">
+              <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
+              <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
+              <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
+              <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
+            </svg>
+            Kataloq
+          </NavLink>
 
-          <div className="ml-auto flex items-center gap-3">
+          <HeaderSearch className="order-4 w-full lg:order-3 lg:w-auto lg:flex-1" />
+
+          <div className="order-3 ml-auto flex items-center gap-1 sm:gap-2 lg:order-4 lg:ml-0">
+            <NavLink
+              to="/secilmisler"
+              aria-label="Seçilmişlər"
+              className="flex size-9 items-center justify-center rounded-full text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                className="size-5"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 20s-7.5-4.6-7.5-9.6A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5-7.5 9.6-7.5 9.6Z"
+                />
+              </svg>
+            </NavLink>
+
             {isLoading ? (
               <span className="h-5 w-16 animate-pulse rounded bg-white/20" aria-hidden="true" />
             ) : user ? (
@@ -80,18 +112,22 @@ export function PublicLayout() {
 
                 <NavLink
                   to="/kabinet"
-                  className="max-w-40 truncate text-[15px] font-medium text-white/90 hover:text-white"
+                  className="hidden max-w-40 truncate px-1 text-[15px] font-medium text-white/90 hover:text-white sm:block"
                 >
                   {user.fullName}
                 </NavLink>
               </>
             ) : (
-              <NavLink to="/giris" className="text-[15px] font-medium text-white/90 hover:text-white">
+              <NavLink
+                to="/giris"
+                className="rounded-(--radius-button) bg-white/15 px-3.5 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-white/25"
+              >
                 Giriş
               </NavLink>
             )}
 
-            <NavLink to="/yeni-elan">
+            {/* The bottom bar already carries "Elan" on a phone, so this is the desktop affordance. */}
+            <NavLink to="/yeni-elan" className="hidden sm:block">
               <Button variant="accent" size="sm">
                 + Yeni elan
               </Button>
