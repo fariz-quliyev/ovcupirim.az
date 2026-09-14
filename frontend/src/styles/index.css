@@ -43,6 +43,13 @@
     color: var(--color-ink);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
+
+    /* `clip`, not `hidden`: it stops sideways scrolling without turning the body into a scroll
+       container, which would break `position: sticky` on the header. Full-bleed bands escape the
+       layout's max width with a viewport-based negative margin, and 100vw counts the vertical
+       scrollbar while the viewport does not — this absorbs that difference instead of letting it
+       show up as a horizontal scrollbar on every page. */
+    overflow-x: clip;
   }
 
   h1,
