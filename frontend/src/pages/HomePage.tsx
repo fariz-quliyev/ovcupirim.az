@@ -74,7 +74,7 @@ export function HomePage() {
                cancels the layout's padding — so it reads as something to swipe rather than a
                truncated grid; `overflow-x: clip` on the body keeps that from becoming a page-wide
                sideways scroll. */
-            <ul className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-8">
+            <ul className="-mx-4 flex snap-x scroll-pl-4 gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:scroll-pl-0 sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-8">
               {/* First in the row, and only on a phone: the whole tree is one tap away without
                   having to swipe past eight tiles to find the "Hamısı" link above. */}
               <li className="w-[88px] shrink-0 snap-start sm:hidden">
