@@ -36,11 +36,14 @@ export function HeaderSearch({ className = '' }: { className?: string }) {
         </svg>
       </span>
 
+      {/* The accessible name repeats the visible placeholder word for word. There is no visible
+          label, so the placeholder is what a sighted person reads and what someone driving the page
+          by voice will say — naming the field anything else leaves those two disagreeing. */}
       <input
         value={term}
         onChange={(event) => setTerm(event.target.value)}
-        aria-label="Avadanlıq və ya marka axtarışı"
-        placeholder="Avadanlıq və ya marka axtarışı"
+        aria-label="Nə axtarırsınız?"
+        placeholder="Nə axtarırsınız?"
         className="min-w-0 flex-1 bg-transparent pe-3 text-[15px] text-ink outline-none placeholder:text-faint"
       />
 

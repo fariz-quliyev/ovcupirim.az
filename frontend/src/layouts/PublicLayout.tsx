@@ -115,13 +115,14 @@ export function PublicLayout() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.2"
-                className="size-4"
+                className="size-4 text-cta"
                 aria-hidden="true"
               >
                 <path strokeLinecap="round" d="M6 6l12 12M18 6 6 18" />
               </svg>
             ) : (
-              <svg viewBox="0 0 24 24" fill="currentColor" className="size-4" aria-hidden="true">
+              // The brand red, the same as the search button beside it.
+              <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 text-cta" aria-hidden="true">
                 <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
                 <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
                 <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />

@@ -51,7 +51,7 @@ describe('PublicLayout header', () => {
     renderWithProviders(page(), { route: '/' })
 
     expect(await screen.findByRole('search')).toBeInTheDocument()
-    expect(screen.getByLabelText('Avadanlıq və ya marka axtarışı')).toBeInTheDocument()
+    expect(screen.getByLabelText('Nə axtarırsınız?')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Axtar' })).toBeInTheDocument()
   })
 
@@ -60,7 +60,7 @@ describe('PublicLayout header', () => {
     mockAnonymous()
     renderWithProviders(page(), { route: '/' })
 
-    await user.type(await screen.findByLabelText('Avadanlıq və ya marka axtarışı'), 'tilov çarxı')
+    await user.type(await screen.findByLabelText('Nə axtarırsınız?'), 'tilov çarxı')
     await user.click(screen.getByRole('button', { name: 'Axtar' }))
 
     expect(screen.getByRole('status')).toHaveTextContent('/axtaris?q=tilov%20%C3%A7arx%C4%B1')
