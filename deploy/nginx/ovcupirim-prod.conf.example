@@ -1,8 +1,8 @@
 # Host nginx vhost for production — copy to /etc/nginx/sites-available/ovcupirim.az and symlink.
 #
-# This server also runs another production site whose nginx vhost owns `default_server` on both
-# ports. Nothing here takes that role, so a request arriving with an unknown Host still lands where
-# it did before this file existed. Never edit the other site's vhost; only add this one.
+# This server also runs another production site whose vhost owns `default_server` on both ports,
+# and a staging site that is deliberately reachable directly. Nothing here takes the default role,
+# and every restriction below is scoped to this file, so neither of the others is affected.
 #
 # Upstream is the `web` container from docker-compose.prod.yml, published on loopback only
 # (PROD_HTTP_PORT). Docker's published-port DNAT sits ahead of ufw, so a 0.0.0.0 bind would be
@@ -13,12 +13,21 @@ server {
     listen [::]:80;
     server_name ovcupirim.az www.ovcupirim.az;
 
-    # Must stay on port 80 for unattended certificate renewal.
+    # Deliberately NOT behind the origin lock-down below, and deliberately ahead of the redirect.
+    # While the CDN proxy is on, ACME validation arrives through it and would pass the check
+    # anyway; leaving this path open means renewal also survives the proxy being turned off, which
+    # is exactly the situation where a locked-out challenge would be discovered too late.
+    # It serves nothing but opaque challenge tokens from a webroot.
     location /.well-known/acme-challenge/ {
         root /var/www/certbot;
     }
 
     location / {
+        # See the 443 block for why this is keyed on the original peer.
+        if ($cf_edge_ok = 0) {
+            return 403;
+        }
+
         return 301 https://$host$request_uri;
     }
 }
@@ -36,10 +45,29 @@ server {
     ssl_session_cache shared:SSLovcupirimprod:10m;
     ssl_session_timeout 1d;
 
+    # HSTS is deliberately NOT set yet. Add it once the proxied path has been running long enough
+    # to be confident in it; pinning browsers to HTTPS is hard to undo.
+
     # Matches the API's own upload limit plus multipart overhead.
     client_max_body_size 10m;
 
     location / {
+        # Origin lock-down. $cf_edge_ok comes from conf.d/cloudflare-geo.conf, which is generated
+        # from the CDN's published ranges by deploy/nginx/update-cloudflare-nginx.sh and also
+        # allows loopback for local health checks.
+        #
+        # It is keyed on $realip_remote_addr — the original TCP peer — and NOT on $remote_addr,
+        # because ngx_http_realip_module rewrites $remote_addr in the post-read phase, before this
+        # is evaluated. Testing $remote_addr here would compare the restored *visitor* address
+        # against a list of CDN ranges and reject every genuine request.
+        #
+        # Without this, anyone who learns the origin address can skip the CDN entirely, along with
+        # its WAF and DDoS protection. They still cannot forge an identity — real-IP restoration
+        # only trusts CF-Connecting-IP from those same ranges — but they should not get this far.
+        if ($cf_edge_ok = 0) {
+            return 403;
+        }
+
         proxy_pass http://127.0.0.1:8081;
         proxy_http_version 1.1;
 
@@ -47,16 +75,10 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Host  $host;
 
-        # $remote_addr, not $proxy_add_x_forwarded_for. Two reasons, and both matter:
-        #
-        # 1. conf.d/cloudflare-realip.conf has already rewritten $remote_addr to the real client
-        #    whenever the peer is a trusted CDN edge, so this is the true caller.
-        # 2. Appending would carry forward whatever X-Forwarded-For the caller sent. This is the
-        #    trust boundary, so any client-supplied value is discarded here rather than forwarded.
-        #
-        # The result is a single-entry header. The `web` container appends its own peer, so the API
-        # sees exactly two hops — which is why FORWARDED_LIMIT is 2 and not 3, and why the API has
-        # to trust only its own compose network rather than a list of CDN ranges.
+        # $remote_addr, not $proxy_add_x_forwarded_for: this is the trust boundary, so anything the
+        # caller sent in X-Forwarded-For is discarded rather than forwarded. The `web` container
+        # appends its own peer, so the API sees exactly two hops — which is why FORWARDED_LIMIT is
+        # 2 and does not change when the CDN proxy is toggled.
         proxy_set_header X-Real-IP       $remote_addr;
         proxy_set_header X-Forwarded-For $remote_addr;
 
