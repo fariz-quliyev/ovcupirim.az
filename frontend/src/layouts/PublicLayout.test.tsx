@@ -87,11 +87,18 @@ describe('PublicLayout header', () => {
     const header = within(screen.getByRole('banner'))
 
     for (const [label, href] of [
-      ['Seçilmişlər', '/secilmisler'],
       ['Giriş', '/giris'],
       ['+ Yeni elan', '/yeni-elan'],
     ] as const) {
       expect(header.getByRole('link', { name: label })).toHaveAttribute('href', href)
+    }
+
+    // Favourites sits in the phone bar's left slot and in the desktop cluster; both are in the
+    // document and CSS shows one, so this asserts on all of them rather than on a single match.
+    const favourites = header.getAllByRole('link', { name: 'Seçilmişlər' })
+    expect(favourites.length).toBeGreaterThan(0)
+    for (const link of favourites) {
+      expect(link).toHaveAttribute('href', '/secilmisler')
     }
 
     // Kataloq opens the panel in place, so it is a button rather than a link.

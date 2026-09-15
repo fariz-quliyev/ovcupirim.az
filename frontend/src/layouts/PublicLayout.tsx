@@ -63,6 +63,35 @@ const footerColumns = [
   },
 ]
 
+/**
+ * Rendered twice — once in the phone bar's left slot, once in the desktop action cluster — because
+ * the two layouts put it in different places and only one is ever visible.
+ */
+function FavouritesLink({ className = '' }: { className?: string }) {
+  return (
+    <NavLink
+      to="/secilmisler"
+      aria-label="Seçilmişlər"
+      className={`flex size-9 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-ink/10 hover:text-ink ${className}`}
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        className="size-5"
+        aria-hidden="true"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 20s-7.5-4.6-7.5-9.6A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5-7.5 9.6-7.5 9.6Z"
+        />
+      </svg>
+    </NavLink>
+  )
+}
+
 export function PublicLayout() {
   const { user, isLoading } = useAuth()
   const location = useLocation()
@@ -108,9 +137,17 @@ export function PublicLayout() {
             panel is open — without this the search field and the buttons beside it would be behind
             it, and a click meant for them would only close the panel. */}
         <div className="relative z-50 mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-3 gap-y-2.5 px-4 py-2.5 sm:px-6 lg:h-16 lg:flex-nowrap lg:gap-4 lg:py-0">
+          {/* Below `lg` the bar is three slots — an action, the brand, an action — and the two
+              outer ones each take half the leftover width, which is what puts the brand on the
+              centre line rather than merely between its neighbours. Above `lg` the slots collapse
+              and the row runs left to right. */}
+          <div className="order-1 flex flex-1 items-center lg:hidden">
+            <FavouritesLink />
+          </div>
+
           <NavLink
             to="/"
-            className="order-1 font-heading text-lg font-extrabold tracking-wide text-ink"
+            className="order-2 font-heading text-lg font-extrabold tracking-wide text-ink lg:order-1"
           >
             OVCUPIRIM<span className="text-accent">.AZ</span>
           </NavLink>
@@ -122,7 +159,7 @@ export function PublicLayout() {
             onClick={toggleCatalogue}
             aria-expanded={catalogueOpen}
             aria-controls="catalogue-menu"
-            className="order-2 hidden shrink-0 items-center gap-2 rounded-(--radius-button) bg-cta px-3.5 py-2 text-[15px] font-semibold text-white transition hover:brightness-95 sm:inline-flex"
+            className="order-3 hidden shrink-0 items-center gap-2 rounded-(--radius-button) bg-cta px-3.5 py-2 text-[15px] font-semibold text-white transition hover:brightness-95 lg:order-2 lg:inline-flex"
           >
             {catalogueOpen ? (
               <svg
@@ -146,29 +183,10 @@ export function PublicLayout() {
             Kataloq
           </button>
 
-          <HeaderSearch className="order-4 w-full lg:order-3 lg:w-auto lg:flex-1" />
+          <HeaderSearch className="order-5 w-full lg:order-3 lg:w-auto lg:flex-1" />
 
-          <div className="order-3 ml-auto flex items-center gap-1 sm:gap-2 lg:order-4 lg:ml-0">
-            <NavLink
-              to="/secilmisler"
-              aria-label="Seçilmişlər"
-              className="flex size-9 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-ink/10 hover:text-ink"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                className="size-5"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 20s-7.5-4.6-7.5-9.6A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5-7.5 9.6-7.5 9.6Z"
-                />
-              </svg>
-            </NavLink>
+          <div className="order-4 flex flex-1 items-center justify-end gap-1 sm:gap-2 lg:flex-none">
+            <FavouritesLink className="hidden lg:flex" />
 
             {isLoading ? null : user ? <NotificationBell /> : null}
 
