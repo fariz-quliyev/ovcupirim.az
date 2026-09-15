@@ -201,9 +201,7 @@ export function PublicLayout() {
                 lang="az", where lowercasing "I" yields the dotless "ı". The brand is ovcupirim,
                 not ovcupırım. */}
             <span className="text-cta lg:hidden">ovcupirim.az</span>
-            <span className="hidden lg:inline">
-              OVCUPIRIM<span className="text-accent">.AZ</span>
-            </span>
+            <span className="hidden text-cta lg:inline">OVCUPIRIM.AZ</span>
           </NavLink>
 
           {/* A button, not a link: it opens the catalogue panel in place. /kateqoriyalar is still
@@ -311,9 +309,8 @@ export function PublicLayout() {
       <footer className="hidden bg-brand text-ink/75 md:block">
         <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
           <div>
-            <div className="font-heading text-base font-extrabold text-ink">
-              OVCUPIRIM<span className="text-accent">.AZ</span>
-            </div>
+            {/* Same wordmark, same band as the header's — so the same colour. */}
+            <div className="font-heading text-base font-extrabold text-cta">OVCUPIRIM.AZ</div>
             <p className="mt-3 max-w-xs text-sm">
               Ov, balıqçılıq, kamp və outdoor avadanlıqları üçün ixtisaslaşmış elan platforması.
             </p>
