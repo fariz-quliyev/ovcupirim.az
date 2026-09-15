@@ -7,6 +7,7 @@ import { NotificationBell } from '@/features/notifications/NotificationBell'
 
 import { CatalogueMenu } from './CatalogueMenu'
 import { HeaderSearch } from './HeaderSearch'
+import { MobileMenu } from './MobileMenu'
 
 /**
  * The header is one row: brand, catalogue, search, actions — the arrangement the marketplace this
@@ -111,6 +112,10 @@ export function PublicLayout() {
   const [openedOn, setOpenedOn] = useState<string | null>(null)
   const catalogueOpen = openedOn === location.pathname
 
+  /** Keyed on the route for the same reason as the catalogue panel: navigation closes it. */
+  const [menuOpenedOn, setMenuOpenedOn] = useState<string | null>(null)
+  const menuOpen = menuOpenedOn === location.pathname
+
   /** Routes that own the whole phone screen and supply their own title bar. */
   const phoneTakeover = location.pathname.startsWith('/kateqoriyalar')
 
@@ -142,12 +147,30 @@ export function PublicLayout() {
               centre line rather than merely between its neighbours. Above `lg` the slots collapse
               and the row runs left to right. */}
           <div className="order-1 flex flex-1 items-center lg:hidden">
-            <FavouritesLink />
+            <button
+              type="button"
+              onClick={() => setMenuOpenedOn(menuOpen ? null : location.pathname)}
+              aria-expanded={menuOpen}
+              aria-label="Menyu"
+              className="grid size-9 place-items-center rounded-full text-ink/80 transition-colors hover:bg-ink/10"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                className="size-5"
+                aria-hidden="true"
+              >
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            </button>
           </div>
 
           <NavLink
             to="/"
-            className="order-2 font-heading text-lg font-extrabold tracking-wide text-ink lg:order-1"
+            className="order-2 font-heading text-lg font-extrabold tracking-wide text-ink max-lg:lowercase max-lg:tracking-normal lg:order-1"
           >
             OVCUPIRIM<span className="text-accent">.AZ</span>
           </NavLink>
@@ -186,31 +209,50 @@ export function PublicLayout() {
           <HeaderSearch className="order-5 w-full lg:order-3 lg:w-auto lg:flex-1" />
 
           <div className="order-4 flex flex-1 items-center justify-end gap-1 sm:gap-2 lg:flex-none">
+            {/* The phone's right slot is the posting action, as a disc. Sign-in moved into the
+                menu behind the left slot. */}
+            <NavLink
+              to="/yeni-elan"
+              aria-label="Yeni elan"
+              className="grid size-9 place-items-center rounded-full bg-cta text-white transition hover:brightness-95 lg:hidden"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                className="size-5"
+                aria-hidden="true"
+              >
+                <path d="M12 6v12M6 12h12" />
+              </svg>
+            </NavLink>
+
             <FavouritesLink className="hidden lg:flex" />
 
-            {isLoading ? null : user ? <NotificationBell /> : null}
+            {isLoading ? null : user ? <NotificationBell className="hidden lg:flex" /> : null}
 
-            {/* Before the sign-in control, as on the reference. The bottom bar already carries
-                "Elan" on a phone, so this is the desktop affordance. */}
-            <NavLink to="/yeni-elan" className="hidden sm:block">
+            {/* Before the sign-in control, as on the reference. */}
+            <NavLink to="/yeni-elan" className="hidden lg:block">
               <Button variant="accent" size="sm">
                 + Yeni elan
               </Button>
             </NavLink>
 
             {isLoading ? (
-              <span className="h-5 w-16 animate-pulse rounded bg-ink/10" aria-hidden="true" />
+              <span className="hidden h-5 w-16 animate-pulse rounded bg-ink/10 lg:block" aria-hidden="true" />
             ) : user ? (
               <NavLink
                 to="/kabinet"
-                className="hidden max-w-40 truncate px-1 text-[15px] font-medium text-ink/80 hover:text-ink sm:block"
+                className="hidden max-w-40 truncate px-1 text-[15px] font-medium text-ink/80 hover:text-ink lg:block"
               >
                 {user.fullName}
               </NavLink>
             ) : (
               <NavLink
                 to="/giris"
-                className="rounded-(--radius-button) bg-surface px-3.5 py-2 text-[15px] font-semibold text-interactive transition hover:brightness-95"
+                className="hidden rounded-(--radius-button) bg-surface px-3.5 py-2 text-[15px] font-semibold text-interactive transition hover:brightness-95 lg:block"
               >
                 Giriş
               </NavLink>
@@ -220,6 +262,13 @@ export function PublicLayout() {
 
         {catalogueOpen ? <CatalogueMenu onClose={closeCatalogue} /> : null}
       </header>
+
+      {menuOpen ? (
+        <MobileMenu
+          links={footerColumns.flatMap((column) => column.links)}
+          onClose={() => setMenuOpenedOn(null)}
+        />
+      ) : null}
 
       <main className="mx-auto w-full max-w-[1280px] flex-1 px-4 pb-24 sm:px-6 md:pb-10">
         <Outlet />

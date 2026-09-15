@@ -105,6 +105,43 @@ describe('PublicLayout header', () => {
     expect(header.getByRole('button', { name: 'Kataloq' })).toHaveAttribute('aria-expanded', 'false')
   })
 
+  it('keeps the site pages and sign-in behind the phone menu', async () => {
+    // The phone bar has room for three things, and none of them is a link row. Everything the
+    // footer lists lives behind the menu button instead, sign-in included — the bar's right slot
+    // is the posting action now.
+    const user = userEvent.setup()
+    mockAnonymous()
+    renderWithProviders(page(), { route: '/' })
+
+    const button = await screen.findByRole('button', { name: 'Menyu' })
+    expect(button).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByRole('navigation', { name: 'Sayt menyusu' })).not.toBeInTheDocument()
+
+    await user.click(button)
+
+    const menu = within(await screen.findByRole('navigation', { name: 'Sayt menyusu' }))
+    expect(menu.getByRole('link', { name: 'Mağazalar' })).toHaveAttribute('href', '/magazalar')
+    expect(menu.getByRole('link', { name: 'Yardım' })).toHaveAttribute('href', '/yardim')
+    expect(menu.getByRole('link', { name: 'Giriş' })).toHaveAttribute('href', '/giris')
+
+    await user.keyboard('{Escape}')
+    expect(screen.queryByRole('navigation', { name: 'Sayt menyusu' })).not.toBeInTheDocument()
+  })
+
+  it('closes the phone menu on the way to wherever it was pointed', async () => {
+    const user = userEvent.setup()
+    mockAnonymous()
+    renderWithProviders(page(), { route: '/' })
+
+    await user.click(await screen.findByRole('button', { name: 'Menyu' }))
+
+    const menu = within(screen.getByRole('navigation', { name: 'Sayt menyusu' }))
+    await user.click(menu.getByRole('link', { name: 'Elanlar' }))
+
+    expect(screen.getByRole('status')).toHaveTextContent('/elanlar')
+    expect(screen.queryByRole('navigation', { name: 'Sayt menyusu' })).not.toBeInTheDocument()
+  })
+
   it('still reaches the sections the old link row carried, from the footer', async () => {
     // The four header links were traded for the search field. None of them became unreachable.
     mockAnonymous()

@@ -10,7 +10,7 @@ import { getUnreadNotificationCount, notificationKeys } from './api'
  * (only the in-app channel exists), and a moderation decision is not so time-sensitive that a
  * seller needs to learn about it within seconds rather than within a minute.
  */
-export function NotificationBell() {
+export function NotificationBell({ className = '' }: { className?: string }) {
   const { isAuthenticated } = useAuth()
 
   const unread = useQuery({
@@ -31,7 +31,7 @@ export function NotificationBell() {
     <NavLink
       to="/kabinet/bildirisler"
       aria-label={count > 0 ? `Bildirişlər, ${count} oxunmamış` : 'Bildirişlər'}
-      className="relative flex size-9 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-ink/10 hover:text-ink"
+      className={`relative flex size-9 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-ink/10 hover:text-ink ${className}`}
     >
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-5" aria-hidden="true">
         <path
