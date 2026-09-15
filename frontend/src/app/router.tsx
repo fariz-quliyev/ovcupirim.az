@@ -17,6 +17,7 @@ import { AdminTaxonomyPage } from '@/pages/admin/AdminTaxonomyPage'
 import { AdminUsersPage } from '@/pages/admin/AdminUsersPage'
 import { AccountPage } from '@/pages/AccountPage'
 import { CategoriesPage } from '@/pages/CategoriesPage'
+import { CategoryBrowsePage } from '@/pages/CategoryBrowsePage'
 import { CataloguePage } from '@/pages/CataloguePage'
 import { CreateListingPage } from '@/pages/CreateListingPage'
 import { EditListingPage } from '@/pages/EditListingPage'
@@ -81,6 +82,7 @@ export const router = createBrowserRouter([
       },
 
       { path: 'kateqoriyalar', element: <CategoriesPage /> },
+      { path: 'kateqoriyalar/:categorySlug', element: <CategoryBrowsePage /> },
 
       { path: 'melumat/:slug', element: <StaticPageView /> },
       { path: 'yardim', element: <HelpPage /> },

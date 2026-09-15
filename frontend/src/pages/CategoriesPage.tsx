@@ -1,9 +1,10 @@
-import { NavLink, useNavigate } from 'react-router'
+import { NavLink } from 'react-router'
 
 import { EmptyState } from '@/components/ui/EmptyState'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { CategoryThumb } from '@/features/catalog/CategoryThumb'
+import { PhoneTakeoverBar } from '@/features/catalog/PhoneTakeoverBar'
 import { useCategoryTree } from '@/features/catalog/hooks'
 import type { CategoryNode } from '@/features/catalog/types'
 
@@ -49,58 +50,12 @@ function summarise(category: CategoryNode): string | null {
     : null
 }
 
-/**
- * The phone's title bar for this screen, standing in for the site header that PublicLayout hides
- * here. Closing returns to wherever the catalogue was opened from, or home when it was opened
- * cold — a deep link has no previous page inside the site to go back to.
- */
-function PhoneTitleBar() {
-  const navigate = useNavigate()
-
-  function close() {
-    if (typeof window !== 'undefined' && (window.history.state as { idx?: number } | null)?.idx) {
-      void navigate(-1)
-    } else {
-      void navigate('/')
-    }
-  }
-
-  return (
-    <div className="-mx-4 sticky top-0 z-30 flex h-14 items-center border-b border-line bg-surface px-2 sm:hidden">
-      <button
-        type="button"
-        onClick={close}
-        aria-label="Bağla"
-        className="grid size-10 place-items-center rounded-full text-ink active:bg-canvas"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          className="size-5"
-          aria-hidden="true"
-        >
-          <path d="M6 6l12 12M18 6 6 18" />
-        </svg>
-      </button>
-
-      {/* Centred on the bar itself rather than on the space left over beside the button, so the
-          title does not shift when the button's width changes. */}
-      <span className="pointer-events-none absolute inset-x-0 text-center font-heading font-bold text-ink">
-        Kataloq
-      </span>
-    </div>
-  )
-}
-
 export function CategoriesPage() {
   const { data, isPending, isError, refetch } = useCategoryTree()
 
   return (
     <div className="sm:py-10">
-      <PhoneTitleBar />
+      <PhoneTakeoverBar title="Kataloq" />
 
       <h1 className="hidden text-2xl sm:block">Kateqoriyalar</h1>
       <p className="mt-2 hidden text-muted sm:block">
@@ -137,8 +92,10 @@ export function CategoriesPage() {
 
               return (
                 <li key={category.slug}>
+                  {/* Into the category's own screen, not straight to its listings: a phone has no
+                      room to show the subcategories inline, so they get a screen of their own. */}
                   <NavLink
-                    to={`/elanlar/${category.slug}`}
+                    to={`/kateqoriyalar/${category.slug}`}
                     className="flex items-center gap-3 px-4 py-3 active:bg-canvas"
                   >
                     <CategoryThumb category={category} className="size-12" iconClassName="size-6" />

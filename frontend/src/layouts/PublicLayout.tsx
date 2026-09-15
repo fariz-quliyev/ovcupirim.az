@@ -83,7 +83,7 @@ export function PublicLayout() {
   const catalogueOpen = openedOn === location.pathname
 
   /** Routes that own the whole phone screen and supply their own title bar. */
-  const phoneTakeover = location.pathname === '/kateqoriyalar'
+  const phoneTakeover = location.pathname.startsWith('/kateqoriyalar')
 
   function toggleCatalogue() {
     setOpenedOn(catalogueOpen ? null : location.pathname)
