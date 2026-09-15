@@ -58,7 +58,7 @@ export function HomePage() {
               aria-busy="true"
             >
               {Array.from({ length: 8 }, (_, i) => (
-                <Skeleton key={i} className="aspect-square w-[88px] shrink-0 sm:w-auto" />
+                <Skeleton key={i} className="size-[60px] shrink-0 lg:size-[95px]" />
               ))}
             </div>
           ) : null}
@@ -82,15 +82,15 @@ export function HomePage() {
                   to="/kateqoriyalar"
                   className="group flex h-full flex-col items-center gap-2 text-center"
                 >
-                  <span className="flex aspect-square w-full items-center justify-center rounded-(--radius-card) bg-interactive-soft text-cta">
-                    <svg viewBox="0 0 24 24" fill="currentColor" className="size-8" aria-hidden="true">
+                  <span className="flex size-[60px] items-center justify-center rounded-(--radius-card) bg-interactive-soft text-cta lg:size-[95px]">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="size-7" aria-hidden="true">
                       <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
                       <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
                       <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
                       <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
                     </svg>
                   </span>
-                  <span className="text-[13px] font-medium text-interactive">Kataloq</span>
+                  <span className="text-[13px] font-medium text-ink">Kataloq</span>
                 </Link>
               </li>
 
@@ -104,7 +104,10 @@ export function HomePage() {
                     to={`/elanlar/${category.slug}`}
                     className="group flex h-full flex-col items-center gap-2 text-center"
                   >
-                    <span className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-(--radius-card) bg-interactive-soft text-interactive transition-colors group-hover:bg-interactive group-hover:text-white">
+                    {/* 60 on a phone, 95 from `lg` — the sizes the reference uses. The tile is
+                        narrower than the item around it so a two-word category still has a line to
+                        wrap onto without the picture growing to match. */}
+                    <span className="flex size-[60px] items-center justify-center overflow-hidden rounded-(--radius-card) bg-interactive-soft text-interactive transition-colors group-hover:bg-interactive group-hover:text-white lg:size-[95px]">
                       {category.imageKey ? (
                         <img
                           src={categoryImageUrl(category.imageKey)}
@@ -113,10 +116,10 @@ export function HomePage() {
                           className="h-full w-full object-cover"
                         />
                       ) : (
-                        <CategoryIcon iconKey={category.iconKey} className="h-12 w-12" />
+                        <CategoryIcon iconKey={category.iconKey} className="size-8 lg:size-12" />
                       )}
                     </span>
-                    <span className="text-[13px] font-medium text-interactive text-pretty">
+                    <span className="text-[13px] font-medium text-ink text-pretty">
                       {category.nameAz}
                     </span>
                   </Link>
