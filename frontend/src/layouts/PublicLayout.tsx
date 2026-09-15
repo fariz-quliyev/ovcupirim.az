@@ -195,7 +195,7 @@ export function PublicLayout() {
 
           <NavLink
             to="/"
-            className="order-2 font-heading text-lg font-extrabold text-ink lg:order-1 lg:tracking-wide"
+            className="wordmark-outline order-2 font-heading text-base font-extrabold text-ink lg:order-1 lg:tracking-wide"
           >
             {/* Both cases written out rather than set with text-transform: the document is
                 lang="az", where lowercasing "I" yields the dotless "ı". The brand is ovcupirim,
@@ -309,8 +309,10 @@ export function PublicLayout() {
       <footer className="hidden bg-brand text-ink/75 md:block">
         <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
           <div>
-            {/* Same wordmark, same band as the header's — so the same colour. */}
-            <div className="font-heading text-base font-extrabold text-cta">OVCUPIRIM.AZ</div>
+            {/* Same wordmark, same band as the header's — so the same treatment. */}
+            <div className="wordmark-outline font-heading text-sm font-extrabold text-cta">
+              OVCUPIRIM.AZ
+            </div>
             <p className="mt-3 max-w-xs text-sm">
               Ov, balıqçılıq, kamp və outdoor avadanlıqları üçün ixtisaslaşmış elan platforması.
             </p>

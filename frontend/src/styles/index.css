@@ -101,3 +101,22 @@
     background: var(--color-sand);
   }
 }
+
+@layer components {
+  /*
+    A hairline around the wordmark's letters.
+
+    The mark is in the action colour on the band, which measures 1.49:1 — nowhere near readable on
+    fill alone, and not fixable by shifting the fill, since orange and green sit at the same
+    luminance. An outline sidesteps that: the edge of each letter contrasts with whatever is behind
+    it regardless of what the letter is filled with.
+
+    `paint-order` puts the stroke beneath the fill so the letters keep their weight; without it the
+    stroke is centred on the outline and eats into the glyph from both sides. Where it is not
+    supported the mark simply reads a shade thinner, which is a degradation rather than a break.
+  */
+  .wordmark-outline {
+    -webkit-text-stroke: 0.4px var(--color-ink);
+    paint-order: stroke fill;
+  }
+}
