@@ -104,19 +104,24 @@
 
 @layer components {
   /*
-    A hairline around the wordmark's letters.
+    Lifts the wordmark off the band it sits on.
 
-    The mark is in the action colour on the band, which measures 1.49:1 — nowhere near readable on
-    fill alone, and not fixable by shifting the fill, since orange and green sit at the same
-    luminance. An outline sidesteps that: the edge of each letter contrasts with whatever is behind
-    it regardless of what the letter is filled with.
+    The mark is in the action colour, which measures 1.49:1 against that band — orange and green
+    sit at the same luminance, so no shade of either fixes it. This gives the letters an edge that
+    does not depend on the fill.
 
-    `paint-order` puts the stroke beneath the fill so the letters keep their weight; without it the
-    stroke is centred on the outline and eats into the glyph from both sides. Where it is not
-    supported the mark simply reads a shade thinner, which is a degradation rather than a break.
+    Two shadows, neither offset. An offset shadow only darkens one side, leaving the other edge to
+    blend into the band exactly as before; spread evenly, the letters separate all the way round.
+    The near one does the separating, the wider one keeps it from reading as a hard line — which is
+    what a text-stroke looked like here.
+
+    Worth being clear about what this does and does not do: it makes the mark easier to pick out,
+    but contrast is measured on fill against background, and a shadow does not enter that sum. The
+    figure is still 1.49:1. Only a different fill, or a darker band, moves it.
   */
   .wordmark-outline {
-    -webkit-text-stroke: 0.4px var(--color-ink);
-    paint-order: stroke fill;
+    text-shadow:
+      0 0 2px rgb(32 37 34 / 0.75),
+      0 0 4px rgb(32 37 34 / 0.45);
   }
 }
