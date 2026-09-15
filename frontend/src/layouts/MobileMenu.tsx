@@ -34,7 +34,9 @@ export function MobileMenu({
   }, [onClose])
 
   return (
-    <div className="fixed inset-0 z-50 lg:hidden">
+    // Above the bottom bar, which is also z-50 and sits later in the document — without this the
+    // bar paints over the drawer and swallows the sign-in row at the foot of it.
+    <div className="fixed inset-0 z-[60] lg:hidden">
       <button
         type="button"
         tabIndex={-1}
