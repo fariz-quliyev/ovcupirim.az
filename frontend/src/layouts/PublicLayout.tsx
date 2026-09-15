@@ -152,7 +152,7 @@ export function PublicLayout() {
               onClick={() => setMenuOpenedOn(menuOpen ? null : location.pathname)}
               aria-expanded={menuOpen}
               aria-label="Menyu"
-              className="grid size-9 place-items-center rounded-full text-ink/80 transition-colors hover:bg-ink/10"
+              className="grid size-9 place-items-center rounded-full text-cta transition-colors hover:bg-ink/10"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -175,9 +175,7 @@ export function PublicLayout() {
             {/* Both cases written out rather than set with text-transform: the document is
                 lang="az", where lowercasing "I" yields the dotless "ı". The brand is ovcupirim,
                 not ovcupırım. */}
-            <span className="lg:hidden">
-              ovcupirim<span className="text-accent">.az</span>
-            </span>
+            <span className="text-cta lg:hidden">ovcupirim.az</span>
             <span className="hidden lg:inline">
               OVCUPIRIM<span className="text-accent">.AZ</span>
             </span>
