@@ -110,7 +110,7 @@ export function PublicLayout() {
         <div className="relative z-50 mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-3 gap-y-2.5 px-4 py-2.5 sm:px-6 lg:h-16 lg:flex-nowrap lg:gap-4 lg:py-0">
           <NavLink
             to="/"
-            className="order-1 font-heading text-lg font-extrabold tracking-wide text-white"
+            className="order-1 font-heading text-lg font-extrabold tracking-wide text-ink"
           >
             OVCUPIRIM<span className="text-accent">.AZ</span>
           </NavLink>
@@ -152,7 +152,7 @@ export function PublicLayout() {
             <NavLink
               to="/secilmisler"
               aria-label="Seçilmişlər"
-              className="flex size-9 items-center justify-center rounded-full text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+              className="flex size-9 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-ink/10 hover:text-ink"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -181,18 +181,18 @@ export function PublicLayout() {
             </NavLink>
 
             {isLoading ? (
-              <span className="h-5 w-16 animate-pulse rounded bg-white/20" aria-hidden="true" />
+              <span className="h-5 w-16 animate-pulse rounded bg-ink/10" aria-hidden="true" />
             ) : user ? (
               <NavLink
                 to="/kabinet"
-                className="hidden max-w-40 truncate px-1 text-[15px] font-medium text-white/90 hover:text-white sm:block"
+                className="hidden max-w-40 truncate px-1 text-[15px] font-medium text-ink/80 hover:text-ink sm:block"
               >
                 {user.fullName}
               </NavLink>
             ) : (
               <NavLink
                 to="/giris"
-                className="rounded-(--radius-button) bg-white/15 px-3.5 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-white/25"
+                className="rounded-(--radius-button) bg-surface px-3.5 py-2 text-[15px] font-semibold text-interactive transition hover:brightness-95"
               >
                 Giriş
               </NavLink>
@@ -207,10 +207,10 @@ export function PublicLayout() {
         <Outlet />
       </main>
 
-      <footer className={`bg-brand text-white/80 ${phoneTakeover ? 'max-sm:hidden' : ''}`}>
+      <footer className={`bg-brand text-ink/75 ${phoneTakeover ? 'max-sm:hidden' : ''}`}>
         <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
           <div>
-            <div className="font-heading text-base font-extrabold text-white">
+            <div className="font-heading text-base font-extrabold text-ink">
               OVCUPIRIM<span className="text-accent">.AZ</span>
             </div>
             <p className="mt-3 max-w-xs text-sm">
@@ -220,11 +220,11 @@ export function PublicLayout() {
 
           {footerColumns.map((column) => (
             <div key={column.title}>
-              <h4 className="text-sm font-bold text-white">{column.title}</h4>
+              <h4 className="text-sm font-bold text-ink">{column.title}</h4>
               <ul className="mt-3 space-y-2 text-sm">
                 {column.links.map((link) => (
                   <li key={link.to}>
-                    <NavLink to={link.to} className="hover:text-white">
+                    <NavLink to={link.to} className="hover:text-ink">
                       {link.label}
                     </NavLink>
                   </li>
@@ -234,7 +234,7 @@ export function PublicLayout() {
           ))}
         </div>
 
-        <div className="border-t border-white/10">
+        <div className="border-t border-ink/10">
           <div className="mx-auto max-w-[1280px] px-4 py-4 text-xs sm:px-6">
             © {new Date().getFullYear()} Ovcupirim.az
           </div>

@@ -31,7 +31,7 @@ export function NotificationBell() {
     <NavLink
       to="/kabinet/bildirisler"
       aria-label={count > 0 ? `Bildirişlər, ${count} oxunmamış` : 'Bildirişlər'}
-      className="relative flex size-9 items-center justify-center rounded-full text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+      className="relative flex size-9 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-ink/10 hover:text-ink"
     >
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-5" aria-hidden="true">
         <path

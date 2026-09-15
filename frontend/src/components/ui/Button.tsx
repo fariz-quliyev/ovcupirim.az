@@ -10,7 +10,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-interactive text-white hover:bg-brand',
+  // Hover lightens rather than switching to the band colour, which is now too light to carry the
+  // white label on it.
+  primary: 'bg-interactive text-white hover:brightness-125',
   secondary: 'bg-surface text-ink border border-line hover:border-interactive',
   ghost: 'bg-transparent text-interactive hover:bg-interactive-soft',
   // Reserved for the primary conversion action — "Yeni elan" — per the design rules.

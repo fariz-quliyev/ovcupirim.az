@@ -3,7 +3,8 @@ import type { ReactNode } from 'react'
 type Tone = 'store' | 'top' | 'new' | 'neutral'
 
 const tones: Record<Tone, string> = {
-  store: 'bg-brand text-white',
+  // Dark on the band colour, not white: white on it measures 1.88:1.
+  store: 'bg-brand text-ink',
   top: 'bg-accent text-white',
   new: 'bg-olive text-white',
   neutral: 'bg-canvas text-muted border border-line',

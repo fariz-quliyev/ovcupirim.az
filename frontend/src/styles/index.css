@@ -7,19 +7,28 @@
 */
 @theme {
   /*
-    The band colour — header, footer, the storefront banner, the store badge. One value rather
-    than the previous pair: the header and the footer sit at opposite ends of the page and never
-    touch, so giving them separate shades bought nothing and only let them drift apart.
+    The band colour — header, footer, the storefront banner, the store badge.
 
-    White on it measures 6.17:1, comfortably past the 4.5:1 AA threshold, and the footer's
-    white/80 body text still measures 4.82:1.
+    It is light, which is the fact the rest of this scale is built around: white on it measures
+    1.88:1, so everything that sits on a band is dark. Ink on it measures 8.28:1.
+
+    The other greens are the same hue (148°) at the lightness each job needs, rather than unrelated
+    colours that happen to look similar: --color-interactive has to carry text on a white surface
+    and white text on itself, so it is dark; --color-interactive-soft is a tint for surfaces that
+    need to read as "this one", not as a block of colour.
   */
-  --color-brand: #1f6e50;
-  --color-interactive: #315b48;
-  --color-interactive-soft: #edf3ee;
+  --color-brand: #92c9ac;
+  --color-interactive: #2c6d4b;
+  --color-interactive-soft: #edf7f2;
   --color-olive: #6f7f45;
   --color-sand: #d9c9a3;
-  --color-accent: #d97732;
+
+  /*
+    Deepened from the old #d97732. That orange was picked to sit on a dark band and measures
+    1.68:1 on this one — invisible. This is the same hue carried down until it reads on both:
+    4.91:1 on the band, 9.23:1 on white.
+  */
+  --color-accent: #6a3c1b;
   --color-accent-soft: #fbf1e9;
 
   /*
