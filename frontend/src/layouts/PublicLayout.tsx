@@ -170,9 +170,17 @@ export function PublicLayout() {
 
           <NavLink
             to="/"
-            className="order-2 font-heading text-lg font-extrabold tracking-wide text-ink max-lg:lowercase max-lg:tracking-normal lg:order-1"
+            className="order-2 font-heading text-lg font-extrabold text-ink lg:order-1 lg:tracking-wide"
           >
-            OVCUPIRIM<span className="text-accent">.AZ</span>
+            {/* Both cases written out rather than set with text-transform: the document is
+                lang="az", where lowercasing "I" yields the dotless "ı". The brand is ovcupirim,
+                not ovcupırım. */}
+            <span className="lg:hidden">
+              ovcupirim<span className="text-accent">.az</span>
+            </span>
+            <span className="hidden lg:inline">
+              OVCUPIRIM<span className="text-accent">.AZ</span>
+            </span>
           </NavLink>
 
           {/* A button, not a link: it opens the catalogue panel in place. /kateqoriyalar is still

@@ -51,9 +51,9 @@ export function MobileMenu({
           <NavLink
             to="/"
             onClick={onClose}
-            className="font-heading text-lg font-extrabold lowercase text-ink"
+            className="font-heading text-lg font-extrabold text-ink"
           >
-            OVCUPIRIM<span className="text-accent">.AZ</span>
+            ovcupirim<span className="text-accent">.az</span>
           </NavLink>
 
           <button
