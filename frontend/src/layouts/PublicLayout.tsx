@@ -305,7 +305,10 @@ export function PublicLayout() {
         <Outlet />
       </main>
 
-      <footer className={`bg-brand text-ink/75 ${phoneTakeover ? 'max-sm:hidden' : ''}`}>
+      {/* Not on a phone. Every link in it is in the menu behind the bar's left slot, so down here
+          it was the same list a second time — and stacked into one column it ran longer than most
+          of the pages above it. The bottom bar is what a phone ends on. */}
+      <footer className="hidden bg-brand text-ink/75 md:block">
         <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
           <div>
             <div className="font-heading text-base font-extrabold text-ink">

@@ -142,8 +142,10 @@ describe('PublicLayout header', () => {
     expect(screen.queryByRole('navigation', { name: 'Sayt menyusu' })).not.toBeInTheDocument()
   })
 
-  it('still reaches the sections the old link row carried, from the footer', async () => {
-    // The four header links were traded for the search field. None of them became unreachable.
+  it('still reaches the sections the old link row carried', async () => {
+    // The four header links were traded for the search field. None of them became unreachable: the
+    // footer carries them on a wide screen, the menu behind the bar's left slot on a phone. Both
+    // are in the document here, since jsdom applies no stylesheet to hide either.
     mockAnonymous()
     renderWithProviders(page(), { route: '/' })
 
