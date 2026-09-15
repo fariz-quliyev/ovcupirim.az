@@ -195,7 +195,7 @@ export function PublicLayout() {
 
           <NavLink
             to="/"
-            className="wordmark-outline order-2 font-heading text-lg font-extrabold text-cta lg:order-1"
+            className="order-2 font-heading text-lg font-extrabold text-wordmark lg:order-1"
           >
             {/* Written in lower case rather than set with text-transform: the document is lang="az",
                 where lowercasing "I" yields the dotless "ı" — the brand is ovcupirim, not
@@ -308,8 +308,8 @@ export function PublicLayout() {
       <footer className="hidden bg-brand text-ink/75 md:block">
         <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
           <div>
-            {/* Same wordmark, same band as the header's — so the same treatment. */}
-            <div className="wordmark-outline font-heading text-base font-extrabold text-cta">
+            {/* Same wordmark, same band as the header's — so the same colour. */}
+            <div className="font-heading text-base font-extrabold text-wordmark">
               ovcupirim.az
             </div>
             <p className="mt-3 max-w-xs text-sm">

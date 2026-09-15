@@ -39,6 +39,12 @@
   */
   --color-cta: #fd6f3b;
 
+  /*
+    The wordmark. Its own value rather than the body ink: the mark appears in three places on the
+    band and needs to move as one when it changes. 9.50:1 there, 17.85:1 on the menu drawer's white.
+  */
+  --color-wordmark: #0f172a;
+
   --color-canvas: #f7f6f1;
   --color-surface: #ffffff;
   --color-ink: #202522;
@@ -102,26 +108,3 @@
   }
 }
 
-@layer components {
-  /*
-    Lifts the wordmark off the band it sits on.
-
-    The mark is in the action colour, which measures 1.49:1 against that band — orange and green
-    sit at the same luminance, so no shade of either fixes it. This gives the letters an edge that
-    does not depend on the fill.
-
-    Two shadows, neither offset. An offset shadow only darkens one side, leaving the other edge to
-    blend into the band exactly as before; spread evenly, the letters separate all the way round.
-    The near one does the separating, the wider one keeps it from reading as a hard line — which is
-    what a text-stroke looked like here.
-
-    Worth being clear about what this does and does not do: it makes the mark easier to pick out,
-    but contrast is measured on fill against background, and a shadow does not enter that sum. The
-    figure is still 1.49:1. Only a different fill, or a darker band, moves it.
-  */
-  .wordmark-outline {
-    text-shadow:
-      0 0 2px rgb(32 37 34 / 0.75),
-      0 0 4px rgb(32 37 34 / 0.45);
-  }
-}
