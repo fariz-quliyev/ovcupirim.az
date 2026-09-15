@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 
-import { categoryImageUrl } from '@/features/catalog/categoryImage'
+import { CategoryThumb } from '@/features/catalog/CategoryThumb'
 import { useCategoryTree } from '@/features/catalog/hooks'
-import { CategoryIcon } from '@/features/home/CategoryIcon'
-import type { CategoryNode } from '@/features/catalog/types'
 
 /**
  * The catalogue panel behind the header's "Kataloq" button: top-level categories down the left,
@@ -34,25 +32,6 @@ function Chevron({ className = '' }: { className?: string }) {
     >
       <path strokeLinecap="round" strokeLinejoin="round" d="m9 5 7 7-7 7" />
     </svg>
-  )
-}
-
-function CategoryThumb({ category }: { category: CategoryNode }) {
-  if (category.imageKey) {
-    return (
-      <img
-        src={categoryImageUrl(category.imageKey)}
-        alt=""
-        loading="lazy"
-        className="size-9 shrink-0 rounded-(--radius-button) object-cover"
-      />
-    )
-  }
-
-  return (
-    <span className="grid size-9 shrink-0 place-items-center rounded-(--radius-button) bg-canvas text-interactive">
-      <CategoryIcon iconKey={category.iconKey} className="size-5" />
-    </span>
   )
 }
 

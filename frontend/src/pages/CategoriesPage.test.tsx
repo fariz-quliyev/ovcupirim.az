@@ -64,23 +64,34 @@ describe('CategoriesPage', () => {
     setAccessToken(null)
   })
 
+  // The page renders both presentations and lets CSS pick one, so every name is in the document
+  // twice. Only one is ever visible — and only one is in the accessibility tree, since the hidden
+  // half is display:none — but jsdom applies no stylesheet, so these queries see both.
   it('renders every category with its subcategories', async () => {
     mockCategories(() => jsonResponse(tree))
     renderWithProviders(page(), { route: '/kateqoriyalar' })
 
-    expect(await screen.findByText('Balıqçılıq')).toBeInTheDocument()
+    expect((await screen.findAllByText('Balıqçılıq')).length).toBeGreaterThan(0)
     expect(screen.getByText('Tilovlar')).toBeInTheDocument()
     expect(screen.getByText('Tilov çarxı')).toBeInTheDocument()
-    expect(screen.getByText('Bıçaq və alət')).toBeInTheDocument()
+    expect(screen.getAllByText('Bıçaq və alət').length).toBeGreaterThan(0)
+  })
+
+  it('summarises a category on the phone row', async () => {
+    mockCategories(() => jsonResponse(tree))
+    renderWithProviders(page(), { route: '/kateqoriyalar' })
+
+    // The narrow row has no space for a link per subcategory, so it names them on one line.
+    expect(await screen.findByText('Tilovlar, Tilov çarxı')).toBeInTheDocument()
   })
 
   it('marks a category awaiting classification without calling it restricted', async () => {
     mockCategories(() => jsonResponse(tree))
     renderWithProviders(page(), { route: '/kateqoriyalar' })
 
-    const badge = await screen.findByTitle('Bu kateqoriya üçün təsnifat gözlənilir')
+    const badges = await screen.findAllByTitle('Bu kateqoriya üçün təsnifat gözlənilir')
 
-    expect(badge).toHaveTextContent('18+')
+    expect(badges[0]).toHaveTextContent('18+')
     expect(screen.queryByText(/qadağan/i)).not.toBeInTheDocument()
   })
 
