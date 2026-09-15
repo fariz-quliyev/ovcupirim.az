@@ -1,4 +1,5 @@
 import { screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Route, Routes } from 'react-router'
 
@@ -54,6 +55,7 @@ function page() {
   return (
     <Routes>
       <Route path="/kateqoriyalar" element={<CategoriesPage />} />
+      <Route path="/" element={<h1>Ana səhifə</h1>} />
     </Routes>
   )
 }
@@ -75,6 +77,22 @@ describe('CategoriesPage', () => {
     expect(screen.getByText('Tilovlar')).toBeInTheDocument()
     expect(screen.getByText('Tilov çarxı')).toBeInTheDocument()
     expect(screen.getAllByText('Bıçaq və alət').length).toBeGreaterThan(0)
+  })
+
+  it('carries its own title bar on the phone, with a way out', async () => {
+    // The site header is hidden on this route at phone width, so the screen has to provide both
+    // the title and the way back itself.
+    const user = userEvent.setup()
+    mockCategories(() => jsonResponse(tree))
+    renderWithProviders(page(), { route: '/kateqoriyalar' })
+
+    expect(await screen.findByText('Kataloq')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Bağla' }))
+
+    // Opened cold, with nothing behind it in the site's history, closing goes home rather than
+    // stepping out of the site altogether.
+    expect(screen.getByRole('heading', { name: 'Ana səhifə' })).toBeInTheDocument()
   })
 
   it('summarises a category on the phone row', async () => {

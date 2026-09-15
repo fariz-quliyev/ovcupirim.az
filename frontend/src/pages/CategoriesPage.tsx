@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 
 import { EmptyState } from '@/components/ui/EmptyState'
 import { ErrorState } from '@/components/ui/ErrorState'
@@ -49,12 +49,60 @@ function summarise(category: CategoryNode): string | null {
     : null
 }
 
+/**
+ * The phone's title bar for this screen, standing in for the site header that PublicLayout hides
+ * here. Closing returns to wherever the catalogue was opened from, or home when it was opened
+ * cold — a deep link has no previous page inside the site to go back to.
+ */
+function PhoneTitleBar() {
+  const navigate = useNavigate()
+
+  function close() {
+    if (typeof window !== 'undefined' && (window.history.state as { idx?: number } | null)?.idx) {
+      void navigate(-1)
+    } else {
+      void navigate('/')
+    }
+  }
+
+  return (
+    <div className="-mx-4 sticky top-0 z-30 flex h-14 items-center border-b border-line bg-surface px-2 sm:hidden">
+      <button
+        type="button"
+        onClick={close}
+        aria-label="Bağla"
+        className="grid size-10 place-items-center rounded-full text-ink active:bg-canvas"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          className="size-5"
+          aria-hidden="true"
+        >
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+
+      {/* Centred on the bar itself rather than on the space left over beside the button, so the
+          title does not shift when the button's width changes. */}
+      <span className="pointer-events-none absolute inset-x-0 text-center font-heading font-bold text-ink">
+        Kataloq
+      </span>
+    </div>
+  )
+}
+
 export function CategoriesPage() {
   const { data, isPending, isError, refetch } = useCategoryTree()
 
   return (
-    <div className="py-6 sm:py-10">
-      <h1 className="text-2xl">Kateqoriyalar</h1>
+    <div className="sm:py-10">
+      <PhoneTitleBar />
+
+      <h1 className="hidden text-2xl sm:block">Kateqoriyalar</h1>
       <p className="mt-2 hidden text-muted sm:block">
         Ov, balıqçılıq, kamp və outdoor avadanlıqları üzrə bütün bölmələr.
       </p>
@@ -83,7 +131,7 @@ export function CategoriesPage() {
         <>
           {/* Phone: one tappable row per category, bled to both screen edges so the dividers run
               the full width the way a native list does. */}
-          <ul className="-mx-4 mt-4 divide-y divide-line border-y border-line bg-surface sm:hidden">
+          <ul className="-mx-4 divide-y divide-line border-b border-line bg-surface sm:hidden">
             {data.map((category) => {
               const summary = summarise(category)
 

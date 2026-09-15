@@ -94,7 +94,13 @@ export function PublicLayout() {
     <div className="flex min-h-dvh flex-col">
       {/* `relative` so the catalogue panel hangs off the bar rather than off the page: sticky
           already makes this a containing block, but saying so keeps the intent on the element. */}
-      <header className="sticky top-0 z-40 bg-brand">
+      {/* The catalogue takes over the phone screen, with its own ✕/title bar in place of this one.
+          Only on a phone: from `sm` up it is an ordinary page and keeps the site header. */}
+      <header
+        className={`sticky top-0 z-40 bg-brand ${
+          location.pathname === '/kateqoriyalar' ? 'max-sm:hidden' : ''
+        }`}
+      >
         {/* Wraps below `lg`, where the search field takes a line of its own rather than being
             squeezed to nothing between the brand and the actions. */}
         {/* Above the catalogue panel's click-catching backdrop, which covers the viewport while the
