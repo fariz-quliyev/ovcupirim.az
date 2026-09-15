@@ -82,6 +82,9 @@ export function PublicLayout() {
   const [openedOn, setOpenedOn] = useState<string | null>(null)
   const catalogueOpen = openedOn === location.pathname
 
+  /** Routes that own the whole phone screen and supply their own title bar. */
+  const phoneTakeover = location.pathname === '/kateqoriyalar'
+
   function toggleCatalogue() {
     setOpenedOn(catalogueOpen ? null : location.pathname)
   }
@@ -94,13 +97,11 @@ export function PublicLayout() {
     <div className="flex min-h-dvh flex-col">
       {/* `relative` so the catalogue panel hangs off the bar rather than off the page: sticky
           already makes this a containing block, but saying so keeps the intent on the element. */}
-      {/* The catalogue takes over the phone screen, with its own ✕/title bar in place of this one.
-          Only on a phone: from `sm` up it is an ordinary page and keeps the site header. */}
-      <header
-        className={`sticky top-0 z-40 bg-brand ${
-          location.pathname === '/kateqoriyalar' ? 'max-sm:hidden' : ''
-        }`}
-      >
+      {/* The catalogue takes over the phone screen, carrying its own ✕/title bar in place of this
+          one, and with the footer out of the way beneath it. Only on a phone: from `sm` up it is an
+          ordinary page and keeps the site chrome. The bottom bar stays either way — it is how you
+          leave for anywhere that is not the catalogue. */}
+      <header className={`sticky top-0 z-40 bg-brand ${phoneTakeover ? 'max-sm:hidden' : ''}`}>
         {/* Wraps below `lg`, where the search field takes a line of its own rather than being
             squeezed to nothing between the brand and the actions. */}
         {/* Above the catalogue panel's click-catching backdrop, which covers the viewport while the
@@ -206,7 +207,7 @@ export function PublicLayout() {
         <Outlet />
       </main>
 
-      <footer className="bg-brand text-white/80">
+      <footer className={`bg-brand text-white/80 ${phoneTakeover ? 'max-sm:hidden' : ''}`}>
         <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
           <div>
             <div className="font-heading text-base font-extrabold text-white">
