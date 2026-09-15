@@ -51,6 +51,7 @@ public static class DependencyInjection
 
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<ICategoryAdminService, CategoryAdminService>();
+        services.AddScoped<ICategoryMediaService, CategoryMediaService>();
         services.AddScoped<IRegionService, RegionService>();
         services.AddScoped<IContentService, ContentService>();
         services.AddSingleton<IAttributeValidator, AttributeValidator>();

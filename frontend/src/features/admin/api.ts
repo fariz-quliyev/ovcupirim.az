@@ -138,6 +138,22 @@ export function updateCategory(id: number, body: CategoryEditBody): Promise<Admi
   return api.put<AdminCategoryNode>(`/admin/categories/${id}`, body)
 }
 
+/**
+ * Uploads a category picture. The server picks the storage key from a hash of the stored bytes and
+ * returns the category, so the caller takes the new key from the response rather than guessing it
+ * from the filename.
+ */
+export function uploadCategoryImage(id: number, file: File): Promise<AdminCategoryNode> {
+  const body = new FormData()
+  body.append('file', file)
+
+  return api.post<AdminCategoryNode>(`/admin/categories/${id}/image`, body)
+}
+
+export function removeCategoryImage(id: number): Promise<AdminCategoryNode> {
+  return api.delete<AdminCategoryNode>(`/admin/categories/${id}/image`)
+}
+
 export interface ReorderItem {
   id: number
   sortOrder: number

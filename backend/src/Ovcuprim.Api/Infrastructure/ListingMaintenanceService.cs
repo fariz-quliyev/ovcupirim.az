@@ -41,6 +41,14 @@ public sealed class ListingMaintenanceService(
     private const string StoreMediaPrefix = "stores";
 
     /// <summary>
+    /// Category pictures. Swept like the others — and, like a storefront's, referenced from a
+    /// column rather than a media row, so the reconciliation below has to collect those keys
+    /// explicitly. Adding the prefix without adding the references would delete every category
+    /// picture on the site the first time this ran.
+    /// </summary>
+    private const string CategoryMediaPrefix = "categories";
+
+    /// <summary>
     /// How old a stored object must be before it can be considered orphaned. Far longer than any
     /// single upload request, so a file written moments before its row is never mistaken for one.
     /// </summary>
@@ -180,6 +188,7 @@ public sealed class ListingMaintenanceService(
 
         var candidates = (await storage.ListKeysAsync(MediaPrefix, cutoff, cancellationToken))
             .Concat(await storage.ListKeysAsync(StoreMediaPrefix, cutoff, cancellationToken))
+            .Concat(await storage.ListKeysAsync(CategoryMediaPrefix, cutoff, cancellationToken))
             .ToList();
 
         if (candidates.Count == 0)
@@ -224,6 +233,20 @@ public sealed class ListingMaintenanceService(
             {
                 referenced.Add(store.BannerStorageKey);
             }
+        }
+
+        // Category pictures, likewise held in a column. Query filters off for the same reason: a
+        // deactivated category still owns its picture and may be brought back.
+        var categoryImages = await db.Categories
+            .IgnoreQueryFilters()
+            .AsNoTracking()
+            .Where(c => c.ImageKey != null)
+            .Select(c => c.ImageKey!)
+            .ToListAsync(cancellationToken);
+
+        foreach (var key in categoryImages)
+        {
+            referenced.Add(key);
         }
 
         var removed = 0;

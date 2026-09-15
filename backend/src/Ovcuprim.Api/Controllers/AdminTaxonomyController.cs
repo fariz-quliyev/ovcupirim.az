@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Ovcuprim.Api.Infrastructure;
 using Ovcuprim.Application.Categories;
+using Ovcuprim.Application.Listings;
 using Ovcuprim.Application.Regions;
 
 namespace Ovcuprim.Api.Controllers;
@@ -16,6 +17,7 @@ namespace Ovcuprim.Api.Controllers;
 [EnableRateLimiting(AuthenticationSetup.RateLimits.AdminAction)]
 public sealed class AdminTaxonomyController(
     ICategoryAdminService categoryAdmin,
+    ICategoryMediaService categoryMedia,
     IRegionService regions) : ApiControllerBase
 {
     /// <summary>
@@ -51,6 +53,39 @@ public sealed class AdminTaxonomyController(
     public async Task<ActionResult<CategoryDetailDto>> UpdateCategory(
         int id, UpdateCategoryRequest request, CancellationToken cancellationToken) =>
         AdminOk(await categoryAdmin.UpdateCategoryAsync(id, request, cancellationToken));
+
+    /// <summary>
+    /// Replaces a category's picture. The key is chosen here from a hash of the stored bytes — an
+    /// uploaded filename is never used as one.
+    /// </summary>
+    [HttpPost("categories/{id:int}/image")]
+    [EnableRateLimiting(AuthenticationSetup.RateLimits.MediaUpload)]
+    [RequestSizeLimit(CategoryMediaService.MaxBytes + 8192)]
+    [ProducesResponseType<CategoryDetailDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<CategoryDetailDto>> UploadCategoryImage(
+        int id, IFormFile file, CancellationToken cancellationToken)
+    {
+        if (file is null || file.Length == 0)
+        {
+            return ValidationProblem(new ValidationProblemDetails(
+                new Dictionary<string, string[]> { ["file"] = ["Fayl seçilməyib."] }));
+        }
+
+        await using var stream = file.OpenReadStream();
+
+        var upload = new ListingMediaUpload(stream, file.FileName, file.ContentType, file.Length);
+
+        return AdminOk(await categoryMedia.ReplaceAsync(id, upload, cancellationToken));
+    }
+
+    [HttpDelete("categories/{id:int}/image")]
+    [ProducesResponseType<CategoryDetailDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<CategoryDetailDto>> RemoveCategoryImage(
+        int id, CancellationToken cancellationToken) =>
+        AdminOk(await categoryMedia.RemoveAsync(id, cancellationToken));
 
     [HttpPost("categories/reorder")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

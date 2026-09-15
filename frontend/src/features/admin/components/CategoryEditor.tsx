@@ -13,6 +13,10 @@ interface CategoryEditorProps {
   busy: boolean
   error: string | undefined
   onSave: (body: CategoryEditBody) => void
+
+  /** Resolves to the key the server assigned, or null once the picture is removed. */
+  onUploadImage: (file: File) => Promise<string | null>
+  onRemoveImage: () => Promise<void>
 }
 
 /**
@@ -34,11 +38,50 @@ function categoryImagePreview(imageKey: string): string {
  * The caller keys this component on the category id, so selecting a different one remounts it with
  * fresh initial state rather than resynchronising through an effect.
  */
-export function CategoryEditor({ category, busy, error, onSave }: CategoryEditorProps) {
+export function CategoryEditor({
+  category,
+  busy,
+  error,
+  onSave,
+  onUploadImage,
+  onRemoveImage,
+}: CategoryEditorProps) {
   const [form, setForm] = useState<CategoryEditBody>(() => toBody(category))
+  const [uploading, setUploading] = useState(false)
+  const [imageError, setImageError] = useState<string | null>(null)
 
   function set<K extends keyof CategoryEditBody>(key: K, value: CategoryEditBody[K]) {
     setForm((current) => ({ ...current, [key]: value }))
+  }
+
+  // The new key goes straight into the form. The tree refetches too, but this component is keyed on
+  // the category id and so is not remounted by that — without this the field would still hold the
+  // old key and the next save would put it back.
+  async function upload(file: File) {
+    setUploading(true)
+    setImageError(null)
+
+    try {
+      set('imageKey', await onUploadImage(file))
+    } catch (caught) {
+      setImageError(caught instanceof Error ? caught.message : 'Şəkli yükləmək mümkün olmadı.')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  async function remove() {
+    setUploading(true)
+    setImageError(null)
+
+    try {
+      await onRemoveImage()
+      set('imageKey', null)
+    } catch (caught) {
+      setImageError(caught instanceof Error ? caught.message : 'Şəkli silmək mümkün olmadı.')
+    } finally {
+      setUploading(false)
+    }
   }
 
   return (
@@ -102,17 +145,61 @@ export function CategoryEditor({ category, busy, error, onSave }: CategoryEditor
             value={form.imageKey ?? ''}
             maxLength={200}
             onChange={(event) => set('imageKey', blankToNull(event.target.value))}
-            hint="Ana səhifədəki kateqoriya kafelində görünür. Yüklənmiş faylın açarı, məsələn kateqoriyalar/ovculuq.jpg — tam ünvan da yazmaq olar. Boş qalsa, kafeldə ikon göstərilir."
+            hint="Ana səhifədəki kateqoriya kafelində görünür. Adətən aşağıdakı düymə ilə yüklənir; sahəyə əl ilə açar və ya tam ünvan da yazmaq olar. Boş qalsa, kafeldə ikon göstərilir."
           />
 
-          {/* A preview, so a mistyped key is visible here instead of on the homepage. */}
-          {form.imageKey ? (
-            <img
-              src={categoryImagePreview(form.imageKey)}
-              alt=""
-              className="h-20 w-20 rounded-(--radius-button) border border-line object-cover"
-            />
-          ) : null}
+          <div className="flex items-start gap-3">
+            {/* A preview, so a mistyped key is visible here instead of on the homepage. */}
+            {form.imageKey ? (
+              <img
+                src={categoryImagePreview(form.imageKey)}
+                alt=""
+                className="size-20 shrink-0 rounded-(--radius-button) border border-line object-cover"
+              />
+            ) : null}
+
+            <div className="flex flex-col items-start gap-1.5">
+              {/* The upload saves the picture on its own, separately from the form's save button:
+                  it has to reach the server to be given a key, and that key is what the field then
+                  holds. Pressing it does not commit the rest of the form. */}
+              <label className="inline-flex cursor-pointer items-center rounded-(--radius-button) border border-line px-3 py-2 text-sm font-semibold text-interactive hover:bg-canvas">
+                {uploading ? 'Yüklənir…' : 'Şəkil yüklə'}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  className="sr-only"
+                  disabled={uploading || busy}
+                  onChange={(event) => {
+                    const file = event.target.files?.[0]
+                    event.target.value = ''
+
+                    if (file) {
+                      void upload(file)
+                    }
+                  }}
+                />
+              </label>
+
+              {form.imageKey ? (
+                <button
+                  type="button"
+                  disabled={uploading || busy}
+                  onClick={() => void remove()}
+                  className="text-sm text-muted hover:text-ink disabled:opacity-50"
+                >
+                  Şəkli sil
+                </button>
+              ) : null}
+
+              <p className="text-xs text-muted">JPEG, PNG və ya WebP. Ən çox 5 MB.</p>
+
+              {imageError ? (
+                <p role="alert" className="text-sm text-accent">
+                  {imageError}
+                </p>
+              ) : null}
+            </div>
+          </div>
         </div>
       </div>
 

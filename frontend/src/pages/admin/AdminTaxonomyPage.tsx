@@ -12,7 +12,9 @@ import {
   getAdminCategories,
   reorderCategories,
   setCategoryRestriction,
+  removeCategoryImage,
   updateCategory,
+  uploadCategoryImage,
 } from '@/features/admin/api'
 import type { CategoryEditBody } from '@/features/admin/api'
 import { ConfirmDialog } from '@/features/admin/components/ActionDialog'
@@ -49,6 +51,15 @@ export function AdminTaxonomyPage() {
   )
 
   const invalidate = [adminKeys.categories]
+
+  /**
+   * After a picture changes: the admin tree so the editor's own preview and the row are current,
+   * and the public catalogue queries so the homepage tiles show it without a reload.
+   */
+  async function refreshCatalogue() {
+    await queryClient.invalidateQueries({ queryKey: adminKeys.categories })
+    await queryClient.invalidateQueries({ queryKey: ['catalog'] })
+  }
 
   const save = useAdminAction<{ id: number; body: CategoryEditBody }>({
     action: ({ id, body }) => updateCategory(id, body),
@@ -168,6 +179,16 @@ export function AdminTaxonomyPage() {
                     busy={save.isPending}
                     error={save.fieldError}
                     onSave={(body) => save.run({ id: selected.id, body })}
+                    onUploadImage={async (file) => {
+                      const updated = await uploadCategoryImage(selected.id, file)
+                      await refreshCatalogue()
+
+                      return updated.imageKey
+                    }}
+                    onRemoveImage={async () => {
+                      await removeCategoryImage(selected.id)
+                      await refreshCatalogue()
+                    }}
                   />
 
                   <div className="flex flex-col gap-2 border-t border-line pt-3">
