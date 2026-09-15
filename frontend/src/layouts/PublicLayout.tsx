@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router'
+import { useEffect, useState } from 'react'
+import { NavLink, Outlet, useLocation, useNavigationType } from 'react-router'
 
 import { Button } from '@/components/ui/Button'
 import { useAuth } from '@/features/auth/useAuth'
@@ -63,6 +63,29 @@ const footerColumns = [
     ],
   },
 ]
+
+/**
+ * Puts a new page at its top.
+ *
+ * Nothing did this before, so opening a page from halfway down another one left the new page at
+ * that same offset — already scrolled past its own beginning. Going back is left alone: the
+ * browser restores where the visitor actually was, which is the whole point of going back.
+ *
+ * Written out rather than using ScrollRestoration, which needs a data router and so cannot be
+ * rendered by a layout that tests mount inside a memory router.
+ */
+function ScrollToTopOnNavigate() {
+  const { pathname } = useLocation()
+  const navigationType = useNavigationType()
+
+  useEffect(() => {
+    if (navigationType !== 'POP') {
+      window.scrollTo(0, 0)
+    }
+  }, [pathname, navigationType])
+
+  return null
+}
 
 /**
  * Rendered twice — once in the phone bar's left slot, once in the desktop action cluster — because
@@ -129,6 +152,8 @@ export function PublicLayout() {
 
   return (
     <div className="flex min-h-dvh flex-col">
+      <ScrollToTopOnNavigate />
+
       {/* `relative` so the catalogue panel hangs off the bar rather than off the page: sticky
           already makes this a containing block, but saying so keeps the intent on the element. */}
       {/* The catalogue takes over the phone screen, carrying its own ✕/title bar in place of this

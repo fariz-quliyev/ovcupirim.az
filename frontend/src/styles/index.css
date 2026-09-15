@@ -68,12 +68,18 @@
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
 
-    /* `clip`, not `hidden`: it stops sideways scrolling without turning the body into a scroll
-       container, which would break `position: sticky` on the header. Full-bleed bands escape the
-       layout's max width with a viewport-based negative margin, and 100vw counts the vertical
-       scrollbar while the viewport does not — this absorbs that difference instead of letting it
-       show up as a horizontal scrollbar on every page. */
-    overflow-x: clip;
+    /* No overflow clamp here, deliberately.
+
+       There used to be an `overflow-x: clip`, for bands that escaped the layout's max width with a
+       viewport-based negative margin — 100vw counts the vertical scrollbar and the viewport does
+       not, so those bands overhung by a few pixels. No such band is left: the one that had it is
+       now the header's search field, and everything else that runs edge to edge does it with a
+       plain -mx-4 against the layout's own padding, which lands exactly on the viewport.
+
+       Leaving the clamp in is not free. Any overflow value other than `visible` makes an element a
+       containing block for sticky descendants, and WebKit has been inconsistent about `clip`
+       specifically — a sticky header under it can stop pinning. Nothing needs the clamp, so it
+       goes; a horizontal scrollbar would now be a real layout bug, visible rather than absorbed. */
   }
 
   h1,
