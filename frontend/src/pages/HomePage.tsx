@@ -54,7 +54,7 @@ export function HomePage() {
 
           {categories.isPending ? (
             <div
-              className="-mx-4 flex gap-3 overflow-hidden px-4 sm:mx-0 sm:grid sm:grid-cols-4 sm:px-0 lg:grid-cols-8"
+              className="-mx-4 flex gap-[9px] overflow-hidden px-4 sm:mx-0 sm:grid sm:gap-3 sm:grid-cols-4 sm:px-0 lg:grid-cols-8"
               aria-busy="true"
             >
               {Array.from({ length: 8 }, (_, i) => (
@@ -71,13 +71,15 @@ export function HomePage() {
                Eight large tiles stacked three-across filled a phone screen on their own and pushed
                the listings a thousand pixels down, which on a classifieds homepage is the one thing
                that must not happen. The row bleeds to both screen edges — the negative margin
-               cancels the layout's padding — so it reads as something to swipe rather than a
-               truncated grid; `overflow-x: clip` on the body keeps that from becoming a page-wide
-               sideways scroll. */
-            <ul className="-mx-4 flex snap-x scroll-pl-4 gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:scroll-pl-0 sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-8">
+               cancels the layout's padding, landing on the viewport exactly — so it reads as
+               something to swipe rather than a truncated grid.
+
+               The item is 76 wide around a 60 tile and the gap is 9, which is what puts 25 between
+               one tile and the next: the figures the reference uses. */
+            <ul className="-mx-4 flex snap-x scroll-pl-4 gap-[9px] overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:gap-3 sm:scroll-pl-0 sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-8">
               {/* First in the row, and only on a phone: the whole tree is one tap away without
                   having to swipe past eight tiles to find the "Hamısı" link above. */}
-              <li className="w-[88px] shrink-0 snap-start sm:hidden">
+              <li className="w-[76px] shrink-0 snap-start sm:hidden">
                 <Link
                   to="/kateqoriyalar"
                   className="group flex h-full flex-col items-center gap-2 text-center"
@@ -95,7 +97,7 @@ export function HomePage() {
               </li>
 
               {topCategories.map((category) => (
-                <li key={category.slug} className="w-[88px] shrink-0 snap-start sm:w-auto">
+                <li key={category.slug} className="w-[76px] shrink-0 snap-start sm:w-auto">
                   {/* The square plus a label beneath it, no card around them, so the eight read as
                       one row rather than eight boxes. The square shows the category's own picture
                       when an administrator has set one and falls back to a glyph until then, so
