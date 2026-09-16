@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router'
 import { ApiError } from '@/api/client'
 import { Button } from '@/components/ui/Button'
 import { ErrorState } from '@/components/ui/ErrorState'
+import { NotFoundArtwork } from '@/components/ui/NotFoundArtwork'
 import { Select } from '@/components/ui/Select'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { Textarea } from '@/components/ui/Textarea'
@@ -81,7 +82,7 @@ export function ListingDetailPage() {
   })
 
   if (shortId === null) {
-    return <ErrorState description="Bu nömrəli elan mövcud deyil və ya ləğv olunub." />
+    return <ListingNotFound />
   }
 
   if (listing.isPending) {
@@ -111,8 +112,25 @@ export function ListingDetailPage() {
     )
   }
 
-  if (listing.isError || !listing.data) {
-    return <ErrorState description="Bu nömrəli elan mövcud deyil və ya ləğv olunub." />
+  // A listing that is gone and a request that failed are different things and must not look alike.
+  // The first is an ordinary end to a shared link — sold, expired, withdrawn — and there is nothing
+  // to retry; the second is worth trying again, and saying "does not exist" about it would be a
+  // guess.
+  if (listing.error instanceof ApiError && listing.error.status === 404) {
+    return <ListingNotFound />
+  }
+
+  if (listing.isError) {
+    return (
+      <ErrorState
+        description="Elanı yükləmək mümkün olmadı. Bir azdan yenidən cəhd edin."
+        onRetry={() => void listing.refetch()}
+      />
+    )
+  }
+
+  if (!listing.data) {
+    return <ListingNotFound />
   }
 
   const data = listing.data
@@ -308,5 +326,18 @@ function Row({ label, value }: { label: string; value: string }) {
       <dt className="text-sm text-muted">{label}</dt>
       <dd className="text-right text-[15px] text-ink">{value}</dd>
     </div>
+  )
+}
+
+/** Someone followed a link to a listing that is sold, expired, withdrawn — or never existed. */
+function ListingNotFound() {
+  return (
+    <NotFoundArtwork
+      action={
+        <Link to="/elanlar">
+          <Button>Bütün elanlara bax</Button>
+        </Link>
+      }
+    />
   )
 }

@@ -133,7 +133,9 @@ describe('ListingDetailPage', () => {
     expect(await screen.findByText('Pulsuz')).toBeInTheDocument()
   })
 
-  it('answers a removed listing with the same wording as a missing one', async () => {
+  it('answers a removed listing as not found, not as something going wrong', async () => {
+    // Sold, expired, withdrawn, never existed — to whoever followed the link these are one thing,
+    // and none of them is a failure worth retrying.
     vi.stubGlobal(
       'fetch',
       mockFetchByUrl({
@@ -145,7 +147,29 @@ describe('ListingDetailPage', () => {
 
     renderPage()
 
-    expect(await screen.findByText(/mövcud deyil və ya ləğv olunub/)).toBeInTheDocument()
+    expect(await screen.findByRole('img', { name: /404/ })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Bütün elanlara bax' })).toHaveAttribute(
+      'href',
+      '/elanlar',
+    )
+
+    expect(screen.queryByText('Nəsə səhv getdi')).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Yenidən cəhd et' })).not.toBeInTheDocument()
+  })
+
+  it('offers a retry when the request itself failed', async () => {
+    vi.stubGlobal(
+      'fetch',
+      mockFetchByUrl({
+        '/auth/refresh': () => problemResponse(401, 'Sessiya tapılmadı.'),
+        '/listings/by-short-id': () => problemResponse(500, 'Server xətası.'),
+      }),
+    )
+
+    renderPage()
+
+    expect(await screen.findByRole('button', { name: 'Yenidən cəhd et' })).toBeInTheDocument()
+    expect(screen.queryByRole('img', { name: /404/ })).not.toBeInTheDocument()
   })
 
   it('renders the description as text, never as markup', async () => {
