@@ -8,8 +8,9 @@ import { Button } from '@/components/ui/Button'
  * reader through the alt text instead, and the one thing a picture cannot be, the way out, is a
  * real button beneath it.
  *
- * The artwork is a wide scene, so on a narrow screen it is shown as a crop that keeps the hunter
- * and the 404 rather than shrinking the whole thing to a strip a phone cannot read.
+ * The artwork is a wide scene and is never cropped — a crop that fits a phone cuts a digit off the
+ * 404 or a word off the line beneath it. It simply gets narrower, and the lettering inside it
+ * becomes too small to read there, so the phone gets the message back as real text below.
  */
 export function NotFoundPage() {
   return (
@@ -19,8 +20,12 @@ export function NotFoundPage() {
         alt="404 — axtardığınız elan tapılmadı"
         width={1672}
         height={530}
-        className="w-full max-w-4xl rounded-(--radius-card) max-sm:aspect-[5/3] max-sm:object-cover max-sm:object-[30%_center]"
+        className="w-full max-w-4xl rounded-(--radius-card)"
       />
+
+      <p className="text-center text-lg font-semibold text-ink sm:hidden">
+        Axtardığını elan mövcud deyil
+      </p>
 
       <NavLink to="/">
         <Button>Ana səhifəyə qayıt</Button>
