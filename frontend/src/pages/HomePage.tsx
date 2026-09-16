@@ -84,7 +84,9 @@ export function HomePage() {
                   to="/kateqoriyalar"
                   className="group flex h-full flex-col items-center gap-2 text-center"
                 >
-                  <span className="flex size-[60px] items-center justify-center rounded-(--radius-card) bg-interactive-soft text-cta lg:size-[95px]">
+                  {/* White, like the pictures beside it. The tile used to be tinted, which made it
+                      the one square in the row that was a colour rather than a photograph. */}
+                  <span className="flex size-[60px] items-center justify-center rounded-(--radius-card) bg-surface text-cta lg:size-[95px]">
                     <svg viewBox="0 0 24 24" fill="currentColor" className="size-7" aria-hidden="true">
                       <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
                       <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
