@@ -42,3 +42,4 @@ npm-debug.log*
 
 # Local drop folder for category images — these live in the server's uploads volume, not in git.
 kateqoriya-sekilleri/
+404-sekil/

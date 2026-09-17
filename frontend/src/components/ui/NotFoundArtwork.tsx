@@ -4,8 +4,8 @@ import type { ReactNode } from 'react'
  * The hunter who could not find it.
  *
  * The message is lettered into the artwork, so nothing here repeats it: a screen reader gets it
- * from the alt text, and a phone — where that lettering is too small to read — gets it back as real
- * text below. What the picture cannot be is the way out, so the caller supplies that.
+ * from the alt text, and a phone — where that lettering renders at around seven pixels — gets it
+ * back as real text below. What the picture cannot be is the way out, so the caller supplies that.
  *
  * Shared between a bad URL and a listing that no longer exists, which are the same thing to whoever
  * followed the link.
@@ -16,8 +16,8 @@ export function NotFoundArtwork({ action }: { action?: ReactNode }) {
       <img
         src="/404-elan-tapilmadi.webp"
         alt="404 — axtardığınız elan tapılmadı"
-        width={1672}
-        height={530}
+        width={1597}
+        height={985}
         className="w-full max-w-4xl rounded-(--radius-card)"
       />
 
