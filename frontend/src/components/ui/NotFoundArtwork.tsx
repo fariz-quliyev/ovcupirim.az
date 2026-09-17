@@ -21,12 +21,26 @@ import artworkWide from '@/assets/404-elan-tapilmadi-genis.webp'
  * The wooden sign inside the scene still reads "elan tapılmadı"; that is the artwork's own voice,
  * and the line below is what states the particular case.
  */
+/** How wide the scene runs. */
+const bleedToViewport =
+  'mx-[calc((100%_-_100vw_+_var(--scrollbar-width))_/_2)] w-[calc(100vw_-_var(--scrollbar-width))] max-w-none'
+
 export function NotFoundArtwork({
   message,
+  description,
   action,
+  width = 'page',
 }: {
   message: string
+  description?: string
   action?: ReactNode
+  /**
+   * `page` runs the scene from one edge of the screen to the other, which is what a page that is
+   * nothing but this wants. `column` does the same up to `lg` and then fills whatever it has been
+   * put inside — the catalogue's results column, which has the filter panel beside it from `lg`
+   * up and would be run over by a screen-wide band.
+   */
+  width?: 'page' | 'column'
 }) {
   return (
     <div className="flex flex-col items-center gap-5 py-8 sm:py-14">
@@ -41,12 +55,22 @@ export function NotFoundArtwork({
           phone gets the original, which at that width is a comfortable 241 tall.
 
           The band itself is the real viewport width, not `100vw`: see --scrollbar-width. */}
-      <picture className="mx-[calc((100%_-_100vw_+_var(--scrollbar-width))_/_2)] w-[calc(100vw_-_var(--scrollbar-width))] max-w-none">
+      <picture
+        className={width === 'column' ? `${bleedToViewport} lg:mx-0 lg:w-full` : bleedToViewport}
+      >
         <source media="(min-width: 640px)" srcSet={artworkWide} width={1997} height={787} />
         <img src={artwork} alt="" width={1597} height={985} className="w-full" />
       </picture>
 
-      <p className="text-center text-xl font-semibold text-ink">{message}</p>
+      {/* The two lines are one block: the second explains the first, so it sits close under it
+          rather than a full step away like the button below. */}
+      <div className="flex flex-col items-center gap-2">
+        <p className="text-center text-xl font-semibold text-ink">{message}</p>
+
+        {description ? (
+          <p className="max-w-md text-center text-sm text-muted">{description}</p>
+        ) : null}
+      </div>
 
       {action}
     </div>

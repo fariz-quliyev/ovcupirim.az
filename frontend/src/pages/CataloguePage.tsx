@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router'
 
 import { Button } from '@/components/ui/Button'
-import { EmptyState } from '@/components/ui/EmptyState'
+import { NotFoundArtwork } from '@/components/ui/NotFoundArtwork'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { Select } from '@/components/ui/Select'
 import { Skeleton } from '@/components/ui/Skeleton'
@@ -158,8 +158,15 @@ export function CataloguePage() {
               onRetry={() => void results.refetch()}
             />
           ) : results.data.items.length === 0 ? (
-            <EmptyState
-              title="Uyğun elan tapılmadı."
+            /* The same hunter the 404 pages show. A search that matched nothing is not an error —
+               the page worked and the answer is simply "none" — but on a marketplace this new that
+               answer is what most visitors get, and a bare line of text is a cold thing to hand
+               them. The picture says the same thing in the site's own voice. It fills the results
+               column rather than the screen, because the filter panel sits beside it from `lg` up
+               and the sentence below it is an instruction to use that panel. */
+            <NotFoundArtwork
+              width="column"
+              message="Uyğun elan tapılmadı."
               description="Filtrləri dəyişib yenidən yoxlayın."
             />
           ) : (

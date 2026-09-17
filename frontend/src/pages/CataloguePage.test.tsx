@@ -163,11 +163,16 @@ describe('CataloguePage', () => {
     expect(await screen.findByRole('option', { name: 'Uyğunluğa görə' })).toBeInTheDocument()
   })
 
-  it('says so when nothing matched', async () => {
+  it('says so when nothing matched, and shows the hunter saying it', async () => {
     mockCatalogue(results([]))
     renderCatalogue()
 
     expect(await screen.findByText('Uyğun elan tapılmadı.')).toBeInTheDocument()
+    expect(screen.getByText('Filtrləri dəyişib yenidən yoxlayın.')).toBeInTheDocument()
+
+    /* The picture is decorative — the two lines above carry the meaning — so it has an empty alt
+       and no role to query by. The element is what there is to assert on. */
+    expect(document.querySelector('picture img')).toBeInTheDocument()
   })
 
   it('surfaces a failure with a retry', async () => {
