@@ -8,6 +8,7 @@ import { NotificationBell } from '@/features/notifications/NotificationBell'
 import { CatalogueMenu } from './CatalogueMenu'
 import { HeaderSearch } from './HeaderSearch'
 import { MobileMenu } from './MobileMenu'
+import { useScrollbarWidth } from './useScrollbarWidth'
 
 /**
  * The header is one row: brand, catalogue, search, actions — the arrangement the marketplace this
@@ -119,6 +120,8 @@ function FavouritesLink({ className = '' }: { className?: string }) {
 export function PublicLayout() {
   const { user, isLoading } = useAuth()
   const location = useLocation()
+
+  useScrollbarWidth()
 
   /**
    * The route the catalogue panel was opened on, rather than a plain boolean. Derived this way it

@@ -8,6 +8,7 @@ import type { ReactNode } from 'react'
  * purge.
  */
 import artwork from '@/assets/404-elan-tapilmadi.webp'
+import artworkWide from '@/assets/404-elan-tapilmadi-genis.webp'
 
 /**
  * The hunter who could not find it.
@@ -29,13 +30,21 @@ export function NotFoundArtwork({
 }) {
   return (
     <div className="flex flex-col items-center gap-5 py-8 sm:py-14">
-      <img
-        src={artwork}
-        alt=""
-        width={1597}
-        height={985}
-        className="w-full max-w-4xl rounded-(--radius-card)"
-      />
+      {/* Two versions of one scene, because the shape that works on a monitor is the wrong shape on
+          a phone.
+
+          The wide one, 2.54 times wider than it is tall, is what lets the picture run the full
+          width of a desktop screen: at 1920 it stands 756 tall and the sentence and the way back
+          still land above the fold. The original proportions would have stood 1184 tall there and
+          pushed both off the screen, which is the one thing a 404 must not do. Below 640 the trade
+          reverses — the wide scene would be a 154px strip with a hunter too small to read — so a
+          phone gets the original, which at that width is a comfortable 241 tall.
+
+          The band itself is the real viewport width, not `100vw`: see --scrollbar-width. */}
+      <picture className="mx-[calc((100%_-_100vw_+_var(--scrollbar-width))_/_2)] w-[calc(100vw_-_var(--scrollbar-width))] max-w-none">
+        <source media="(min-width: 640px)" srcSet={artworkWide} width={1997} height={787} />
+        <img src={artwork} alt="" width={1597} height={985} className="w-full" />
+      </picture>
 
       <p className="text-center text-xl font-semibold text-ink">{message}</p>
 

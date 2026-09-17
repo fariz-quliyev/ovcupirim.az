@@ -65,6 +65,16 @@
 @layer base {
   html {
     background-color: var(--color-canvas);
+
+    /* The width of the vertical scrollbar, measured and written here by the layout.
+
+       `100vw` counts that scrollbar and the visible page does not, so a band sized at 100vw
+       overhangs by however many pixels the scrollbar takes — about fifteen in Windows Chrome,
+       nothing at all where scrollbars are drawn as an overlay. There is no way to ask CSS for the
+       figure, so it is measured once and kept here; a band that wants the real viewport width uses
+       `calc(100vw - var(--scrollbar-width))`. The default below is what the first frame and any
+       browser without JS get, and it is the harmless direction to be wrong in. */
+    --scrollbar-width: 0px;
   }
 
   body {
