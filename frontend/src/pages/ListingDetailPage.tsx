@@ -333,6 +333,7 @@ function Row({ label, value }: { label: string; value: string }) {
 function ListingNotFound() {
   return (
     <NotFoundArtwork
+      message="Axtardığınız elan mövcud deyil"
       action={
         <Link to="/elanlar">
           <Button>Bütün elanlara bax</Button>

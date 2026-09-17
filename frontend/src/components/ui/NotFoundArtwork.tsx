@@ -3,27 +3,32 @@ import type { ReactNode } from 'react'
 /**
  * The hunter who could not find it.
  *
- * The message is lettered into the artwork, so nothing here repeats it: a screen reader gets it
- * from the alt text, and a phone — where that lettering renders at around seven pixels — gets it
- * back as real text below. What the picture cannot be is the way out, so the caller supplies that.
+ * The line beneath the picture is real text rather than part of the artwork. That is what lets one
+ * illustration serve every kind of 404 — a listing, a page, whatever comes next — since only the
+ * sentence changes. It also renders at a readable size on a phone, where lettering baked into a
+ * 1597px-wide scene comes out at about seven pixels, and it can be corrected without repainting.
  *
- * Shared between a bad URL and a listing that no longer exists, which are the same thing to whoever
- * followed the link.
+ * The wooden sign inside the scene still reads "elan tapılmadı"; that is the artwork's own voice,
+ * and the line below is what states the particular case.
  */
-export function NotFoundArtwork({ action }: { action?: ReactNode }) {
+export function NotFoundArtwork({
+  message,
+  action,
+}: {
+  message: string
+  action?: ReactNode
+}) {
   return (
-    <div className="flex flex-col items-center gap-6 py-8 sm:py-14">
+    <div className="flex flex-col items-center gap-5 py-8 sm:py-14">
       <img
         src="/404-elan-tapilmadi.webp"
-        alt="404 — axtardığınız elan tapılmadı"
+        alt=""
         width={1597}
         height={985}
         className="w-full max-w-4xl rounded-(--radius-card)"
       />
 
-      <p className="text-center text-lg font-semibold text-ink sm:hidden">
-        Axtardığını elan mövcud deyil
-      </p>
+      <p className="text-center text-xl font-semibold text-ink">{message}</p>
 
       {action}
     </div>

@@ -147,7 +147,7 @@ describe('ListingDetailPage', () => {
 
     renderPage()
 
-    expect(await screen.findByRole('img', { name: /404/ })).toBeInTheDocument()
+    expect(await screen.findByText('Axtardığınız elan mövcud deyil')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Bütün elanlara bax' })).toHaveAttribute(
       'href',
       '/elanlar',
@@ -169,7 +169,7 @@ describe('ListingDetailPage', () => {
     renderPage()
 
     expect(await screen.findByRole('button', { name: 'Yenidən cəhd et' })).toBeInTheDocument()
-    expect(screen.queryByRole('img', { name: /404/ })).not.toBeInTheDocument()
+    expect(screen.queryByText('Axtardığınız elan mövcud deyil')).not.toBeInTheDocument()
   })
 
   it('renders the description as text, never as markup', async () => {
