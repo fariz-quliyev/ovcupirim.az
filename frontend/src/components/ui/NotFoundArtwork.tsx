@@ -1,6 +1,15 @@
 import type { ReactNode } from 'react'
 
 /**
+ * Imported rather than referenced from `public/`, so the build gives it a name derived from its
+ * contents. A fixed name is served with a four-hour cache, which means replacing the picture leaves
+ * everyone who has already seen it looking at the old one for the rest of the afternoon — the same
+ * trap the category pictures fell into. A new picture is a new name, and there is nothing to
+ * purge.
+ */
+import artwork from '@/assets/404-elan-tapilmadi.webp'
+
+/**
  * The hunter who could not find it.
  *
  * The line beneath the picture is real text rather than part of the artwork. That is what lets one
@@ -21,7 +30,7 @@ export function NotFoundArtwork({
   return (
     <div className="flex flex-col items-center gap-5 py-8 sm:py-14">
       <img
-        src="/404-elan-tapilmadi.webp"
+        src={artwork}
         alt=""
         width={1597}
         height={985}
